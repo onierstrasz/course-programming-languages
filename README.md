@@ -1,5 +1,7 @@
 # Programming Languages
 
+![St George](Figures/helloWorld.png)
+
 This repo contains the lecture material for the MSc level course “Programming Languages”.
 
 ## Description

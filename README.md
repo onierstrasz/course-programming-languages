@@ -1,6 +1,6 @@
 # Programming Languages
 
-![Postscript](Figures/helloWorld.jpg)
+![Postscript](Figures/helloworld.jpg)
 
 This repo contains the lecture material for the MSc level course “Programming Languages”.
 

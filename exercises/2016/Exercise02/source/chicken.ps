@@ -1,0 +1,172 @@
+% ELEMENTS
+/body{
+	0 0 bodySize 0 360 arc 3 setlinewidth stroke
+} def
+
+/head{
+	0 0 headSize 0 360 arc 3 setlinewidth stroke
+} def
+
+/beak {
+	newpath
+	0 0 moveto
+	beakSize 2 div -1 mul beakSize	lineto
+	beakSize 2 div beakSize lineto
+	closepath
+} def
+
+/eye {
+	0 0 2 0 360 arc 3 setlinewidth stroke
+} def
+
+/crest {
+	gsave
+	0.3 1 scale
+	0 0 headSize 2 div -20 180 arc 3 setlinewidth stroke
+	-5 -5 translate
+	0 0 headSize 2 div -10 150 arc 3 setlinewidth stroke
+	-5 -5 translate
+	0 0 headSize 2 div -0 120 arc 3 setlinewidth stroke
+	grestore
+} def
+
+/leg {
+	gsave
+	5 setlinewidth
+	newpath
+	0 0 moveto
+	0 legSize -1 mul lineto
+	0 legSize 2 div -1 mul moveto
+	legSize 2 div -1 mul legSize -1 mul lineto
+	0 legSize 2 div -1 mul moveto
+	legSize 2 div legSize -1 mul lineto
+	closepath
+	stroke
+	grestore
+} def
+
+/wing {
+	gsave
+	3 setlinewidth
+	newpath
+	0 0 moveto
+	wingSize 0 lineto
+	wingSize wingSize -1 mul lineto
+	closepath
+	stroke
+	grestore
+} def
+
+
+/chicken { % x y bodySize headSize beakSize legSize wingSize
+	/wingSize 2 1 roll def
+	/legSize 2 1 roll def
+	/beakSize 2 1 roll def
+	/headSize 2 1 roll def
+	/bodySize 2 1 roll def
+
+	% MOVE TO "CENTER"
+	translate
+	% save center of chicken body
+	gsave
+
+	% BODY
+	1 0 0 setrgbcolor
+	stroke body
+
+	% HEAD
+	0 bodySize headSize add translate
+	1 0 0 setrgbcolor
+	stroke head
+
+	% BEAK
+	gsave
+	0 beakSize -1 mul translate
+	1 0.9 0 setrgbcolor
+	beak fill
+	grestore
+
+	% EYE
+	gsave
+	headSize 3 div -1 mul headSize 3 div translate
+	0 0 0 setrgbcolor
+	stroke eye
+	grestore
+
+	gsave
+	headSize 3 div  headSize 3 div translate
+	0 0 0 setrgbcolor
+	stroke eye
+	grestore
+
+	% CREST
+	gsave
+	0 headSize translate
+	1 0 0 setrgbcolor
+	crest fill
+	grestore
+
+	% restore to center of chicken  body
+	grestore
+
+	/pythagora {
+		2 exp 2 div sqrt
+	} def
+
+	% LEGS
+	gsave
+	bodySize pythagora bodySize pythagora -1 mul translate
+	1 0.9 0 setrgbcolor
+	leg stroke
+	grestore
+
+	gsave
+	bodySize pythagora -1 mul bodySize pythagora -1 mul translate
+	1 0.9 0  setrgbcolor
+	leg stroke
+	grestore
+
+	% WINGS
+	gsave
+	bodySize pythagora bodySize pythagora translate
+	1 0 0 setrgbcolor
+	wing stroke
+	grestore
+
+	gsave
+	bodySize pythagora -1 mul  bodySize pythagora translate
+	-1 1 scale
+	1 0 0 setrgbcolor
+	wing stroke
+	grestore
+} def
+
+/Times-Roman findfont % look up Times Roman font
+18 scalefont % scale it to 18 points
+setfont % set this to be the current font
+
+%%Pages: 4
+%%Page: 1 1
+100 700 moveto
+(350 400   50   40   30   20    10 chicken) show
+% x   y body head beak legs wings
+350 400   50   40   30   20    10 chicken
+showpage
+%%Page: 2 2
+100 700 moveto
+(350 400   10   20   30   40    50 chicken) show
+% x   y body head beak legs wings
+350 400   10   20   30   40    50 chicken
+showpage
+%%Page: 3 3
+100 700 moveto
+(350 400   30   30   30   30    30 chicken) show
+% x   y body head beak legs wings
+350 400   30   30   30   30    30 chicken
+showpage
+%%Page: 4 4
+100 700 moveto
+(350 400   80   30   50   40    40 chicken) show
+% x   y body head beak legs wings
+350 400   80   30   50   40    40 chicken
+showpage

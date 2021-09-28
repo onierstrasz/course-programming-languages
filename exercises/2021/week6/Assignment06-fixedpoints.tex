@@ -1,0 +1,114 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{moreverb}
+\usepackage{amssymb}
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Fixed Points}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{myitemize}
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item Solutions to each assignment must be sent to \textbf{YOUREMAIL}
+\item The solutions of the assignments are to be delivered before every Thursday at 11 PM. Solutions handed in later than the specified time will not be accepted. In case of serious reasons send an e-mail to  \textbf{YOUREMAIL}
+\end{myitemize}
+
+
+\subsection*{Exercise (6 points)}
+
+
+\begin{enumerate}
+\item We represent non-negative integers with the following Lambda expressions:
+%
+\begin{align*}
+	0 & \equiv \lambda f~.~\lambda x~.~x \\
+	1 & \equiv \lambda f~.~\lambda x~.~f x \\
+	2 & \equiv \lambda f~.~\lambda x~.~f (f x) \\
+	& \vdots  \\
+	n & \equiv \lambda f~.~\lambda x~.~f^{n}x
+\end{align*}
+%
+Suppose you have defined the function \textbf{if} and the operations \textbf{add}, \textbf{pred} and \textbf{isZero}. Consider the following recursive (and hence not valid) definition for the multiplication:
+%
+\begin{equation*}
+\textbf{times} = \lambda n_{1}~.~\lambda n_{2}~.~\textbf{if} ~(\textbf{isZero}~ n_{1}) ~\textbf{0}~ (\textbf{add}~ n_{2}~
+(\textbf{times} ~(\textbf{pred}~ n_{1}) ~n_{2}))
+\end{equation*}
+%
+If we abstract the name \textbf{times}, we get the new expression:
+%
+\begin{equation*}
+\textbf{t} = \lambda f~.~\lambda n_{1}~.~\lambda n_{2}~.~\textbf{if}~ (\textbf{isZero}~ n_{1}) ~\textbf{0}~ (\textbf{add}~ n_{2}~ (f~ (\textbf{pred}~ n_{1})~ n_{2}))
+\end{equation*}
+%
+By the FP theorem we know that \textbf{(Y t)} is a non-recursive equivalent of the above \textbf{times} definition.\\
+
+\noindent The exercise (3 pts) : write down the reduction sequence to demonstrate that
+%
+\begin{equation*}
+(((\textbf{Y t}) ~\textbf{1}) ~\textbf{k}) \rightarrow \textbf{k}.\\
+\end{equation*}
+%
+ 
+ 
+\solution{\input{solution1}}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\item We can represent lists and list operators with the following Lambda expressions:
+%
+\begin{align*}
+	\textbf{nil} & = \lambda f~.~true\\
+	\textbf{null} & = \lambda l~.~l~(\lambda h~.~\lambda t~.~false)\\
+	\textbf{cons} & = \lambda h~.~\lambda t~.~\lambda f~.~f h t\\
+	\textbf{head} & = \lambda l~.~l~( \lambda h~.~ \lambda t~.~h)\\
+	\textbf{tail} & = \lambda l~.~l~( \lambda h~.~ \lambda t~.~t)
+\end{align*}
+%
+Example: the list $[1,2,3]$ is represented by the $\lambda$-expression \textbf{cons} \textbf{1} (\textbf{cons} \textbf{2} (\textbf{cons} \textbf{3 nil})).\pagebreak
+
+\noindent To exercise (3 pts):
+%
+\begin{enumerate}
+\item Translate the following definition into a non-recursive form:
+	\begin{equation*}
+	\textbf{append} = \lambda~ l_{1} ~.~ \lambda~ l_{2} ~.~\textbf{if}~ (\textbf{null}~ l_{1}) ~l_{2} ~(\textbf{cons} ~(\textbf{head} ~l_{1}) ~ (\textbf{append}~ (\textbf{tail} ~ l_{1}) ~ l_{2}))
+	\end{equation*}
+\item Test your result by appending list $L_2$ to list $L_1$, which are defined below:
+	\begin{align*}
+	L_{1}  = \textbf{cons}~\textbf{1} ~(\textbf{cons} ~\textbf{2} ~\textbf{nil})~ \text{ and } ~ L_{2} = \textbf{cons}~ \textbf{3} ~\textbf{nil}\\
+	\end{align*}
+\end{enumerate}
+%
+
+
+\solution{\input{solution2}t}
+\end{enumerate}
+
+\end{document}

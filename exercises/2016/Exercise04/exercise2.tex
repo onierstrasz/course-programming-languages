@@ -1,0 +1,29 @@
+> xor a b = a && not b || b && not a
+
+xor :: Bool -> Bool -> Bool
+since
+&&  :: Bool -> Bool -> Bool
+||  :: Bool -> Bool -> Bool
+xor is monomorphic.
+---------------------------------------------------------------------------------------------------
+
+> containsChar c s = elem (toLower c) s
+
+containsChar :: Char -> [Char] -> Bool
+since
+elem :: Eq a => a -> [a] -> Bool
+toLower :: Char -> Char
+containsChar is monomorphic; in fact ad hoc polymorphic, since [Char] may be a also a String (coercion)
+---------------------------------------------------------------------------------------------------
+
+> third (a, b, c) = c
+
+third :: (x, y, z) -> z
+third is polymorphic since the three elements a, b, and c may be of any type.
+---------------------------------------------------------------------------------------------------
+
+> length (x:xs) = 1 + length xs 
+
+length :: [a] -> Int
+length is polymorphic.
+---------------------------------------------------------------------------------------------------

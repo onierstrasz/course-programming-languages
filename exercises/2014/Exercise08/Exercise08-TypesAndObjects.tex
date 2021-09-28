@@ -1,0 +1,117 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+\setboolean{showsolution}{false}
+
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{
+    \ifthenelse{\boolean{showsolution}}{Solution }{}
+    \xspace{}Serie 8 - Objects and Types}
+
+%==============================================================================
+\subsection{Theoretical Questions}
+
+\begin{myenumerate}
+
+\item What is a closure? How is an object like a closure?
+
+\solution{}
+
+\item How can covariance lead to type errors?
+
+\solution{Because I can get a value in my parameters that do not result in an expected type}
+
+\item How does contravariance support subtyping?
+
+\solution{Because the contravariance parameter type will always end in the correct result subclass since $f_y$ is a superset of $f_x$}
+
+
+\item What is the difference between subtyping and specialization?
+
+\solution{}
+
+
+\item Why overloading is practical? Why it is evil?
+
+\solution{}
+
+
+
+\item What problems do recursive types pose for subtyping?
+
+\solution{}
+
+
+\item Why is subtyping a ``universal'' form of polymorphism?
+
+\solution{}
+
+
+\item How is a class like a family of types? 
+
+\solution{}
+
+\end{myenumerate}
+
+%\subsection{Type generators in Haskell}
+%
+%Suppose we have the data types Cat and Dog defined as shown below.
+%\begin{verbatim}
+%data Cat = Cat Int
+%    deriving Show
+%
+%data Dog = Dog Int
+%    deriving Show
+%\end{verbatim}
+%
+%\begin{myenumerate}
+%\item Explain how type generators are used in Haskell.
+%\item Define a type generator \verb$Animal$ that provides the function
+%      \verb$mate$.
+%\item Generate the animal types for cats and dogs. Implement mate for cats
+%      so that it returns a new cat with a value that is the sum of
+%      both values of its parents. Implement the mate for dogs so that
+%      it returns a new dog with a value that is the product of the
+%      values of its parents.  
+%\end{myenumerate}
+
+\subsection{Types in Java}
+Integers and floats in Java are primitive data types. Since they do not have a
+common superclass it is impossible to pass a float where an integer was
+expected and vice versa. Implement a new class hierarchy in Java for numbers
+that supports the \verb$times$ operation so that the tests in Ex3.zip get green.
+You are not allowed to use \verb$instanceof$.
+\solution{\input{ex2Sol.tex}}
+%\begin{verbatim}
+%Float a   = new Float(1.4);
+%Integer b = new Integer(10);
+%Number c  = new Float(5.6);
+%Number d  = new Integer(55);
+%
+%a.times(d);
+%b.times(c);
+%
+%d.times(a);
+%c.times(b);
+%
+%c.times(d);
+%d.times(c);
+%\end{verbatim}
+
+\end{document}
+

@@ -1,0 +1,49 @@
+/Times-Roman findfont
+18 scalefont
+setfont
+
+/stardict 30 dict def
+/star {
+	stardict begin
+		/rad exch def
+		/oy exch def
+		/ox exch def
+		/ay oy rad add def 
+		/bx ox rad 72 sin mul sub def 
+		/by oy rad 72 cos mul add def
+		/cx ox rad 72 sin mul add def 
+		/cy oy rad 72 cos mul add def 
+		/dx ox rad 36 sin mul sub def
+		/dy oy rad 36 cos mul sub def
+		/ex ox rad 36 sin mul add def
+		/ey oy rad 36 cos mul sub def
+		ox ay moveto
+		dx dy lineto
+		cx cy lineto
+		bx by lineto
+		ex ey lineto
+		closepath
+		fill
+	end
+} def
+
+/draw{
+	/n exch def
+	/rad exch def
+	/oy exch def
+	/ox exch def
+	/stepGray 1 n div def
+	/stepRad rad n div def
+	0 1 n {
+		/step exch def
+		stepGray step mul setgray
+		ox
+		oy
+		rad stepRad step mul sub
+		star
+		} for
+	} def
+
+% Usage: ox oy rad n draw
+300 400 200 10 draw 
+showpage

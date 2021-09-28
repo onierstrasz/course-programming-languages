@@ -1,0 +1,23 @@
+$t~\equiv~\lambda f.\lambda n_1.\lambda n_2.if(iszero~n_1)0(add~
+n_2(f(pred~n_1)n_2))$ \\
+
+$((Y~t)1)k$
+
+$\equiv~(t(Y~t)1)k$
+
+$\equiv~(\lambda n_1.\lambda n_2.if(isZero~n_1)0(add~n_2((Y~t)(pred~n_1)n_2))1)k$
+
+$\equiv~if(isZero~1)0(add~k((Y~t)(pred~1)k))$
+
+$\equiv~add~k((Y~t)0~k)$
+
+$\equiv~add~k(t(Y~t)0~k)$
+
+$\equiv~add~k((\lambda n_1.\lambda n_2.if(isZero
+~n_1)0(add~n_2((Y~t)(pred~n_1)n_2)))0~k)$
+
+$\equiv~add~k(if(isZero~0)0(add~k((Y~t)(pred~0)k)))$
+
+$\equiv~add~k~0$
+
+$\equiv~k$

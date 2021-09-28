@@ -1,0 +1,23 @@
+connection(A,B) :- line(A,B); line(B,A).
+in(X,[X|_]).
+in(X,[_|L]):- in(X,L).
+% a.
+line(a,b).
+line(b,d).
+line(c,a).
+line(c,d).
+line(c,e).
+line(d,e).
+line(f,g).
+line(f,h).
+line(g,j).
+line(h,i).
+line(i,j).
+% b.
+triangle(A,B,C) :- connection(A,B), connection(B,C), connection(C,A), not(in(C,[A,B])).
+% c.
+quadrangle(A,B,C,D) :- connection(A,B), connection(B,C), connection(C,D), connection(D,A), 
+                       not(in(D,[A,B,C])), not(in(C,[A,B])).
+% d.
+reachable(X,Y) :- line(X,Y).
+reachable(X,Y) :- line(X,Z), reachable(Z,Y).

@@ -1,0 +1,124 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{false}
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution\space{}}{}Serie 3 - Haskell}
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 1}
+
+\begin{figure}[htb]
+\begin{minipage}{.65\textwidth}
+A \emph{triangular number} is the number of objects that can be arranged in a triangle as is shown in Fig. 1. This is how bowling pins, pool balls, or snooker balls are arranged. The figure shows the first six triangular numbers: 1, 3, 6, 10, 15, 21.
+
+The \emph{tetrahedral number} represents the number of objects arranged in a pyramid (more precisely, a tetrahedron) built up from triangles as shown in the Figure.
+\end{minipage}
+\begin{minipage}[c]{.35\textwidth}
+    \center{\includegraphics[width=3cm]{triang}\caption{Triangular numbers.\label{figure:triangularNumbers}}}
+\end{minipage}
+\end{figure}
+
+\noindent The exercise:
+\begin{itemize}
+\item Write two functions to calculate the n-th triangular number, using classical recursion and tail recursion, respectively.
+\item Write two functions to calculate the n-th tetrahedral number, using patterns and guards, respectively. \textbf{Hint:} use the function from the preceding exercise.
+\end{itemize}
+
+\solution{\input{exercise1.tex}}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\subsection*{Exercise 2\footnote{This exercise is an adaption of problem 6 from \url{http://projecteuler.net/}. You can find a ton of cool problems there.}}
+
+The sum of the squares of the first ten natural numbers is,
+
+$1^2 + 2^2 + ... + 10^2 = 385$
+
+The square of the sum of the first ten natural numbers is,
+
+$(1 + 2 + ... + 10)^2 = 55^2 = 3025$
+
+Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is $3025 - 385 = 2640.$
+
+Write a Haskell program to find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+
+OPTIONAL: Implement the same solution in you favorite non functional language and discuss the differences.
+
+
+\solution{\input{exercise2.tex}}
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 3}
+
+In this exercise, you are going to implement a set of functions which operate on lists. Their semantics are given below.
+
+\begin{enumerate}
+\renewcommand{\theenumi}{\alph{enumi}}
+\item Write a function \verb+insertNode+ which adds a new node to the list. The new node should be inserted before the first node with a higher value (we assume that all lists to contain numbers).
+\item Write a function \verb+deleteNodes+ which deletes all nodes which satisfy a certain predicate \verb+p+.
+\item Write a function \verb+removeDuplicates+ which removes duplicates to get a list with nodes having unique values.
+\item Write a function \verb+sumNodes+ which calculates the sum of all nodes of the list.
+\item Write a mapping function \verb+mapList+ which applies to each node of the list a given function \texttt{f}, e.g., the \verb+square+ function, and returns a list with the resulting values.
+\item Write a function \verb+mergeLists+ which merges two sorted lists to produce one list which is also sorted.\label{lb}
+\item Use the function from \ref{lb} to implement a sorting function \verb+sortList+ which sorts a list in ascending order. A \emph{Mergesort} would be adequate in this case.
+\end{enumerate}
+
+
+\noindent The idea is to write for each function unit tests. There is a testing framework called HUnit, very similar to JUnit. To implement and use test cases,  you have to import HUnit as a module in your source file like 
+this:
+
+\fontsize{8pt}{10pt}
+\begin{verbatim}
+import HUnit
+...
+tests = TestList [
+  (TestCase (assertEqual "error message" [1,2,2,3] (insertNode 2 [1..3]))),
+  (TestCase (assertEqual "error message" [2,4,6] (deleteNodes odd [1..6]))) ]
+...
+run = do runTestTT tests
+\end{verbatim}
+\fontsize{10pt}{12pt}
+
+\noindent Now to run your tests, you can just call \texttt{run}.\\
+
+\noindent \textbf{Hint:} work test-driven, i.e. first write appropriate tests, then code your functions until the tests are 
+``green''.\\
+
+\solution{\input{exercise3.tex}}
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+%\subsection*{Exercise 5}
+%
+%Define the following functions:
+%
+%\begin{myitemize}
+%	\item Define a function \texttt{nondecreasing} that takes a list \texttt{xs} as parameter and returns \texttt{True} iff the elements of \texttt{xs} are in non-decreasing order.
+%
+%	\item Define a more general function \texttt{goodlist} that takes a list \texttt{xs} and a predicate \texttt{p} as parameters and returns \texttt{True} iff each adjacent pair of elements in \texttt{xs} satisfies \texttt{p}.
+%	
+%	\item Now use the function \texttt{goodlist} to define further functions:
+%
+%		\begin{myitemize}
+%			\item A function \texttt{alternating} that takes a list of numbers \texttt{xs} as parameter and returns \texttt{True} iff the elements of \texttt{xs} alternate odd and even.
+%
+%			\item A function \texttt{partial} that takes a list of numbers \texttt{xs} as parameter and returns \texttt{True} iff each number \texttt{x} in \texttt{xs} is either a multiple or a factor of the number preceding \texttt{x}.
+%		\end{myitemize}
+%\end{myitemize}
+%
+%\solution{\vspace{-20pt}\noindent \input{exercise5.tex}}
+
+\end{document}

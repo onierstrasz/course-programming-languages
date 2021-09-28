@@ -1,0 +1,47 @@
+% 2014 Assignment 2 Exercise 1
+The following questions refer to the stack-based programming language PostScript.
+\begin{enumerate}
+
+%\item (2 points) Why would you define your own dictionaries? 
+%\vspace{6cm}
+
+\item (1 point) When should you use \texttt{translate} instead of \texttt{moveto}?
+\vspace{5cm}
+
+\item (2 points) What does the following PostScript script write on the stack?
+\begin{verbatim}
+/COOLFUNCTION { add 3 div 2 mul } def
+8 7 COOLFUNCTION
+\end{verbatim}
+\vspace{5cm}
+
+\newpage
+
+\item (7 points) The following code is incomplete to output three blue boxes next to each other on the screen (See \autoref{fig:ex2}). You need to complete the given code in order to fix the issue.
+\begin{verbatim}
+/box {			
+	0 100 rlineto
+	100 0 rlineto
+	0 -100 rlineto
+	0 1 0 setrgbcolor
+} def
+% box accepts two parameters for x and y coordinate
+100 100 box
+250 100 box
+showpage
+\end{verbatim}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.4\columnwidth]{images/box.png}
+\caption{The expected output}
+\label{fig:ex2}
+\end{center}
+\end{figure}
+
+\newpage
+
+\vspace{5cm}
+
+
+\end{enumerate}

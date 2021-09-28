@@ -1,0 +1,115 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath,amssymb}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+
+\input{../include}
+
+\begin{document}
+%=============================================================================
+% title
+\section*{Serie 5 - Lambda Calculus}
+%=============================================================================
+\subsection*{Exercise 1}
+%=============================================================================
+
+Consider the following $\lambda$-expressions. Indicate which occurrences of
+variables are bound and which ones are free in the expressions.
+\begin{enumerate}
+\item \texttt{($\lambda$ a b .~c d a b) a b ($\lambda$ c d .~d c)($\lambda$ e f .~f) e}
+
+\item \texttt{\{($\lambda$ u v .~$\lambda$ w .~w ($\lambda$ x .~x(u)) (v)) (y)\} ($\lambda$ z .~$\lambda$ y .~z(y))}
+
+\item \texttt{$\lambda$ y .~($\lambda$ x .~z(x($\lambda$ x .~y(z)))) ($\lambda$ z .~y(x(z)))}
+\end{enumerate}
+
+\solution{\fontsize{9pt}{11pt}\verbatimtabinput{exercise1.tex}}
+
+%
+%=============================================================================
+\subsection*{Exercise 2}
+%=============================================================================
+
+Define \verb!true!, \verb!false!, \verb!and!, \verb!or!, \verb!not! and \verb!xor! in Lambda Calculus.
+\solution{
+\begin{align*}
+T &= \lambda ~x ~y ~. ~x \\
+F &= \lambda ~x ~y ~. ~y \\
+\end{align*}
+}
+
+%
+%=================================================
+\subsection*{Exercise 3}
+%=================================================
+
+Reduce the following $\lambda$-expressions to their normal form whenever possible. 
+
+\begin{enumerate}
+\renewcommand{\theenumi}{\alph{enumi}}
+
+\item \texttt{P $\equiv$ ($\lambda$ x .~x (x y)) I} ~where \texttt{I $\equiv$ $\lambda$ u .~u}
+\solution{%
+\begin{align*}
+P &= (\lambda ~x ~. ~x ~(x~ y))~ I\\
+I~ (I~ y) &= (\lambda ~u ~. ~u) ~((\lambda ~u ~. ~u) ~y)) &~[\text{$\beta$-reduction}]\\
+&= (\lambda ~u ~. ~u) ~y &~[\text{$\beta$-reduction}]\\
+&= y &~[\text{$\beta$-reduction}]
+\end{align*}
+}
+
+\item \texttt{Y $\equiv$ $\lambda$ f .~Q Q} ~where \texttt{Q $\equiv$ ($\lambda$ x .~f(x x))}
+\solution{%
+\begin{align*}
+Y &= \lambda ~f ~. ~Q ~Q = \lambda ~f ~. ~(\lambda ~x ~. ~f ~(x ~x)) ~Q\\
+&= \lambda ~f ~. ~f ~(Q ~Q) \ldots &~[\text{$\beta$-reduction}]\\
+&\text{Does not converge. No normal form exists.}
+\end{align*}
+}
+
+\item \texttt{L $\equiv$ ($\lambda$ x .~x x y) ($\lambda$ x .~x x y)}
+\solution{%
+\begin{align*}
+L &= (\lambda ~x ~. ~x ~x ~y) ~(\lambda ~x~. ~x ~x ~y) &~[\text{$\beta$-reduction}]\\
+& (\lambda ~x ~. ~x ~x ~y) ~(\lambda ~x ~. ~x ~x ~y) ~y &~[\text{$\beta$-reduction}]\\
+& (\lambda ~x ~. ~x ~x ~y) ~(\lambda ~x ~. ~x ~x ~y) ~y ~y &~[\text{$\beta$-reduction}]\\
+& \ldots\\
+& \text{No Normal Form exists.}
+\end{align*}
+}
+
+\item \texttt{($\lambda$ x .~x L) M} ~where \texttt{M $\equiv$ $\lambda$ x .~y} and \texttt{L $\equiv$ ($\lambda$ x .~x x y) ($\lambda$ x .~x x y)}
+\solution{%
+\begin{align*}
+&(\lambda ~x ~. ~x ~L) ~M &~[\text{$\beta$-reduction}]\\
+M L &= (\lambda ~x ~. ~y) ~L  &~[\text{$\beta$-reduction}]\\
+&= y
+\end{align*}
+}
+
+\item \texttt{\{\{$\lambda$ u v .~\{$\lambda$ w .~w ($\lambda$ x .~x(u))\} (v)\} (y)\} ($\lambda$ z .~$\lambda$ y .~z(y))}
+\solution{%
+\begin{align*}
+& \{\{\lambda ~u ~v ~.~\{\lambda ~w ~.~w ~(\lambda ~x ~.~x ~u)\} ~v\} ~y\} ~(\lambda ~z ~.~\lambda ~y ~.~z ~y) &~[\text{$\beta$-reduction}]\\
+& \{\{\lambda ~u ~v .~v (\lambda ~x ~.~x~u)\} ~y\} ~(\lambda ~z ~.~\lambda ~y ~.~z~y) &~[\text{$\beta$-reduction}]\\
+& \{\lambda ~v .~v (\lambda ~x ~.~x~y)\} ~(\lambda ~z ~.~\lambda ~y ~.~z~y) &~[\text{$\beta$-reduction}]\\
+& (\lambda ~z ~.~\lambda ~y ~.~z(y)) ~(\lambda ~x ~.~x(y)) &~[\text{$\alpha$-conversion}]\\
+& (\lambda ~z ~.~\lambda ~y' ~.~z~y') ~(\lambda ~x ~.~x~y) &~[\text{$\beta$-reduction}]\\
+& \lambda ~y' ~.~(\lambda ~x ~.~x~y)~y' &~[\text{$\beta$-reduction}]\\
+& \lambda ~y' ~.~y'~y
+\end{align*}
+}
+
+\end{enumerate}
+
+
+\end{document}

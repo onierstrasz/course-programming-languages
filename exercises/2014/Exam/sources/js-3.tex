@@ -1,0 +1,19 @@
+\begin{verbatim}
+
+var student = Object.create(person);
+student.studentRabat = function() {
+    if (this.age < 25) return "10%" 
+    else return "0%";
+}
+
+var teacher = Object.create(person);
+teacher.salary = function() {
+    return this.salary ;
+}
+
+
+alice.__proto__ = student;
+bob.__proto__ = student;
+cyril.__proto__ = teacher;
+cyril.salary = 8000;
+\end{verbatim}

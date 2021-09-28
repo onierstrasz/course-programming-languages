@@ -1,0 +1,24 @@
+%syntax
+\textbf{Syntax:}\\ \\
+Number := Digit $|$ Number Digit \\
+Digit := 0 $|$ 1\\ \\
+%semantic
+\textbf{Semantic functions and the domain:}\\ \\
+value: Number $\rightarrow$ Natural \\
+value $\llbracket$ Number~Digit $\rrbracket$ = 2 $\times$ value $\llbracket$ Number $\rrbracket$ + value $\llbracket$ Digit $\rrbracket$ \\
+value $\llbracket$ 0 $\rrbracket$ = 0 \\
+value $\llbracket$ 1 $\rrbracket$ = 1 \\ \\
+%test
+\textbf{Test:}\\ 
+value $\llbracket$ 10100 $\rrbracket$ = 2 $\times$ value $\llbracket$ 1010 $\rrbracket$  + value $\llbracket$ 0 $\rrbracket$ \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 2 $\times$ (2 $\times$ value $\llbracket$ 101 $\rrbracket$ + value $\llbracket$ 0 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 2 $\times$ (2 $\times$ ( 2 $\times$ value $\llbracket$ 10 $\rrbracket$ + value $\llbracket$ 1 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 2 $\times$ (2 $\times$ ( 2 $\times$ ( 2 $\times$ value $\llbracket$ 1 $\rrbracket$ + value $\llbracket$ 0 $\rrbracket$ ) + value $\llbracket$ 1 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 2 $\times$ (2 $\times$ ( 2 $\times$ ( 2 $\times$ 1 + 0 ) + value $\llbracket$ 1 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 2 $\times$ (2 $\times$ ( 2 $\times$ 2 + value $\llbracket$ 1 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 2 $\times$ (2 $\times$ ( 2 $\times$ 2 + 1) + value $\llbracket$ 0 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 2 $\times$ (2 $\times$ 5 + value $\llbracket$ 0 $\rrbracket$ ) + value $\llbracket$ 0 $\rrbracket$ \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 2 $\times$ (2 $\times$ 5 + 0 ) + value $\llbracket$ 0 $\rrbracket$ \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 2 $\times$ 10 + value $\llbracket$ 0 $\rrbracket$ \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 2 $\times$ 10 + 0 \\
+$~~~~~~~~~~~~~~~~~~~~~~$ = 20

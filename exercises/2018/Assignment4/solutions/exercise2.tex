@@ -1,0 +1,12 @@
+\texttt{f1 ::}\\
+\texttt{a -> b -> c}~ since \texttt{f1} takes two arguments and returns something\\
+\texttt{a -> b -> [d]}~ since \texttt{c} is of type list\\
+\texttt{(e -> g) -> b -> [d] }~ since \texttt{f} takes one argument\\
+\texttt{(Ord h => e -> h) -> b -> [d] }~ since \texttt{> :: Ord a => a -> a -> Bool}\\
+\texttt{(Ord h => b -> h) -> b -> [d] }~ since \texttt{f} takes \texttt{x} as an argument\\
+\texttt{(Ord b => b -> b) -> b -> [d] }~ since \texttt{f} takes \texttt{f x} as an argument\\
+\texttt{(Ord b => b -> b) -> b -> [b] }~ since the result of \texttt{f1} is the list whose head is \texttt{x}\\
+\\
+The result is:\\
+\texttt{:t f1}\\
+\texttt{f :: (Ord a => a -> a) -> a -> [a]}\\

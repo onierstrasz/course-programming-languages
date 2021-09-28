@@ -1,0 +1,37 @@
+female(Olivia). \\
+female(Emma). \\
+female(Ava). \\
+female(reyhan). \\
+female(fateme). \\
+
+male(Oliver). \\
+male(James). \\
+male(reza). \\
+male(alireza). \\
+male(vihan). \\
+male(arshia). \\
+
+parent(James, reza). \\
+parent(James, alireza). \\
+parent(James, Emma). \\
+parent(Olivia, reza). \\
+parent(Olivia, alireza). \\
+parent(Olivia, Emma). \\
+
+parent(alireza, vihan). \\
+parent(reyhan, vihan). \\
+
+parent(Emma, Ava). \\
+parent(Oliver, Ava). \\
+ 
+parent(reza, arshia). \\
+parent(fatemeh, arshia). \\
+ 
+grandfather(X, G) :- male(X), parent(X, P), parent(P, G).  \\
+grandmother(X, G) :- female(X), parent(X, P), parent(P, G). \\
+grandparent(X, G) :- grandfather(X, G). \\
+grandparent(X, G) :- grandmother(X, G). \\
+
+grandson(X, S) :- grandparent(S, X), male(X). \\
+granddaughter(X, D) :- grandparent(D, X), female(X). \\
+grandchild(X, C) :- grandparent(C, X). \\

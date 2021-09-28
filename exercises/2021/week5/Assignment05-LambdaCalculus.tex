@@ -1,0 +1,76 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{moreverb}
+\usepackage{amssymb}
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Lambda Calculus}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{myitemize}
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item Solutions to each assignment must be sent to \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\item The solutions of the assignments are to be delivered before every Thursday at 11 PM. Solutions handed in later than the specified time will not be accepted. In case of serious reasons send an e-mail to  \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\end{myitemize}
+
+
+\subsection*{Exercise (6 points)}
+
+
+\begin{enumerate}
+\item Consider the following $\lambda$-expressions. Indicate which occurrences of
+variables are bound and which ones are free in the expressions. (3 pts)
+\begin{enumerate}
+\item \texttt{($\lambda$ x .~x) y ($\lambda$ y .~y x) x}
+
+\item \texttt{(($\lambda$ x .~$\lambda$ y .~$\lambda$ z .~x y z ) ($\lambda$ x. y x) y) ($\lambda$ x .~z x)}
+
+\item \texttt{$\lambda$ y .~($\lambda$ x .~z(x($\lambda$ x .~y(z)))) ($\lambda$ z .~y(x(z)))}
+
+
+\end{enumerate}
+
+\solution{\fontsize{9pt}{11pt}\verbatimtabinput{solutions/exercise1.tex}}
+%\vspace{0.2cm}
+%\solution{\input{solutions/exercise1.tex}}
+
+\item If possible, reduce the following $\lambda$-expressions to their normal form. (3 pts)
+
+\begin{enumerate}
+\item \texttt{($\lambda$ x. ($\lambda$ z . z y) x )($\lambda$ x . x)}
+\item \texttt{($\lambda$ x. x x y)($\lambda$ x . x x y)}
+\item \texttt{P $\equiv$ ($\lambda$ x .~x (x y)) I} ~where \texttt{I $\equiv$ $\lambda$ u .~u}
+\end{enumerate}
+\vspace{0.2cm}
+\solution{\fontsize{9pt}{11pt}\input{solutions/exercise3.tex}}
+
+
+\end{enumerate}
+
+\end{document}

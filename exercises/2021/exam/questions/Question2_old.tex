@@ -1,0 +1,57 @@
+A  developer wants to write a program in PostScript which draws squares as in \autoref{fig:squares-correct}: 
+\begin{figure}[h]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{images/boxes-correct}
+  \caption{Desired output}
+  \label{fig:squares-correct}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{./images/boxes-error}
+  \caption{Actual output}
+  \label{fig:squares-errored}
+\end{subfigure}
+\end{figure}
+
+\noindent
+All the squares have the same dimensions, the distances between lower left corners of any two consecutive squares are the same, and each square is one nuance of a lighter grey color than the previous one, going from black to white colour. But the actual output is as in \autoref{fig:squares-errored}. Her code is as following:
+
+\begin{small}
+\begin{verbatim}
+/squares {
+   /n exch def
+   /size exch def
+   /cy exch def
+   /cx exch def
+   0 1 n {
+      /i exch def
+      cx i 10 mul add
+      cy i 10 mul add
+      size
+      i n div
+      square
+   } for
+} def
+/square{
+   /grayScale exch def
+   /size exch def
+   /halfSize size 2 div def
+   /cy exch def
+   /cx exch def
+   cx halfSize sub cy halfSize sub moveto
+   cx halfSize sub cy halfSize add lineto
+   cx halfSize add cy halfSize add lineto
+   cx halfSize add cy halfSize sub lineto
+   closepath
+   grayScale setgray
+   fill
+} def
+% usage cx cy size n squares
+200 300 100 10 squares
+\end{verbatim}
+\end{small}
+
+\noindent
+Explain what is the error. Correct the code to produce the desired output.

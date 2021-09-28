@@ -1,0 +1,65 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+
+\usepackage{hyperref}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage{stmaryrd}
+
+
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Language Semantics}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{myitemize}
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item Solutions to each assignment must be sent to \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\item The solutions of the assignments are to be delivered before every Thursday at 11 PM. Solutions handed in later than the specified time will not be accepted. In case of serious reasons send an e-mail to  \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\end{myitemize}
+
+
+\subsection*{Exercise (6 points)}
+
+
+\begin{enumerate}
+\item Extend the abstract syntax and the semantic functions \textbf{P}, \textbf{S} and \textbf{E} of the Calculator Language, defined at the lecture hours, in order to include the possibility of subtraction and division of two expressions. In case the divider is zero, the result should be the string ``NOT A NUMBER''.  (3 pts)
+
+\vspace{0.5cm}
+\solution{\input{solutions/exercise1}}
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\item Consider a language of binary numbers. The number \textbf{'111'} is intended to denote the natural number \textbf{7}. Define the syntax, the semantic functions and the domain of this language. As a test evaluate \textbf{'10100'}. (3 pts)
+
+\vspace{0.5cm}
+\solution{\input{solutions/exercise2}}
+\end{enumerate}
+
+\end{document}

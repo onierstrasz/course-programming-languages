@@ -1,0 +1,114 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Functional Programming}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{myitemize}
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item Solutions to each assignment must be sent to \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\item The solutions of the assignments are to be delivered before every Thursday at 5 PM. Solutions handed in later than the specified time will not be accepted. In case of serious reasons send an e-mail to  \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\end{myitemize}
+
+
+\subsection*{Exercise (6 points)}
+
+\begin{myitemize}
+
+\item Explain why the following piece of code does not raise an error. (1 pts)
+
+\emph{
+func1 5 z = 33 \\
+func1 y z = y \\
+func1 50 (sqrt(-5)) \\
+-- output is 50
+}
+\\
+
+\solution{
+This is allowed because of lazy evaluation. The incorrect argument here is not going to be evaluated.}
+
+
+\item Define the following small program in three different functions with pattern matching,  guards, and lambda expression. (1.5 pts)
+
+\emph{
+if n = 0 then \\
+return -1 \\
+else \\ 
+return n * 2 \\
+}
+\\
+
+%\textbf{Answer:}
+%(s$\backslash$  -\textgreater  if s == 0 then -1 else s * 2) 0 \\
+%
+%gpdef n | n == 0 = -1 \\
+%             | n /= 0 = n * 2 \\
+%
+%pmdef 0 = -1 \\
+%pmdef n = n * 2 \\
+
+\solution{
+\texttt{(s$\backslash$  -\textgreater if s == 0 then -1 else s * 2) 0 \\
+----\\
+gpdef n | n == 0 = -1 \\
+\indent\indent \indent\indent      | n /= 0 = n * 2 \\
+----\\
+pmdef 0 = -1 \\
+pmdef n = n * 2 \\
+}
+}
+
+
+
+\item Define a function that accepts a list as an argument and returns the sum of all the members of the given list. (1.5 pts)
+
+\textbf{Answer:}
+mh8 (x) = if x == [] then 0 else head x + mh8(tail(x))
+
+
+\newpage
+
+
+\item Define a function \texttt{firstNCatalan n} in Haskell that calculates and returns the result as a list containing the first \texttt{n} \href{https://en.wikipedia.org/wiki/Catalan_number}{Catalan numbers}. Catalan numbers are calculated based on the formula \mbox{$C_{n} = \dfrac{(2n)!}{(n+1)!n!}$,} $n \ge 0$. (2 pts)
+
+\vspace{0.2cm}
+\solution{
+\texttt{fac n\\
+   \indent\indent | n == 0 = 1\\
+   \indent\indent | otherwise = n * fac (n-1)\\
+catalan n\\
+   \indent\indent | n >= 0 = fac (2*n) / (fac n * fac (n+1))\\
+firstNCatalan n = [catalan x |x <-[0..n]]
+}
+}
+
+\end{myitemize}
+\end{document}

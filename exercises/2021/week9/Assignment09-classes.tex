@@ -1,0 +1,159 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+
+\usepackage{hyperref}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{hyperref} % for figures
+\usepackage{listings} % for Java code
+\usepackage{color} % for Java code
+
+%========================JAVA CODE========================
+\definecolor{source}{gray}{0.9}
+\lstset{
+	% characters
+	tabsize=3,
+	upquote=true, % straight quote; requires textcomp package
+	escapechar={!},
+	keepspaces=true,
+	breaklines=false,
+	alsoletter={:},
+	breakautoindent=true,
+	columns=fullflexible,
+	showspaces=false,
+	showstringspaces=false,
+	basicstyle=\small\ttfamily,
+	% background
+	frame=single,
+   	framerule=0pt,
+	backgroundcolor=\color{source},
+	% numbering
+	numbersep=10pt,
+	stepnumber=1,
+	numberstyle=\tiny,
+	numberfirstline=true,
+	% captioning
+	captionpos=b,
+	numberbychapter=false}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+%Java listing
+\lstdefinestyle{Java}{
+	language=Java,
+	keywordstyle=\color{javapurple}\bfseries,
+	stringstyle=\color{javared},
+	commentstyle=\color{javagreen},
+	morecomment=[s][\color{javadocblue}]{/**}{*/}
+}
+\newcommand{\jlct}{\lstinline[backgroundcolor=\color{white},style=Java]}
+%========================================================
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Objects and Types}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{myitemize}
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item Solutions to each assignment must be sent to \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\item The solutions of the assignments are to be delivered before every Thursday at 11 PM. Solutions handed in later than the specified time will not be accepted. In case of serious reasons send an e-mail to  \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\end{myitemize}
+
+
+\subsection*{Exercise (6 points)}
+
+
+\begin{enumerate}
+\item What is the difference between subtyping and subclassing? Provide an example for your explanation. (1.5 pts)
+
+\vspace{0.5cm}
+
+\solution{\input{solutions/exer1}}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+\item Using the Java class-interface hierarchy given in \autoref{fig:hierarchy}, explain what is the relationship between classes and interfaces. (1.5 pts)
+
+\begin{figure}[h!]
+\includegraphics[width=0.5\linewidth]{figs/hierarchy.jpg}
+\caption{Java interface hierarchy}
+\label{fig:hierarchy}
+\end{figure}
+
+\vspace{0.5cm}
+
+\solution{\input{solutions/exer2}}
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\item Which forms of polymorphism are used in the Java code in \autoref{lst:poly}? Explain each of the forms. (1.5 pts)
+
+\begin{lstlisting}[float=h,style=Java,caption={Forms of polymorphism},label=lst:poly]
+public class Bern<TT> { // Hint 2
+    private TT var1;
+    public void set(TT mh) { this.var1 = mh; }
+    public TT get() { return var1; }
+
+ public static void main(String[] args) {
+ 	int a = 3;
+	float b = 2F;
+	b = a;   // Hint 1
+	System.out.println(b);
+	Bern<Integer> mj = new Bern();
+	mj.set(12);
+	System.out.println(mj.get());
+	}
+}
+\end{lstlisting}
+
+\solution{\input{solutions/exer3}}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------
+
+\item In the Java code \autoref{lst:co}, explain what concept (covariance or contravariance) exists and why. (1.5 pts)
+
+
+\begin{lstlisting}[float=h,style=Java,caption={Forms of polymorphism},label=lst:co]
+Double[] mh = new Double[2];
+   mh[0] = 100.2;
+   mh[1] = 200.2;
+   
+   Number[] nm = mh;
+   
+   nm[0] = 1000.5;
+   
+   System.out.println(nm[0]);
+\end{lstlisting}
+
+
+\solution{\input{solutions/exer5}}
+
+\end{enumerate}
+
+\end{document}

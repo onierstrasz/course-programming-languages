@@ -1,0 +1,19 @@
+\begin{verbatim}
+var People = function () {
+    this.username = "Bern";
+	return this;
+};
+
+People.prototype.checkit = function() {
+	return this.username;
+}
+
+
+var c = new People();
+d = Object.create(People.prototype);
+
+People.apply(d);
+
+console.log(c.checkit());
+console.log(d.checkit());
+\end{verbatim}

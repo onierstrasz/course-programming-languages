@@ -1,0 +1,23 @@
+We represent non-negative integers with the following Lambda expressions:
+%
+\begin{align*}
+	0 & \equiv \lambda f~.~\lambda x~.~x \\
+	1 & \equiv \lambda f~.~\lambda x~.~f x \\
+	2 & \equiv \lambda f~.~\lambda x~.~f (f x) \\
+	& \vdots  \\
+	n & \equiv \lambda f~.~\lambda x~.~f^{n}x
+\end{align*}
+%
+Suppose you have defined the function \textbf{if} and the operations \textbf{times}, \textbf{pred} and \textbf{isOne}. Consider the following recursive (and hence not valid) definition for the factorial calculation:
+%
+\begin{equation*}
+\textbf{fact} = \lambda n.~\textbf{if} ~(\textbf{isOne}~ n) ~\textbf{1}~ (\textbf{times}~ n~(\textbf{fact}~(\textbf{pred}~n)))
+\end{equation*}
+%
+To do:
+\begin{enumerate}
+\item (4 points) Translate the \textbf{fact} definition into a proper definition, i.e., using the Y combinator.
+\vspace{6cm}
+\item (8 points) Write down the reduction sequence to demonstrate that factorial of 3 is 6.
+\end{enumerate}
+%

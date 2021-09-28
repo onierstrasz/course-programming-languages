@@ -1,0 +1,387 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+%\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\newcommand{\yellowbox}[1]{\fcolorbox{yellow}{yellow}{\bfseries\sffamily\scriptsize#1}}
+\newcommand{\nb}[2]{{\yellowbox{#1}\yellowbox{#2}}}
+
+\newcommand\todo[1]{\nb{TO DO}{#1}}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} 
+\setboolean{showsolution}{false}
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution }{}\xspace{}Exam Programming Languages}
+\rule{\textwidth}{1pt}\\[1mm]
+Date: Friday, 03.06.2016.\\
+Duration: 70 minutes\\
+Material: You are NOT allowed to use any material (e.g., script, exercises including solutions, notes, electronic devices...)\\
+Number of exercises: 6\\
+Total points: 80 \\
+\rule{\textwidth}{1pt}\\[5mm]
+Firstname, lastname: \rule{200pt}{0.5pt}\\[5mm]
+Matrikel: \rule{200pt}{0.5pt}\\[5mm]
+Put your name on each extra page you deliver.\\
+Consecutively number all pages. Total number of extra pages: \rule{45pt}{0.5pt}\\
+\rule{\textwidth}{1pt}
+
+\newpage
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\exercise{20 Points}
+\noindent
+%
+Answer the following questions (do not write more than 3 sentences):
+
+\begin{myenumerate}
+
+\item What is a tail-recursive function and what is the advantage compared to a non-tail-recursive function?
+\solution{Tail-recursive means calling itself is the last thing the function does. Advantage is reusing the stack.}\vspace{3cm}
+
+\item  What is a higher-order function? Give an example.
+\solution{A function that takes another function as an argument or returns a function. example: map}\vspace{3cm}
+
+\item What is the difference between a static and a dynamic type? Give an example.
+\solution{The static type of a variable or expression is a type which can be determined by the type inference  system solely based on the program code, thus in at compile time. In contrast, the dynamic type of a variable cannot be determined in such a way because the variable may take on different values at runtime. Example:\\
+Object x = new Vector();\\
+the static type of x is Object, the dynamic type is Vector().}\vspace{3cm}
+
+\item What are the operations one can perform in lambda calculus? 
+\solution{alpha conversion, betta reduction, eta reduction}\vspace{3cm}
+
+\item What is a fixed point of a function? 
+\solution{A fixed point of a function f is a value p such that f p = p.}\vspace{3cm}
+
+\newpage
+\item What is the difference between syntax and semantics? 
+\solution{Syntax: the arrangement of words and phrases to create well-formed sentences in a language \\
+Semantics: the meaning of a word, phrase, sentence or text\\
+You can create well-formed sentences (according to the syntax) that don't have a meaning (according to semantics).} \vspace{3cm}
+
+\item  What is the Principle of Substitutability?
+\solution{An instance of a subtype can always be
+used in any context in which an instance
+of a supertype was expected} \vspace{3cm}
+
+% \item \todo{JS/prolog QUESTION}Explain how it is possible to use the concept of recursion in the $\lambda$-calculus, despite the above fact. 
+% \solution{We know by the Fixed-Point theorem that every $\lambda$-expression $e$ has a fixed point $p$, i.e. $(e ~p) \equiv p$. Thus recursive functions (i.e. recursive $\lambda$-expressions) can be expressed as fixed-points of other suitable expressions, which must be well-defined. Finding this fixed-point is achieved in the (untyped) lambda-calculus by means of a fixed-point combinator called the \emph{Y-combinator}. So if we define a function $p$ to be the Y-combinator applied to an expression $e$, the result of this application is the again the expression with the desired function as argument, $e~p$, which equals $p$.} \vspace{3cm}
+
+
+% \item How does contravariance support subtyping?
+% \solution{Because the contravariance parameter type will always end in the correct result subclass since $f_y$ is a superset of $f_x$} \vspace{3cm}
+
+
+% \item How does contravariance support subtyping?\textbf{( 1 Point )}
+% \solution{Because the contravariance parameter type will always end in the correct result subclass since $f_y$ is a superset of $f_x$} \vspace{3cm}
+
+\item How does Java supports subtyping? How does it support specializations?
+
+\solution{\emph{subtyping}: Interfaces \& inheritance, \emph{specialization}: Inheritance.} \vspace{3cm}
+
+\item Where do you in Javascript define properties that are shared between a group of objects (i.e., static members in Java)?\
+\solution{Either using the same prototype and defining on the prototype side or in a global scope.}\vspace{3cm}
+
+\item How would you define a logical negation operator \texttt{neg(X)} in Prolog?
+\solution{\texttt{neg(X) :- X, !, fail. neg(\_).}} \vspace{3cm}
+
+\end{myenumerate}
+
+
+\newpage
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\exercise{6 Points}
+\noindent
+%
+
+A very junior programmer wanted to write the ``hello world'' program in Postscript. Here is the result: 
+
+\begin{small}
+\begin{verbatim}
+    /Times-Roman findfont
+    18 scalefont
+    setfont
+    100 500 moveto
+
+    /myprint {
+        exch
+        /mystring exch def
+        show mystring show
+    } def
+
+    /mystring (Hello) def
+    mystring
+    /mystring (World) def
+    mystring
+    myprint
+    showpage
+\end{verbatim}
+\end{small}
+
+\begin{myenumerate}
+\item Did the programmer succeed? If not explain what the output is and why. How can the program can be fixed to achieve the junior programmer goal?
+\end{myenumerate}
+
+\solution{The result is WorldHello since /myprint swaps on the stack, redefines mystring as Hello (destroying it on the stack) and shows World then shows mystring.\\
+better:\\
+(Hello World) show\\
+}
+
+
+
+\newpage
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\exercise{18 Points}
+\noindent
+%
+
+\begin{figure}[htb]
+\begin{minipage}{.65\textwidth}
+A \emph{triangular number} is the number of objects that can be arranged in a triangle as is shown in Fig. 1. This is how bowling pins, pool balls, or snooker balls are arranged. The figure shows the first six triangular numbers: 1, 3, 6, 10, 15, 21.
+
+The \emph{tetrahedral number} represents the number of objects arranged in a pyramid (more precisely, a tetrahedron) built up from triangles as shown in the Figure.
+\end{minipage}
+\begin{minipage}[c]{.35\textwidth}
+    \center{\includegraphics[width=3cm]{images/triang}\caption{Triangular numbers.\label{figure:triangularNumbers}}}
+\end{minipage}
+\end{figure}
+
+\noindent The exercise:
+\begin{myenumerate}
+\item Write a function to calculate the n-th triangular number in Haskell.
+
+\vspace{4cm}
+
+\item Write a function to calculate the n-th tetrahedral number in Haskell.
+
+\vspace{4cm}
+
+
+\item Infer the type of the following function and explain your steps. Is the function monomorphic or polymorphic? 
+\begin{small}
+\begin{verbatim}
+myMap f [] = f
+myMap f (x:xs) = myMap (x (f+1)) xs
+\end{verbatim}
+\end{small}
+
+\end{myenumerate}
+\solution{\input{sources/triangularTetrahedral.tex}}
+
+\newpage
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\exercise{12 Points}
+\noindent
+%
+\begin{enumerate}
+\item Consider the following $\lambda$-expressions. Indicate which occurrences of
+variables are bound and which ones are free in the expressions.
+
+\begin{enumerate}
+\item \texttt{($\lambda$ a b .~c a b) a b ($\lambda$ c d .~d c)($\lambda$ e f .~f) } \vspace{1cm}
+
+\item \texttt{(($\lambda$ u v .~$\lambda$ w .~w ($\lambda$ x .~x(u)) (v)) (y)) ($\lambda$ z .~$\lambda$ y .~z(y))}\vspace{1cm}
+
+\item \texttt{($\lambda$ y .~$\lambda$ x .~z(x($\lambda$ x .~y(z)))) ($\lambda$ z .~y(x(z)))}\vspace{1cm}
+\end{enumerate}
+\item Reduce the following $\lambda$-expression to its normal form if possible 
+
+\texttt{($\lambda$ x y .~y x) ($\lambda$ x y .~y x)($\lambda$ x .~x x)($\lambda$ y .~y)} 
+\end{enumerate}
+\solution{\fontsize{9pt}{11pt}\input{sources/lambdaBoundVar.tex}}
+
+
+\newpage
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\exercise{12 Points}
+\noindent Suppose you have a small JavaScript program with a database of people:
+\begin{verbatim}
+var alice = Object.create(person);
+alice.name = "Alice";
+alice.age = 22;
+
+var bob = Object.create(person);
+bob.name = "Bob";
+bob.age = 29;
+
+var cyril = Object.create(person);
+cyril.name = "Bob";
+cyril.age = 45;
+\end{verbatim}
+
+
+\begin{enumerate}
+        \item What is the prototype of Alice, Bob and Cyril?
+        \vspace{5cm}
+        \solution{\texttt{Person}}
+
+%        \item You realize, you need to change the parent of Alice and Bob to \texttt{Employee}, the Cyril to \texttt{Manager}. How would you do it?
+%        \vspace{5cm}
+%        \solution{\input{sources/js2-1.tex}}
+%
+        \item Lets say Cyril is a manager. A manager has to be responsible. How would make Cyril (only Cyril, not Alice and Bob) respond to the message \texttt{isResponsible}?
+        \vspace{5cm}
+        \solution{\input{sources/js2-2.tex}}
+
+\newpage
+        \item Bob wants to be manager as well, so he tries to be responsible as well. How would you make Bob to become responsible?
+        \vspace{5cm}
+        \solution{\input{sources/js2-3.tex}}
+\end{enumerate}
+
+
+\newpage
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\exercise{12 Points}
+
+Consider the following directed graph:
+
+\begin{figure}[h]
+\centering{\fbox{\includegraphics[width=6cm]{images/map.pdf}}}
+\end{figure}
+
+Write a Prolog database consisting of the following predicates:
+
+\begin{enumerate}
+\renewcommand{\theenumi}{\alph{enumi}}
+
+\item \texttt{line(p1,p2)} that is true iff there is a direct connection from \texttt{p1} to \texttt{p2}.
+
+\item \texttt{triangle(p1,p2,p3)} that is true iff \texttt{p1}, \texttt{p2}, and \texttt{p3} form a triangle (independent of the connection directions).
+
+\item \texttt{quadrangle(p1,p2,p3,p4)} that is true iff \texttt{p1}, \texttt{p2}, \texttt{p3}, and \texttt{p4} form a quadrangle (independent of the connection directions).
+
+\item \texttt{reachable(p1,p2)} that is true iff there is a directed path from \texttt{p1} to \texttt{p2} (i.e. iff \texttt{p2} is reachable from \texttt{p1} respecting the connection directions).
+\end{enumerate}
+
+\solution{\input{sources/map.tex}}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\newpage
+\subsection*{Points}
+
+\begin{minipage}[t]{120pt}
+\textbf{Exercise 1}
+\vspace{5pt}\\
+\begin{tabular}{|c|c|c|c|}
+\hline
+Task & Points & Score \\\hline
+1  & 2 & \\\hline
+2  & 2 & \\\hline
+3  & 2 & \\\hline
+4  & 2 & \\\hline
+5  & 2 & \\\hline
+6  & 2 & \\\hline
+7  & 2 & \\\hline
+8  & 2 & \\\hline
+9  & 2 & \\\hline
+10 & 2 & \\\hline
+\textbf{Total} & \textbf{20} &\\\hline\hline
+\end{tabular}
+\end{minipage}
+\begin{minipage}[t]{120pt}
+
+
+\textbf{Exercise 2}
+\vspace{5pt}\\
+\begin{tabular}{|c|c|c|c|}
+\hline
+Task & Points & Score \\\hline
+1 & 6 & \\\hline
+\textbf{Total} & \textbf{6} &\\\hline\hline
+\end{tabular}
+\end{minipage}
+\begin{minipage}[t]{120pt}
+
+
+\textbf{Exercise 3}
+\vspace{5pt}\\
+\begin{tabular}{|c|c|c|c|}
+\hline
+Task & Points & Score \\\hline
+1 & 6 & \\\hline
+2 & 6 & \\\hline
+2 & 6 & \\\hline
+\textbf{Total} & \textbf{18} &\\\hline\hline
+\end{tabular}
+\end{minipage}
+\begin{minipage}[t]{120pt}
+
+
+\textbf{Exercise 4}
+\vspace{5pt}\\
+\begin{tabular}{|c|c|c|c|}
+\hline
+Task & Points & Score \\\hline
+1(a) & 2 & \\\hline
+1(b) & 2 & \\\hline
+1(c) & 2 & \\\hline
+2 & 6 & \\\hline
+\textbf{Total} & \textbf{12} &\\\hline\hline
+\end{tabular}
+\end{minipage}
+
+\noindent
+\begin{minipage}[t]{120pt}
+
+\vspace{1cm}
+
+\textbf{Exercise 5}
+\vspace{5pt}\\
+\begin{tabular}{|c|c|c|c|}
+\hline
+Task & Points & Score \\\hline
+1 & 3 & \\\hline
+2 & 3 & \\\hline
+3 & 3 & \\\hline
+4 & 3 & \\\hline
+\textbf{Total} & \textbf{12} &\\\hline\hline
+\end{tabular}
+\end{minipage}
+\begin{minipage}[t]{120pt}
+\vspace{1cm}
+
+\textbf{Exercise 6}
+\vspace{5pt}\\
+\begin{tabular}{|c|c|c|c|}
+\hline
+Task & Points & Score \\\hline
+a & 3 & \\\hline
+b & 3 & \\\hline
+c & 3 & \\\hline
+d & 3 & \\\hline
+\textbf{Total} & \textbf{12} &\\\hline\hline
+\end{tabular}
+\end{minipage}
+\begin{minipage}[t]{120pt}
+\vspace{1cm}
+
+\textbf{TOTAL}
+\vspace{5pt}\\
+\begin{tabular}{|c|c|c|c|}
+\hline
+Exercise & Points & Score \\\hline
+1 & 20 & \\\hline
+2 & 6 & \\\hline
+3 & 18 & \\\hline
+4 & 12 & \\\hline
+5 & 12 & \\\hline
+6 & 12 & \\\hline
+\textbf{Total} & \textbf{80} &\\\hline\hline
+\end{tabular}
+\end{minipage}
+\end{document}

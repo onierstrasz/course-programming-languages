@@ -1,0 +1,17 @@
+\textbf{NB: For this exercise, you are allowed to use only arithmetical built-in Haskell functions!}
+\begin{itemize}
+%
+\item (4 points) Write a Haskell function \texttt{magic n} which returns the magic number of the argument \texttt{n}. The magic number of a natural number \texttt{n} is equal to the product of its digits.
+\vspace{9cm}
+%
+\item (4 points) Write a Haskell function \texttt{number s} which returns the number represented by the elements of the list \texttt{s}. Consider that elements of the list are only natural numbers smaller than 10. For example, \texttt{number [1,2,3]} will return as the result the number \texttt{123}. 
+%
+\newpage
+\item (5 points) Infer the type of the following function and explain your steps. Is the function monomorphic or polymorphic? Explain.
+\begin{verbatim}
+apply f g [] = []
+apply f g (x:xs)
+   | f x < 0 = (g x) : apply f g xs
+   | otherwise = (f x) : apply f g xs
+\end{verbatim}
+\end{itemize}

@@ -1,0 +1,33 @@
+# PL EToys State Machine demo script
+
+In this demo we will use eToys to develop a very simple state machine simulator.
+
+First we will clone a “pin” object from the toolbox that we can use to build state machine graphs.
+
+We adapt its colours to make it look more like a classical state node.
+
+We open the script editor to script a bunch of higher level commands that we need to model the behaviour of state machines.
+
+We implement two simple scripts to turn the state on and off, toggling its colour between black and white.
+
+We also need to record which states are enabled as the successor of the currently active state, so we introduce a variable called “enabled”.
+
+We create command scripts to enable and disable a state.
+
+We clone the node and connect the two of them.
+
+We now need a script to react to mouse clicks.
+If we click on an enabled node, it should become the current state.
+This should turn off the current state and turn on the clicked state.
+
+If the clicked state is not currently enabled, we make a warning noise.
+
+When a node becomes the current state, it should enable all its successors, so we adapt the “turnOn” scripts accordingly.
+
+Similarly when a node is turned off, the previously enabled states should be disabled.
+
+Now we have to be careful as the new behaviour only affects the node that we have just scripted, so we throw away the old one, and clone the newly scripted one.
+
+We can build a state machine with the scripted nodes.
+
+As a final step, we can create a button bar that will make it easier to build a state machine from the three kinds of graphical elements.

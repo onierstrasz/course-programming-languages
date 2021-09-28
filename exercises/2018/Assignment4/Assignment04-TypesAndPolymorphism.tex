@@ -1,0 +1,90 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution }{}Types and Polymorphism}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\subsection*{Instructions:}
+
+\textbf{Solutions of the exercises are to be delivered before Thursday, the 22th of March at 10:15AM.}\\
+Solutions should be placed in a separate folder with the name ``\textbf{Assignment04}''.\\
+Please submit answers to all the exercises in \textbf{one} text file.\\
+
+\subsection*{Exercise 1 (3 points)}
+
+Infer types of the functions \texttt{factors}, \texttt{isPerfect} and \texttt{insert} and say whether they are monomorphic or polymorphic functions. Justify your answer.
+
+\begin{itemize}
+\item \texttt{mod :: Int -> Int -> Int\\
+factors n = [x | x <- [1..n-1], mod n x == 0 ] \\
+isPerfect n = sum (factors n) == n}
+
+\item \texttt{insert \_ n [] = [n]\\
+insert 0 n l = n:l \\
+insert i n (x:xs) = x : insert (i-1) n xs}
+\end{itemize}
+
+\vspace{0.2cm}
+\solution{\input{solutions/exercise1.tex}}
+
+\subsection*{Exercise 2 (3 points)}
+
+Infer the type of the following function and explain each of the steps.\\
+\texttt{f1 f x}
+
+	~~~~~ \texttt{| f x < 0 = []}
+	
+    	~~~~~ \texttt{| otherwise = x : (f1 f (f x))}
+
+
+\newpage
+\solution{\input{solutions/exercise2.tex}}
+
+\subsection*{Optional Haskell exercise (2 points)}
+
+Write a function \texttt{deleteRepetitions l} which deletes all consecutive repetitions of elements in the list \texttt{l}.
+For example, \texttt{deleteRepetitions [4, 5, 5, 2, 11, 11, 11, 2, 2]} would return as the result \texttt{[4, 5, 2, 11, 2]}.
+\textbf{No built-in function for working with lists may be used. Only pattern matching is allowed.}
+
+\vspace{0.2cm}
+\solution{
+\texttt{
+deleteRepetitions [] = []\\
+deleteRepetitions (head:[]) = [head]\\
+deleteRepetitions (first:second:tail) = \\
+	   \indent\indent if first == second\\
+           \indent\indent then deleteRepetitions (second:tail)\\
+           \indent\indent else first : deleteRepetitions (second:tail)\\
+}
+}
+
+
+\end{document}

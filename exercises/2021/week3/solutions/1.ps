@@ -1,0 +1,62 @@
+/LM 50 def
+/UM 700 def
+/FS 18 def
+/FF 20 def
+/Times-Roman findfont
+
+FF scalefont setfont
+/str 20 string def
+
+
+/firstNum 2 def
+/secondNum 3 def
+/MyProcedure { add } def
+/theResult firstNum secondNum MyProcedure def
+
+300 500 moveto
+%(theResult is ) show theResult ( ) cvs show
+
+320 550 moveto
+/ADDFIVE { add 2 div 2 mul } def
+%(theResult is ) show
+%9 9 ADDFIVE str cvs show
+%rand str cvs show
+
+/randit { rand 2000 div } def
+
+%randit str cvs show
+%randit 100 gt {(bozorog) show} {(kochik ) show} ifelse
+
+/newLine {
+	currentpoint exch pop
+	FS 2 add sub
+	LM exch moveto
+} def
+
+/loopit {
+320 650 moveto
+10
+{
+rand str cvs show
+newLine
+} repeat
+} def
+
+loopit
+
+
+
+showpage
+
+
+
+
+
+
+
+
+
+
+
+
+

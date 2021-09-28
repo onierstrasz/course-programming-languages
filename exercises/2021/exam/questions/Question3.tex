@@ -1,0 +1,48 @@
+% 2018 Assignment 3 Exercise 2,3,4
+%\textbf{NB: For this exercise, you are allowed to use only arithmetical built-in Haskell functions!}
+
+\begin{enumerate}
+\item (3 points) Consider the following Haskell program: \texttt{[ (x+3)*x | x <- [2..6]]}
+
+What is the name of the syntactic sugar used? % 1 point
+What is the output produced? % 2 points
+
+
+\vspace{5cm}
+
+
+\item (6 points) Consider the following function definitions:
+\begin{verbatim}
+myCoolFunc a l = myCoolSubFunc 0 a l
+myCoolSubFunc i n [] = []
+myCoolSubFunc i n (x:xs)
+    | x == n = i :  myCoolSubFunc (i+1) n xs
+    | otherwise = myCoolSubFunc (i+1) n xs
+\end{verbatim}
+What is the output of the following invocations:
+\begin{enumerate}
+    \item \texttt{myCoolFunc 5 [1..9]}
+    \item \texttt{myCoolFunc 1 []}
+    \item \texttt{myCoolFunc 2 [1, 2, 3, 3, 2, 1]}
+\end{enumerate}
+
+
+
+
+
+
+% Skipped because too hard
+%\item (5 points) Define a function \texttt{perfectNumbers n m } in Haskell that returns as the result the list of all perfect numbers greater than \texttt{n} and smaller than \texttt{m}. A positive integer is \textbf{perfect} if it is equal to the sum of its proper positive factors.
+%\vspace{9cm}
+
+% Skipped because too hard
+%\item (5 points) Define a function \texttt{insert i n l} in Haskell that returns as the result the list that contains as the first \texttt{i} elements the same ones as in the list \texttt{l}, preserving the order, followed by the element \texttt{n} on the \mbox{\texttt{i}-\textit{th}} position, and the remaining elements of the list \texttt{l}, preserving the order. In case that \texttt{i} exceeds the size of the list, the resulting list should have all the elements of the list \texttt{l}, preserving the order, and the element \texttt{n} as the last one. The index counting starts from zero.
+%\vspace{9cm}
+
+% Skipped because too hard
+%\item (5 points) Define a function \texttt{indexes n l} in Haskell that returns as the result the list containing all the indexes in the list \texttt{l} where the element \texttt{n} appears. In case that \texttt{n} is not contained in the list, the function returns an empty list. The index counting starts from zero.
+%\vspace{9cm}
+
+\end{enumerate}
+
+

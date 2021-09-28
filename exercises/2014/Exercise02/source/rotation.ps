@@ -1,0 +1,15 @@
+/Times-Roman findfont
+10 scalefont
+setfont
+
+300 500 translate
+
+0 10 540 {              % go from 0 to 540 degrees in 10 degree steps
+  gsave                 % keep rotations temporary
+    dup rotate          % rotate by degrees on stack from 'for', but first dup it because we need it again
+    8 div 0 moveto      % divide angle by 8 and use it to shift in x direction. Note that this is done after rotating 
+    (Postscript) show
+  grestore              % get back the unrotated state
+} for                   % iterate over angles
+
+showpage

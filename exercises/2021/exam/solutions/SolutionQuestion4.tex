@@ -1,0 +1,26 @@
+\begin{itemize}
+\item b = bound, f = free
+\begin{verbatim}
+    (\ a b . c d a b) a b (\ c d . d c) (\ e f . f) e
+         | | | |  | |          | |           |  |
+         f f b b  f f          b b           b  f
+
+\ y . (\ x . z(x(\ x . y(z)))) (\ z . y(x(z)))
+             | |       | |            | | |
+             f b       b f            b f b
+\end{verbatim}
+
+
+\item 
+
+$\lambda$x.xp \\
+p \\
+------- -------\\
+\texttt{($\lambda$ x . xx) ($\lambda$ x . xx) y} \\
+\texttt{($\lambda$ x . xx) ($\lambda$ x . xx) y} \\
+\texttt{($\lambda$ x . xx) ($\lambda$ x . xx) y} \\
+non-terminating \\
+
+
+
+\end{itemize}

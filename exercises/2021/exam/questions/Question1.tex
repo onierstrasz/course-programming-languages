@@ -1,0 +1,59 @@
+% 2014 Exam
+Answer the following questions. Do not write more than 3 sentences each. Each question is worth 2 points.
+\begin{enumerate}
+
+% General
+\item Distinguish the key characteristics of the functional and logic programming styles.
+\vspace{5cm}
+
+% PostScript
+\item How is \texttt{(1 + 3) * 2} computed in a stack-based language like PostScript? Note the contents of the stack after each operation.
+\vspace{5cm}
+
+% Functional Languages
+\item Why don't pure functional languages provide loop constructs?
+\vspace{5cm}
+
+\newpage
+% Monomorphism vs polymorphism
+\item
+What is the difference between monomorphic and polymorphic types? Is the following Haskell function monomorphic or polymorphic? Why?\\
+\texttt{map f [ ] = [ ]}\\
+\texttt{map f (x:xs) = f x : map f xs} 
+\vspace{5cm}
+
+%\newpage
+
+% Fixed points and Recursion
+% Removed because too hard
+%\item Explain how it is possible to use the concept of recursion in the $\lambda$-calculus.
+%\vspace{6cm}
+
+% Lazy evaluation
+\item Why is normal order evaluation called lazy evaluation? \\
+Consider the expression: \texttt{sqr n = n * n} and compute the normal order evaluation of \texttt{sqr (7-3)}
+\vspace{5cm}
+
+% Syntax and semantics
+\item What is the difference between syntax and semantics?
+\vspace{5cm}
+
+\newpage
+
+% Object, types and prototypes
+\item List differences between a class-based and a prototype-based programming language.
+\vspace{5cm}
+
+% JavaScript
+\item What happens in JavaScript if we assign a variable without using the command ``var''? What problem can it cause? 
+\vspace{5cm}
+
+% Prolog
+\item What does the closed world assumption in Prolog state?
+
+%\item Is there a difference between logical negation \texttt{$\neg$} and %\texttt{not} operator implemented using cut and fail? Explain.  \\
+%\texttt{not(X) :- X!, fail. } \\
+%\texttt{not(\_).}
+%\vspace{2.5cm}
+
+\end{enumerate}

@@ -1,0 +1,123 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{url}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+\setboolean{showsolution}{false}
+
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{
+    \ifthenelse{\boolean{showsolution}}{Solution }{}
+    \xspace{}Serie 8 - Objects and Prototypes}
+
+%==============================================================================
+%\subsection{Notes}
+JS Material and tutorials: \\ \\
+%\url{http://scg.unibe.ch/download/lectures/pl/}\\
+%and\\
+\url{http://scg.unibe.ch/teaching/pl/resources}\\ \\
+% Pass by my office for more material.
+
+%==============================================================================
+\subsection{Theoretical Questions}
+
+\begin{myenumerate}
+
+\item What happen if we assign a variable without using the command ``var''? Which problems could cause?
+
+\solution{the variable is created on the fly and it will have global scope so it will override the value of a global variable with the same name.}
+
+
+\item How do you extend all objects created with a specific constructor?
+
+\solution{With the mechanism of prototype. }
+
+
+\item What is a closure?
+
+\solution{Inner functions are closures.}
+
+
+%\item How would you implement private static properties?
+%
+%\solution{By using closures for the methods and properties of an object.}
+
+
+\item What is the difference between delegation and inheritance?
+
+\solution{}
+
+
+\item How would you access arguments of a function with variable number of arguments? 
+
+% \solution{
+% \begin{verbatim}
+% function printall() {
+% 	for (var i = 1; i < arguments.length; i++)	 
+% 		console.log(arguments[i])
+% }
+% \end{verbatim}
+% }
+
+
+\end{myenumerate}
+
+
+
+%%==============================================================================
+%\subsection{Events}
+%
+%Build a HTML page where the function in snippet below triggers or can be triggered: when I open the page, when I press a button, when I click with the mouse, when I double click with the mouse, when I go with the mouse over an area, when I move the mouse out of an area, when I press the mouse left button and when I release the mouse left button.
+%
+%\begin{verbatim}
+%<script type="text/javascript">
+%
+%function helloworld() {
+%  alert("Hello world");
+%}
+%</script>
+%\end{verbatim}
+%
+%\solution{\input{ex2/Ex2Sol.tex}}
+
+
+%==============================================================================
+\subsection{Poor Platypus}
+
+A possible classification for animals is the one shown in Figure \ref{fig:ex2}. When it comes to classify the platypus you realize that it nurses but it also spawns. So implement the class diagram shown in figure \ref{fig:ex2} including the poor platypus in Java Script. Use the ex2/poorPlatypusToSolve.html file as skeleton for your implementation. 
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[width=0.4\columnwidth]{ex2/Ex2.pdf}
+\caption{Animal classification}
+\label{fig:ex2}
+\end{center}
+\end{figure}
+
+\solution{\input{ex2/poorPlatypusSolution.tex}}
+
+
+% ==============================================================================
+\subsection{Post Office}
+
+Some public places nowadays have special rules so to serve high priority customers first independently from when they entered the queue. Simulate in Java Script a post office where high priority customers are served first. Use the ex3/postofficeToSolve.html file as skeleton for your implementation.
+
+\solution{\input{ex3/postofficeSolution.tex}}
+
+
+\end{document}
+

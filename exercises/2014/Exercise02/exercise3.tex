@@ -1,0 +1,43 @@
+\fontsize{8pt}{10pt}
+\begin{verbatim}
+% --------------------------------------------------
+% Squares
+% --------------------------------------------------
+/inch {72 mul} def
+/centersquare
+  { newpath
+    .5 .5 moveto
+    -.5 .5 lineto
+    -.5 -.5 lineto
+    .5 -.5 lineto
+   closepath
+  } def
+
+  2.5 inch 6 inch translate
+  1 16 div setlinewidth
+  1 1 5 
+  { gsave
+      .5 mul inch dup scale
+      centersquare
+      stroke
+    grestore
+  } for
+showpage
+
+% --------------------------------------------------
+% Rotation
+% --------------------------------------------------
+/Times-Roman findfont
+10 scalefont
+setfont
+300 500 translate
+0 10 540 {              % go from 0 to 540 degrees in 10 degree steps
+  gsave                 % keep rotations temporary
+    dup rotate          % rotate by degrees on stack from 'for'
+    8 div 0 moveto      % divide angle by 8 and use it to shift in x direction.
+    (postscript) show
+  grestore              % get back the unrotated state
+
+} for                   % iterate over angles
+showpage
+\end{verbatim}

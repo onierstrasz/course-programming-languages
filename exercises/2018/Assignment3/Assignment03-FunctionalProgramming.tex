@@ -1,0 +1,97 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Functional Programming}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\subsection*{Instructions:}
+
+\textbf{Solutions of the exercises are to be delivered before Thursday, the 15th of March at 10:15AM.}\\
+Solutions should be placed in a separate folder with the name ``\textbf{Assignment03}''.\\
+Please submit answers to all the exercises in \textbf{one} .hs file named ``assignment03.hs''.\\
+Please use the provided \href{http://scg.unibe.ch/download/lectures/pl2018-exercises/assignment03.hs}{template} in which all the solutions should be written.
+
+\subsection*{Exercise 1 (1.5 points)}
+
+Define a function \texttt{firstNCatalan n} in Haskell that will calculate and return as the result the list which contains the first \texttt{n} \href{https://en.wikipedia.org/wiki/Catalan_number}{Catalan numbers}. Catalan numbers are calculated based on the formula \mbox{$C_{n} = \dfrac{(2n)!}{(n+1)!n!}$,} $n \ge 0$.
+
+\vspace{0.2cm}
+\solution{
+\texttt{fac n\\
+   \indent\indent | n == 0 = 1\\
+   \indent\indent | otherwise = n * fac (n-1)\\
+catalan n\\
+   \indent\indent | n >= 0 = fac (2*n) / (fac n * fac (n+1))\\
+firstNCatalan n = [catalan x |x <-[0..n]]
+}
+}
+
+\subsection*{Exercise 2 (1.5 points)}
+
+Define a function \texttt{perfectNumbers n m } in Haskell that returns as the result the list of all \href{https://en.wikipedia.org/wiki/Perfect_number}{perfect numbers} greater than \texttt{n} and smaller than \texttt{m}. A positive integer is \textbf{perfect} if it is equal to the sum of its proper positive factors.
+
+\vspace{0.2cm}
+\solution{
+\texttt{
+factors n = [x | x <- [1..n-1], mod n x == 0 ]\\
+isPerfect n = sum (factors n) == n\\
+perfectNumbers n m  = [x | x <- [n+1..m-1], isPerfect x]
+}}
+
+\subsection*{Exercise 3 (1.5 points)}
+
+Define a function \texttt{insert i n l} in Haskell that returns as the result the list that contains as the first \texttt{i} elements the same ones as in the list \texttt{l}, preserving the order, followed by the element \texttt{n} on the \mbox{\texttt{i}-\textit{th}} position, and the remaining elements of the list \texttt{l}, preserving the order. In case that \texttt{i} exceeds the size of the list, the resulting list should have all the elements of the list \texttt{l}, preserving the order, and the element \texttt{n} as the last one. The index counting starts from zero.
+
+\newpage
+
+\vspace{0.2cm}
+\solution{
+\texttt{insert \_ n [] = [n]\\
+insert 0 n l = n:l \\
+insert i n (x:xs) = x : insert (i-1) n xs}
+}
+
+\subsection*{Exercise 4 (1.5 points)}
+
+Define a function \texttt{indexes n l} in Haskell that returns as the result the list containing all the indexes in the list \texttt{l} where the element \texttt{n} appears. In case that \texttt{n} is not contained in the list, the function returns an empty list. The index counting starts from zero.
+
+\vspace{0.2cm}
+\solution{
+\texttt{
+indexes a l = indexesFrom 0 a l\\
+indexesFrom i n [] = []\\
+indexesFrom i n (x:xs)\\
+	\indent\indent | x == n = i : indexesFrom (i+1) n xs\\
+   	\indent\indent | otherwise = indexesFrom (i+1) n xs
+}
+}
+
+
+\end{document}

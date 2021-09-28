@@ -1,0 +1,15 @@
+a. $~$($\lambda$ x. ($\lambda$ z . z y) x )($\lambda$ x . x) =  /* $\beta$ reduction */ \\
+    $~~~~~~~$ ($\lambda$ z . z y)($\lambda$ x . x) = /* $\beta$ reduction */ \\
+    $~~~~~~~$ ($\lambda$ x . x) y = /* $\beta$ reduction */ \\
+    $~~~~~~~$ y\\
+\\
+b. ($\lambda$ x. x x y)($\lambda$ x . x x y) = /* $\beta$ reduction */ \\
+    $~~~~$ ($\lambda$ x . x x y) ($\lambda$ x . x x y) y = /* $\beta$ reduction */ \\
+    $~~~~$ ($\lambda$ x . x x y) ($\lambda$ x . x x y) y y = /* $\beta$ reduction */ \\
+    $~~~~$ ... /* no normal form */
+\\
+\\
+c.  ($\lambda$ x. x (x y)) I\\
+I~ (I~ y)  ($\lambda$ u . u) (($\lambda$ u . u) y)) /* $\beta$ reduction */ \\
+$~~~~$ ($\lambda$ u . u) y /* $\beta$ reduction */ \\
+$~~~~$ y /* $\beta$ reduction */ \\

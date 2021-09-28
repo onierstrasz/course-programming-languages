@@ -1,0 +1,22 @@
+\begin{verbatim}
+var car = {}
+
+var gasCar = Object.create(car);
+gasCar.tankGas = function () {
+	alert("I tank gas!");
+}
+
+electricCar = Object.create(car);
+dolphin.charges = function() {
+	alert("I can charge myself");
+}
+
+var typeA = Object.create(gasCar);
+
+var typeB = Object.create(electricCAr);
+
+
+var typeC = Object.create(gasCar);
+typeC.charges = electricCar.charges;
+\end{verbatim}
+

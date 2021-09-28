@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>Platypus</title>
+<script type="text/javascript">
+
+var animal = {}
+
+var mammal = Object.create(animal);
+mammal.numberofNipples = 0;
+mammal.nurse = function () {
+	display("I am nursing");
+}
+
+dolphin = Object.create(mammal);
+dolphin.swim = function() {
+	display("I am swimming");
+}
+
+var oviparus = Object.create(animal);
+oviparus.spawn = function() {
+	display("I am spawning");
+}
+
+var snake = Object.create(oviparus);
+snake.crawl = function() {
+	display("I am crawling");
+}
+
+var platypus = Object.create(mammal);
+platypus.numberOfNipples = 6;
+platypus.spawn = oviparus.spawn;
+
+function display(text) {
+	document.getElementById("output").innerHTML += text + "\n";
+}
+
+</script>
+</head>
+<body>
+<pre id="output">
+</pre>
+<script type="text/javascript">
+display("animal =");
+display(JSON.stringify(animal));
+
+display("mammal =");
+display(JSON.stringify(mammal));
+
+display("dolphin =");
+display(JSON.stringify(dolphin));
+display("dolphin.swim()");
+dolphin.swim()
+
+display("snake =");
+display(JSON.stringify(snake));
+display("snake.spawn()");
+snake.spawn();
+display("snake.crawl()");
+snake.crawl();
+
+display("platypus =");
+display(JSON.stringify(platypus));
+display("platypus.nurse()");
+platypus.nurse();
+display("platypus.spawn()");
+platypus.spawn();
+
+</script>
+</body>
+</html> 
+

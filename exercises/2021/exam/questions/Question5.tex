@@ -1,0 +1,40 @@
+\noindent
+Suppose you have a small JavaScript program:
+\begin{verbatim}
+var company = (function() {
+    var idea = "The secret idea is X";
+    return {
+        budget: function () {
+               return "One million dollars";
+        }
+    }
+})()
+
+var startup = Object.create(company);
+startup.budget =  function () {
+       return "Several thousand dollars";
+}
+
+var obj1 = Object.create(company);
+obj1.name = "company one";
+var obj2 = Object.create(company);
+obj2.name = "company two";
+var obj3  = Object.create(startup);
+obj3.name = "startup one";
+\end{verbatim}
+
+\begin{enumerate}
+\item (3 points) What is the prototype of obj1, obj2 and obj3?
+\vspace{4cm}
+
+\newpage
+
+\item (3 points) Extend the code so that \texttt{obj1}, \texttt{obj2} and \texttt{obj3} respond to the message \texttt{bankrupt}. For example, \texttt{obj3.bankrupt()} outputs the object's name + the \texttt{"never goes bankrupt"} string, e.g., \texttt{"startup one never goes bankrupt"}.
+\vspace{5cm}
+
+\item (1 point) What is the output of obj3.budget()?
+\vspace{4cm}
+
+\item (3 points) Write a method within the closure of the \texttt{company} prototype such that the local variable \texttt{idea} will be accessible to obj1, obj2 and obj3.
+\end{enumerate}
+

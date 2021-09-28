@@ -1,0 +1,68 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+\setboolean{showsolution}{false}
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Introduction to Programming Languages}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\subsection*{Important Remarks}
+\begin{myitemize}
+\item Scoring scheme: Exercises -- 20\%, Exam -- 80\%
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item You are expected to create a private git repository on
+\url{https://bitbucket.org} to which the answers of the exercises and the code
+have to be committed (see bellow). 
+\item Solutions to each exercise should be placed in a separate folder with the name ``ExerciseXX'' where XX is the number of the exercise (from 01 to 12).
+\item The solutions of the exercises are to be delivered before Friday at 10h15. The commit timestamp will be used to determine if you delivered before the deadline or not. Solutions handed in later will be penalized. (in case of serious reasons send us an e-mail or post on piazza).
+\end{myitemize}
+
+\subsection*{How to Qualify for ECTS points}
+\begin{myitemize}
+\item Each series is rated according to the usual rating system with a scale from 1 to 6, with the following meaning: \\
+6 - excellent, 5 - good, 4 - sufficient, 3 - not sufficient, 2 - bad, and 1 - no solution provided.
+\item To qualify for the ETCS points, the average mark of all series is required to be a least \emph{sufficient} (i.e. 4). If you are not able to do a series (military service, illness, etc.) let us know as soon as possible.
+\item Please do not copy solutions from others (nor from the Internet). If you really cannot figure out something yourself, discuss it with us or post to piazza (see below). In case of copied solutions, you will get a mark of 1.
+\end{myitemize}
+
+\subsection*{Questions and Discussions:}
+\begin{myitemize}
+\item Use the Piazza platform.
+\item For specific questions and solutions use \textbf{all instructors} as recepients.
+\item Post questions and discussions of general interest to the entire class.
+\end{myitemize}
+
+\subsection*{Exercise 1 - This exercise is Mandatory!}
+\begin{myitemize}
+\item Register on \url{https://piazza.com/unibe.ch/spring2016/pl21048} to class \textbf{PL 21048} (select \emph{Spring 2016} as team).
+\item You have to use the \texttt{unibe.ch} email, if you don't have one, send an email to \emph{spasojev@inf.unibe.ch}, we will add you manually.
+\item Create a \textbf{private} git repository on \url{https://bitbucket.org} named \\
+pl-2016-execises-$<$your-last-name$>$-$<$your-first-name$>$-$<$matriculation-number$>$
+\item Share it with the user scg-pl. On piazza, make a post (visible to the instructors only!) containing your name, matriculation number and the link for cloning the repository.
+
+\end{myitemize}
+\end{document}

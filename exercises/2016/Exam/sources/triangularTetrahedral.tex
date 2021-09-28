@@ -1,0 +1,10 @@
+\fontsize{8pt}{10pt}
+\begin{verbatim}
+triangular 0            = 0
+triangular n            = n + triangular (n-1)
+
+tetrahedral 0        = 0
+tetrahedral n        = (triangular n) + (tetrahedral (n-1))
+
+myMap :: Num a => a -> [a -> a] -> a  
+\end{verbatim}

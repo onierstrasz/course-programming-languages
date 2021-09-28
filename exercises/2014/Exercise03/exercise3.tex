@@ -1,0 +1,46 @@
+\fontsize{8pt}{10pt}
+\begin{verbatim}
+-- a.
+insertNode key [] = key:[]
+insertNode key (x:xs)
+        | key >= x      = x:(insertNode key xs)
+        | otherwise     = key:x:xs
+
+-- b. 
+deleteNodes p [] = []
+deleteNodes p (x:xs)
+        | p x           = deleteNodes p xs
+        | otherwise     = x:(deleteNodes p xs)
+        
+-- c.
+removeDuplicates [] = []
+removeDuplicates (x:xs)
+        | includes xs x = removeDuplicates xs
+        | otherwise     = x:removeDuplicates xs
+        
+includes [] a = False
+includes (x:xs) a
+        | x == a        = True
+        | otherwise     = includes xs a
+        
+-- d
+sumNodes [] = 0
+sumNodes (x:xs) = x + sumNodes xs
+
+-- e
+mapList f [] = []
+mapList f (x:xs) = (f x):(mapList f xs)
+         
+-- f
+mergeLists [] ys = ys
+mergeLists xs [] = xs
+mergeLists (x:xs) (y:ys)
+        | x <= y         = x:(mergeLists xs (y:ys))
+        | otherwise     = y:(mergeLists (x:xs) ys)  
+
+-- h
+sortList [] = []
+sortList [x] = [x]
+sortList xs = let (as, bs) = splitAt (length xs `div` 2) xs
+        in mergeLists (sortList as) (sortList bs)
+\end{verbatim}

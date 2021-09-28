@@ -1,0 +1,29 @@
+\begin{itemize}
+    \item 
+    \begin{verbatim}
+/box {			
+	newpath
+	moveto		
+	0 100 rlineto
+	100 0 rlineto
+	0 -100 rlineto
+	closepath
+	0 1 0 setrgbcolor
+	fill
+} def
+
+100 100 box
+250 100 box
+400 100 box
+
+showpage
+\end{verbatim}
+
+    \item Translate should be used in conjunction with relative coordinates.
+For example, if you define a function which should draw an object starting at
+the center of the page (and not at the origin), you should use translate in
+order to move the origin to the center. Then the object is drawn relative to
+the new coordinate system.
+
+    \item \texttt{(8 + 7) / 3 * 2 = 15 / 3 * 2 = 5 * 2 = 10}
+\end{itemize}

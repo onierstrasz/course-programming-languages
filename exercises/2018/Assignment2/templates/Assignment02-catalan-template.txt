@@ -1,0 +1,26 @@
+/LM 100 def % left margine
+/UM 700 def % upper margine
+/FS 18 def % font size
+
+/showNum {
+	% define a procedure to show a number
+} def
+
+
+/factorial{
+	% define a procedure to calculate n!
+} def
+
+/newLine {
+	% define a procedure to start a new line
+} def
+
+/catalan {
+	% the main procedure
+} def
+
+
+%Usage: n catalan
+LM UM moveto
+17 catalan
+

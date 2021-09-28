@@ -1,0 +1,96 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Types and Polymorphism}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{myitemize}
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item Solutions to each assignment must be sent to \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\item The solutions of the assignments are to be delivered before every Thursday at 11 PM. Solutions handed in later than the specified time will not be accepted. In case of serious reasons send an e-mail to  \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\end{myitemize}
+
+
+\subsection*{Exercise (6 points)}
+
+
+\begin{enumerate}
+\item Infer types of the functions \texttt{factors}, \texttt{isPerfect}, \texttt{mH} , and \texttt{insert} and say whether they are monomorphic or polymorphic functions. Please justify your answer. (3 pts)
+
+
+\begin{small}
+\begin{verbatim}
+mod :: Int -> Int -> Int
+factors n = [x | x <- [1..n-1], mod n x == 0 ] 
+isPerfect n = sum (factors n) == n
+
+insert _ n [] = [n]
+insert 0 n l = n:l 
+insert i n (x:xs) = x : insert (i-1) n xs
+
+mH (a, b, c) = c
+\end{verbatim}
+\end{small}
+
+\vspace{0.2cm}
+\solution{\input{solutions/exercise1.tex}}
+
+
+\item Some functions can be used with different argument types, but rarely with any type. Consider the square function, and identify which type is invalid. Please justify your answer. (1 pts)
+\begin{small}
+\begin{verbatim}
+        square :: Int -> Int
+        square :: Float -> Float
+        square :: Char -> Char
+        square :: Double -> Double
+\end{verbatim}
+\end{small}
+
+\solution{
+Invalid type for square is \\
+square :: Char - Char \\
+The compiler doesn't know how to multiply two Chars. \\
+Multiplication is needed to calculate the square. \\
+}
+
+\item Define a function to calculate the circumference of a circle and the area of a rectangle. It is required to define \textbf{a union type} containing the necessary parameters of a circle and a rectangle.          (2 pts)
+\begin{small}
+\begin{verbatim}
+Hints : 
+	   Circumference of a circle : 2 * 3.14 * r
+	   Area of a rectangle : l  * w 
+\end{verbatim}
+\end{small}
+
+\solution{\input{solutions/exercise2.tex}}
+
+\end{enumerate}
+
+\end{document}

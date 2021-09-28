@@ -1,0 +1,92 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+
+\usepackage{hyperref}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage{stmaryrd}
+
+
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Objects and Prototypes}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{myitemize}
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item Solutions to each assignment must be sent to \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\item The solutions of the assignments are to be delivered before every Thursday at 11 PM. Solutions handed in later than the specified time will not be accepted. In case of serious reasons send an e-mail to  \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\end{myitemize}
+
+
+\subsection*{Exercise (6 points)}
+
+
+\begin{enumerate}
+\item You should implement the \texttt{Person} prototype which has the following characteristics: (3 pts)
+
+\begin{enumerate}
+   \item The \texttt{name} property which is accessible by other objects of this prototype.
+   \item The \texttt{password} property which cannot be accessed by other objects of this prototype.
+   \item The \texttt{counter} property whose value is shared among all objects of this prototype.
+ \end{enumerate}
+
+You need to create two objects of this prototype in order to do the following tasks:
+
+\begin{enumerate}
+   \item Show how to access the \texttt{name} property in both objects.
+   \item What output do you get if you try to access the \texttt{password} property? How can you correct it?
+   \item How to access the \texttt{counter} property? If you change the value of the \texttt{counter} property in one object, does it affect the property value on the second object?
+ \end{enumerate}
+
+\emph{Note: please only submit your JavaScript code}
+
+\vspace{0.5cm}
+
+\solution{\input{solutions/exercise1}}
+
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\item A possible classification for animals is shown in Figure \ref{fig:ex2}. When it comes to classify the platypus you realize that it nurses but it also spawns. Therefore, implement the class diagram shown in figure \ref{fig:ex2} including the poor platypus in Java Script. Use the \href{http://scg.unibe.ch/download/lectures/pl-exercise21/Platypus.html}{Platypus.html} file as skeleton for your implementation. (3 pts)
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[width=0.4\columnwidth]{solutions/Ex2.pdf}
+\caption{Animal classification}
+\label{fig:ex2}
+\end{center}
+\end{figure}
+
+\solution{\input{solutions/poorPlatypusSolution.tex}}
+
+
+\end{enumerate}
+
+\end{document}

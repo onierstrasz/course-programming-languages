@@ -1,0 +1,16 @@
+and $\equiv$ $\lambda$~x y .~x y x \\
+	\indent\indent // if the first argument is \texttt{False}, the function should return \texttt{False}, \ie the first argument; \\
+	\indent\indent // if the first argument is \texttt{True}, the function should return the second argument\\
+or $\equiv$ $\lambda$~x y .~x x y \\
+	\indent\indent // if the first argument is \texttt{True}, the function should return \texttt{True}, \ie the first argument; \\
+	\indent\indent // if the first argument is \texttt{False}, the function should return the second argument\\
+
+\texttt{True and False = False}\\
+\indent\indent ($\lambda$~x y.~x y x)($\lambda$~x y.~x)($\lambda$~x y.~y) = \\
+\indent\indent ($\lambda$~x y.~x)($\lambda$~x y.~y)($\lambda$~x y.~x) = \\
+\indent\indent ($\lambda$~x y.~y) $\equiv$ \texttt{False} \\
+
+\texttt{True or False = True}\\
+\indent\indent ($\lambda$~x y.~x x y)($\lambda$~x y.~x)($\lambda$~x y.~y) = \\
+\indent\indent ($\lambda$~x y.~x)($\lambda$~x y.~x)($\lambda$~x y.~y) = \\
+\indent\indent ($\lambda$~x y.~x) $\equiv$ \texttt{True} \\

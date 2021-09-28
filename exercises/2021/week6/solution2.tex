@@ -1,0 +1,40 @@
+\textbf{Non-recursive form of \textit{append}:} \\ $app~\equiv~
+\lambda f~l_1~l_2.~if (null~l_1)~l_2~(cons~(head~
+l_1)~(f~(tail~l_1)~l_2))$\\
+$Y~app~\leftrightarrow~append$\\
+
+\noindent\textbf{Test:}
+
+$(Y~app)~L_1~L_2$
+
+$\equiv~app~(Y~app)~L_1~L_2$
+
+$\equiv~(\lambda l_1.\lambda l_2. if (null
+~l_1)l_2(cons~(head~l_1)((Y app)(tail~l_1)l_2)))L_1~L_2$
+
+$\equiv ~if(null~L_1)L_2(cons(head~L_1)((Y~app)(tail~L_1)L_2))$
+
+$\equiv~cons~1~((Y~app)(cons~2~nil)L_2)$
+
+$\equiv~cons~1~(app(Y~app)(cons~2~nil)L_2)$
+
+$\equiv~cons~1~(\lambda l_1.\lambda l_2. if
+(null~l_1)l_2(cons(head~l_1(Y~app)(tail~l_1)l_2))(cons~2~nil)L_2)$
+
+$\equiv~cons~1 (if(null(cons~2~nil))L_2(cons(head(cons~2~nil))((Y~
+app)(tail(cons~2~nil))L_2))$
+
+$\equiv~cons~1(cons~2((Y~app)(nil)L_2))$
+
+$\equiv~cons~1(cons~2(app(Y~app)(nil)L_2))$
+
+$\equiv~cons~1(cons~2(\lambda l_1.\lambda
+l_2.if(null~l_1)l_2(cons(head~l_1)((Y~app)(tail~l_1)l_2))nil~L_2))$
+
+$\equiv~cons~1(cons~2(if(null~nil)L_2(cons(head~nil)((Y~app)(tail~nil)L_2))))$
+
+$\equiv~cons~1(cons~2~L_2))$
+
+$\equiv~cons~1(cons~2(cons~3~nil))$
+
+$\equiv~[1,2,3]$

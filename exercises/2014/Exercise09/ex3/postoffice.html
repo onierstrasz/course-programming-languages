@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>Post Office</title>
+<script type="text/javascript">
+// Sample solution; Oscar Nierstrasz 2012.05.02
+var customer = {
+	name : '(unknown)',
+	priority : function() {
+		return false;
+	},
+	// Hint: define toString() to make an object printable 
+	toString : function() {
+		return this.name;
+	}
+}
+
+var bob = Object.create(customer);
+bob.name = 'Bob';
+var carol = Object.create(customer);
+carol.name = 'Carol';
+var ted = Object.create(customer);
+ted.name = 'Ted';
+var alice = Object.create(customer);
+alice.name = 'Alice';
+
+var special = Object.create(customer);
+special.priority = function() {
+	return true;
+}
+var ray = Object.create(special);
+ray.name = 'Ray';
+var ludwig = Object.create(special);
+ludwig.name = 'Ludwig';
+
+// Hint: use JavaScript arrays to represent queues.
+var customers = [ bob, carol, ray, ted, ludwig, alice ];
+
+// Hint: make Post Office a closure
+var postoffice = (function() {
+	var queue = [];
+	var counter = [ [], [] ];
+	var enterCustomer = function() {
+		if (customers.length > 0) {
+			var newCustomer = customers.shift();
+			if (newCustomer.priority()) {
+				queue.unshift(newCustomer);
+			} else {
+				queue.push(newCustomer);
+			}
+		}
+		updateQueue();
+	}
+	var updateQueue = function() {
+		updateCounter(1);
+		updateCounter(2);
+		updateDisplay();
+	}
+	var updateCounter = function(n) {
+		if (queue.length > 0) {
+			if (counter[n-1].length == 0) {
+				counter[n-1].push(queue.shift());
+			}
+		}
+	}
+	var updateDisplay = function() {
+		// Hint: use Array.join() to concatenate array elements
+		show('queue', queue.join(', '));
+		show('counter1', counter[0].join(', '));
+		show('counter2', counter[1].join(', '));
+	}
+	var serve = function(n) {
+		if (counter[n-1].length > 0) {
+			customers.push(counter[n-1].shift());
+		}
+		updateQueue();
+	}
+	return {
+		enterCustomer : enterCustomer,
+		serve : serve
+	}
+})();
+
+function show(id, text) {
+	document.getElementById(id).innerHTML = text;
+}
+</script>
+<style>
+table, th, td {
+	border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<h1>Post Office</h1>
+<p>Bob, Carol, Ted and Alice are regular customers. Ray and Ludwig are special customers with priority service, and always go to the head of the queue.</p>
+<table>
+	<tr>
+		<td><strong>Queue</strong></td>
+		<td id="queue"></td>
+	</tr>
+	<tr>
+		<td><strong>Counter 1</strong></td>
+		<td id="counter1"></td>
+	</tr>
+	<tr>
+		<td><strong>Counter 2</strong></td>
+		<td id="counter2"></td>
+	</tr>
+</table>
+<button type="button" onclick="postoffice.enterCustomer()">Customer enters</button>
+<button type="button" onclick="postoffice.serve(1)">Serve counter 1</button>
+<button type="button" onclick="postoffice.serve(2)">Serve counter 2</button>
+
+</body>
+</html> 
+

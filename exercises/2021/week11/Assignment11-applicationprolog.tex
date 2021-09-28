@@ -1,0 +1,144 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+
+\usepackage{hyperref}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{hyperref} % for figures
+\usepackage{listings} % for Java code
+\usepackage{color} % for Java code
+
+%========================JAVA CODE========================
+\definecolor{source}{gray}{0.9}
+\lstset{
+	% characters
+	tabsize=3,
+	upquote=true, % straight quote; requires textcomp package
+	escapechar={!},
+	keepspaces=true,
+	breaklines=false,
+	alsoletter={:},
+	breakautoindent=true,
+	columns=fullflexible,
+	showspaces=false,
+	showstringspaces=false,
+	basicstyle=\small\ttfamily,
+	% background
+	frame=single,
+   	framerule=0pt,
+	backgroundcolor=\color{source},
+	% numbering
+	numbersep=10pt,
+	stepnumber=1,
+	numberstyle=\tiny,
+	numberfirstline=true,
+	% captioning
+	captionpos=b,
+	numberbychapter=false}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+%Java listing
+\lstdefinestyle{Java}{
+	language=Java,
+	keywordstyle=\color{javapurple}\bfseries,
+	stringstyle=\color{javared},
+	commentstyle=\color{javagreen},
+	morecomment=[s][\color{javadocblue}]{/**}{*/}
+}
+\newcommand{\jlct}{\lstinline[backgroundcolor=\color{white},style=Java]}
+%========================================================
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Applications of Logic Programming}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{myitemize}
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item Solutions to each assignment must be sent to \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\item The solutions of the assignments are to be delivered before every Thursday at 11 PM. Solutions handed in later than the specified time will not be accepted. In case of serious reasons send an e-mail to  \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\end{myitemize}
+
+
+\subsection*{Exercise (6 points)}
+
+
+\begin{enumerate}
+\item Using the \emph{partition} predicate, write a program to ask for a number and then break a given list into smaller and greater lists (2 pts)
+
+\emph{Note:} you need to define a predicate asking for a number whereby the list will be broken into smaller and greater lists. The predicate should be passed as the first argument to the partition predicate (a similar example exists on slide 9).
+
+\vspace{0.5cm}
+
+\solution{\fontsize{9pt}{11pt}\verbatiminput{solutions/ex2.tex}}
+%----------------------------------------------------------------------------
+\item Create a finite collection of definite clause grammar rules to check whether a sentence is grammatically correct. 
+%
+A sentence can be composed of the following words: (4 pts)
+\begin{description}
+	\item [\texttt{article}] \texttt{a}, \texttt{the}
+	\item [\texttt{noun}] \texttt{girl}, \texttt{boy}
+	\item [\texttt{pronoun}] \texttt{that}, \texttt{this}
+	\item [\texttt{auxiliary}] \texttt{is}
+	\item [\texttt{verb}] \texttt{sleeps}, \texttt{likes}.
+\end{description}
+%
+A sentence must be in one of the following forms \texttt{subject-predicate} and \\ \texttt{subject-predicate-object}.
+%
+\begin{itemize}
+\item \texttt{subject} is formed out of either an \texttt{article} and a \texttt{noun}, or a \texttt{pronoun}. For example, \texttt{a girl} or \texttt{that}.
+\item \texttt{predicate} is either an \texttt{auxiliary} or a \texttt{verb}
+\item \texttt{object} is formed out of an \texttt{article} and a \texttt{noun}
+\end{itemize}
+%
+In the \texttt{subject-predicate} form of a sentence, the \texttt{predicate} can be only \texttt{sleeps}.
+%
+In the \texttt{subject-predicate-object} form of a sentence the verb can be either \texttt{likes} or \texttt{is}. If the \texttt{predicate} is \texttt{likes}, the 		\texttt{subject} is composed of an \texttt{article} and a \texttt{noun}. If the \texttt{predicate} is \texttt{is}, the \texttt{subject} is a \texttt{pronoun}.\\ \\
+%\\
+\\
+\textbf{Write a Prolog question to produce all correct sentences in the grammar. You can check your grammar by phrase(Your-predicate-sentence(),X).}\\ \\
+%
+You can test your program with the following examples: \\
+\texttt{this is a sleeps // False} \\
+\texttt{this is a likes // False} \\
+\texttt{the boy likes // False} \\
+\texttt{that boy likes // False} \\
+\texttt{a boy the the girl // False} \\
+\texttt{this is a boy // True} \\
+\texttt{that is the girl // True} \\
+\texttt{the girl likes a girl // True}
+
+
+\solution{\fontsize{9pt}{11pt}\verbatiminput{solutions/ex1.tex}}
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+
+\end{enumerate}
+
+\end{document}

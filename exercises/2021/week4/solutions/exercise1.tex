@@ -1,0 +1,19 @@
+\texttt{factors :: Int -> [Int]}\\
+since both \texttt{n} and \texttt{x} are arguments of the function \texttt{mod} which accepts only the \texttt{Int} arguments\\
+\\
+\texttt{isPerfect :: Int -> Bool}\\
+since \texttt{n} is an argument of the function \texttt{factors} which accepts only the \texttt{Int} arguments,\\
+and \texttt{== :: Eq a => a -> a -> Bool}\\
+\\
+Both functions are monomorphic.\\
+\texttt{-----------------------------------------------------------------------}\\
+\texttt{insert :: Int -> a -> [a] -> [a]}\\
+since\\
+\texttt{insert \_ n l = [n] => insert :: a->b->c->[b]}\\
+\texttt{insert 0 n l = n:l => insert :: Int->b->[b]->[b]}\\
+The \texttt{insert} function is polymorphic.
+
+\texttt{mH (a, b, c) = c} \\
+
+\texttt{mH :: (x, y, z) -> z}\\
+mH is polymorphic since the three elements a, b, and c may be of any type. \\

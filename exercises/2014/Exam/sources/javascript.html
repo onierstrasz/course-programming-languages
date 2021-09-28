@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Teaching Assisten</title>
+
+<script type="text/javascript"> 
+function display(whatever) {
+    document.getElementById("output").innerHTML += whatever + "\n";
+}
+
+/*
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+Person.prototype.getName = function() {
+    return this.name;
+}
+
+Person.prototype.getAge = function() {
+    return this.age;
+}
+*/
+
+var person = {
+    name : "<unknown>",
+    age: 0,
+    
+    getName : function() {
+        return this.name;
+    },
+
+    getAge : function() {
+        return this.age;
+    }
+}
+
+
+var alice = Object.create(person);
+alice.name = "Alice";
+alice.age = 22;
+
+var bob = Object.create(person);
+bob.name = "Bob";
+bob.age = 29;
+
+var cyril = Object.create(person);
+cyril.name = "Bob";
+cyril.age = 45;
+
+
+var student = Object.create(person);
+student.studentRabat = function() {
+    if (this.age < 25) return "10%" 
+    else return "0%";
+}
+
+var teacher = Object.create(person);
+teacher.entranceAllowed = function() {
+    return true ;
+}
+
+
+alice.__proto__ = student;
+bob.__proto__ = student;
+cyril.__proto__ = teacher;
+
+
+person.email = function() {
+    return this.name + "@unibe.ch";
+}
+
+bob.entranceAllowed = teacher.entranceAllowed;
+
+
+</script>
+</head>
+
+<body>
+<div>
+<a href="#" onclick='display(alice.getName());'>alice name</a><br />
+<a href="#" onclick='display(alice.studentRabat());'>alice rabat</a><br />
+<a href="#" onclick='display(alice.email());'>alice email</a><br />
+<a href="#" onclick='display(bob.getName());'>bob name</a><br />
+<a href="#" onclick='display(bob.entranceAllowed());'>bob entrance</a><br />
+<a href="#" onclick='display(bob.studentRabat());'>bob rabat</a><br />
+<a href="#" onclick='display(cyril.entranceAllowed());'>cyril entrance</a><br />
+</div>
+<pre id='output'>Output: 
+</pre>
+
+</body>

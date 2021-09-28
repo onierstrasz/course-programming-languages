@@ -1,0 +1,41 @@
+The problem is that variables \texttt{cx} and \texttt{cy} get redefined on the stack, since there is no defined dictionary for any of procedures. The correct code is:
+\begin{small}
+\begin{verbatim}
+/squaresDict 8 dict def % defined dictionary for the squares procedure
+/squareDict 10 dict def % defined dictionary for the square procedure
+/squares {
+   squaresDict begin % dictionary for the squares procedure
+   /n exch def
+   /size exch def
+   /cy exch def
+   /cx exch def
+   0 1 n {
+      /i exch def
+      cx i 10 mul add
+      cy i 10 mul add
+      size
+      i n div
+      square
+   } for
+   end % end dictionary
+} def
+/square{
+   squareDict begin % dictionary for the square procedure
+   /grayScale exch def
+   /size exch def
+   /halfSize size 2 div def
+   /cy exch def
+   /cx exch def
+   cx halfSize sub cy halfSize sub moveto
+   cx halfSize sub cy halfSize add lineto
+   cx halfSize add cy halfSize add lineto
+   cx halfSize add cy halfSize sub lineto
+   closepath
+   grayScale setgray
+   fill
+   end %end dictionary
+} def
+% usage cx cy size n squares
+200 300 100 10 squares
+\end{verbatim}
+\end{small}

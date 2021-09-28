@@ -1,0 +1,46 @@
+\noindent
+Create a finite collection of definite clause grammar rules to check whether a sentence is grammatically
+correct. A sentence can be composed of the following words:
+%
+\begin{description}
+	\item [\texttt{Subject pronoun:}] \texttt{he}, \texttt{she}, \texttt{you}.
+	\item [\texttt{Wh pronoun:}] \texttt{what}, \texttt{where}.
+	\item [\texttt{Verb:}] \texttt{play}, \texttt{paint}.
+	\item [\texttt{Auxiliary:}] \texttt{did}.
+    \item [\texttt{Verb, past tense:}] \texttt{played}, \texttt{painted}.
+
+\end{description}
+%
+A sentence must be in the form \texttt{subject-predicate} or \texttt{wh pronoun-auxiliary-subject pronoun-verb?}.
+%
+\\
+Predicate means either an auxiliary or verb past tense.
+\\
+%
+Note: The resulting sentence must be a simple past tense, either in the form of a sentence or question.
+\\ \\
+You can test your program with the following examples: \\
+\texttt{she painted // True} \\
+\texttt{you painted // True} \\
+\texttt{he painted // True} \\
+\texttt{she played // True} \\
+\texttt{she did // True } \\
+\texttt{what did she paint // True} \\
+\texttt{where did he play // True} \\
+\texttt{he did painted // False} \\
+\texttt{he what painted // False} \\
+\texttt{what did she painted // False} \\
+\texttt{where did you played // False} \\
+
+\newpage
+\begin{enumerate}
+    \item (10 points) Write all necessary definite clause grammar rules.
+    
+    \vspace{14cm}
+    
+    \item (3 points) Write a Prolog question to produce all the correct sentences in the grammar.
+\end{enumerate}
+
+
+
+

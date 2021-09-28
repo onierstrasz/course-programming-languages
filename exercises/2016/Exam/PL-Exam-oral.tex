@@ -1,0 +1,128 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+%\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\newcommand{\yellowbox}[1]{\fcolorbox{yellow}{yellow}{\bfseries\sffamily\scriptsize#1}}
+\newcommand{\nb}[2]{{\yellowbox{#1}\yellowbox{#2}}}
+
+\newcommand\todo[1]{\nb{TO DO}{#1}}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} 
+%\setboolean{showsolution}{false}
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution }{}\xspace{}Exam Programming Languages}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\exercise{PostScript}
+\noindent
+%
+
+%A very junior programmer wanted to write the ``hello world'' program in Postscript. Here is the result: 
+
+\begin{small}
+\begin{verbatim}
+/box {          
+    newpath
+    moveto 
+    0 150 rlineto
+    150 0 rlineto
+    0 -150 rlineto
+    closepath
+    setgray
+    fill
+} def
+
+0 100 100 box
+0.4 200 200 box
+0.6 300 300 box
+0 setgray
+
+showpage
+
+\end{verbatim}
+\end{small}
+
+\newpage
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\exercise{Haskell}
+\noindent
+Write a function in Haskell that checks if a number is prime. A natural number (i.e. 1, 2, 3, 4, 5, 6, etc.) is called a prime number (or a prime) if it has exactly two positive divisors, 1 and the number itself.
+
+
+\newpage
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\exercise{Lambda Calculus}
+\noindent
+%
+Consider the following $\lambda$-expression. Indicate which occurrences of variables are bound and which ones are free in the expressions and reduce it to its normal form if possible.
+\\
+
+
+\texttt{(($\lambda$ a b .~a b c) ($\lambda$ x y z .~z y x))($\lambda$ f .~q f) } \vspace{1cm}
+
+\newpage
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\exercise{12 Points}
+\noindent What is the output of the following program:
+
+\begin{verbatim}
+var alien = {
+  kind: 'alien',
+  voice: 'ugabuga'
+}
+
+var person = {
+  kind: 'person',
+}
+
+var zack = {};
+
+zack.__proto__ = alien;
+console.log(zack.kind);
+
+zack.__proto__ = person;
+console.log(zack.kind);
+
+person.__proto__ = alien;
+console.log(zack.kind);
+console.log(zack.voice);
+\end{verbatim}
+
+
+\newpage
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\exercise{Prolog}
+Consider the following knowledge base:
+\begin{verbatim}
+  ...
+  loves(vincent,mia). 
+  loves(mia, vincent). 
+  loves(joe,mia).  
+  loves(joe, joe).
+  ...
+\end{verbatim}
+
+Define the following rules:
+\begin{enumerate}
+\item potentialCouple(X,Y) - if both X and Y love each other
+\item thirdWheel(X,Y,Z) - if both X and Y love each other and Z is in love with one of them
+\end{enumerate}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\end{document}

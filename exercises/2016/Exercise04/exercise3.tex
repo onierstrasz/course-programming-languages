@@ -1,0 +1,27 @@
+a) invalid type for square is
+square :: Char -> Char
+
+The compiler doesn't know how to multiply two Chars.
+You need the multiplication to calculate the square.
+
+b) invalid type for == is
+== :: (Int -> Int) -> (Int -> Int) -> Bool
+It is not implemented and the sense of implementing is questionable.
+It would mean to compare functions. Comparing functions is problematic in general,
+because this means to compare the semantics. Besides, it would be necessary to compare
+all possible values of the functions -> possibly infinitely many
+
+Note that
+== :: (Int -> Int) -> (Int -> Int) -> Bool
+means for example
+(\x -> x) == (\x -> x*x)
+and not
+(\x -> x) 4 == (\x -> x*x) 2
+
+A possible way to implement it is to compare the mappings of both functions
+== :: (Int -> Int) -> (Int -> Int) -> Bool
+(a == b) = (map a [-65535..65535] == map b [-65535..65535])
+It may work in some special cases, but in general it won't since
+we have to make sure that both functions terminate once. We don't
+have to care about false types as return values, since we're
+restricted to  Int -> Int functions.

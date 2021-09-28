@@ -1,0 +1,37 @@
+\begin{verbatim}
+var animal = {}
+
+var mammal = Object.create(animal);
+mammal.numberofNipples = 2;
+mammal.nurse = function () {
+	alert("I am nursing");
+}
+mammal.getNumberOfNipples = function(){
+	alert(this.numberofNipples);
+}
+
+dolphin = Object.create(mammal);
+dolphin.numberofNipples = 4;
+dolphin.swim = function() {
+	alert("I am swimming");
+}
+
+var oviparus = Object.create(animal);
+oviparus.spawn = function() {
+	alert("I am spawning");
+}
+
+var snake = Object.create(oviparus);
+snake.crawl = function() {
+	alert("I am crawling");
+}
+
+var platypus = Object.create(mammal);
+platypus.numberofNipples = 6;
+platypus.spawn = oviparus.spawn;
+
+function display(text) {
+	document.getElementById("output").innerHTML += text + "\n";
+}
+\end{verbatim}
+

@@ -1,0 +1,35 @@
+\begin{itemize}
+\item
+\begin{verbatim}
+magic n
+   | n < 10 = n
+   | otherwise = (n `mod` 10) * magic (n `div` 10)
+\end{verbatim}
+%
+\item
+\begin{verbatim}
+len [] = 0
+len (x:xs) = 1 + len xs
+
+number [] = 0
+number [x] = x
+number (x:xs) = x * 10 ^ (len xs) + number xs
+\end{verbatim}
+%
+\item
+\texttt{apply ::}\\
+\texttt{a -> b -> c -> d}~ since \texttt{apply} takes three arguments and returns something\\
+\texttt{a -> b -> c -> [e]}~ since \texttt{d} is of type list\\
+\texttt{(f -> g) -> b -> c -> [e] }~ since \texttt{f} takes one argument\\
+\texttt{(Ord h => f -> h) -> b -> c -> [e] }~ since \texttt{< :: Ord a => a -> a -> Bool}\\
+\texttt{(Ord h => c -> h) -> b -> c -> [e] }~ since \texttt{f} takes \texttt{x} as an argument\\
+\texttt{(Ord h => c -> h) -> (i -> j) -> c -> [e] }~since \texttt{g} takes one argument\\
+\texttt{(Ord h => c -> h) -> (c -> j) -> c -> [e] }~since \texttt{g} takes \texttt{x} as an argument\\
+\texttt{(Ord h => c -> h) -> (c -> e) -> c -> [e] }~since \texttt{g x} is part of the resulting list\\
+\texttt{(Ord e => c -> e) -> (c -> e) -> c -> [e] }~since \texttt{f x} is part of the resulting list\\
+\\
+The result is:\\
+\texttt{:type apply}\\
+\texttt{apply :: (Ord a => b -> a) -> (b -> a) -> b -> [a] }\\
+The function is polymorphic, since both \texttt{c} and \texttt{e} can be distinct types.
+\end{itemize}

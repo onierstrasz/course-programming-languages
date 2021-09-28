@@ -1,0 +1,128 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+
+\usepackage{hyperref}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{hyperref} % for figures
+\usepackage{listings} % for Java code
+\usepackage{color} % for Java code
+
+%========================JAVA CODE========================
+\definecolor{source}{gray}{0.9}
+\lstset{
+	% characters
+	tabsize=3,
+	upquote=true, % straight quote; requires textcomp package
+	escapechar={!},
+	keepspaces=true,
+	breaklines=false,
+	alsoletter={:},
+	breakautoindent=true,
+	columns=fullflexible,
+	showspaces=false,
+	showstringspaces=false,
+	basicstyle=\small\ttfamily,
+	% background
+	frame=single,
+   	framerule=0pt,
+	backgroundcolor=\color{source},
+	% numbering
+	numbersep=10pt,
+	stepnumber=1,
+	numberstyle=\tiny,
+	numberfirstline=true,
+	% captioning
+	captionpos=b,
+	numberbychapter=false}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+%Java listing
+\lstdefinestyle{Java}{
+	language=Java,
+	keywordstyle=\color{javapurple}\bfseries,
+	stringstyle=\color{javared},
+	commentstyle=\color{javagreen},
+	morecomment=[s][\color{javadocblue}]{/**}{*/}
+}
+\newcommand{\jlct}{\lstinline[backgroundcolor=\color{white},style=Java]}
+%========================================================
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Logic programming}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{myitemize}
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item Solutions to each assignment must be sent to \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\item The solutions of the assignments are to be delivered before every Thursday at 11 PM. Solutions handed in later than the specified time will not be accepted. In case of serious reasons send an e-mail to  \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\end{myitemize}
+
+
+\subsection*{Exercise (6 points)}
+
+
+\begin{enumerate}
+\item We will build a genealogy that covers relations in a family. Consider a genealogy database consisting of the following predicates: (3 pts)
+%
+\begin{verbatim}
+  female(X), male(X), parent(X,Y)
+\end{verbatim}
+%
+\noindent Define rules allowing you to determine the following relations:
+%
+\begin{verbatim}
+  grandfather(X,Y), grandmother(X,Y), grandparent(X,Y),
+  grandson(X,Y), granddaughter(X,Y), grandchild(X,Y)
+\end{verbatim}
+
+\vspace{0.5cm}
+
+\solution{\input{solutions/db2}}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+\item Using the following weekly schedule, write the necessary facts and a rule in order to output days as well as the associated programs and difficulty levels. (3 pts)
+
+\begin{verbatim}
+  monday - english - simple
+  tuesday - programming - medium
+  tuesday - ai - hard
+  wednesday - hacking - hard
+  thursday - networking - medium
+  friday - pl - easiest 
+\end{verbatim}
+
+\vspace{0.5cm}
+
+\solution{\input{solutions/db}}
+
+\end{enumerate}
+
+\end{document}

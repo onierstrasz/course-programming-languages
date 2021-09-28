@@ -1,0 +1,63 @@
+\begin{verbatim}
+<html>
+<head>
+<title>Platypus</title>
+<script type="text/javascript">
+
+var animal = {}
+
+var mammal = Object.create(animal);
+mammal.numberofNipples = 2;
+mammal.nurse = function () {
+	alert("I am nursing");
+}
+mammal.getNumberOfNipples = function(){
+	alert(this.numberofNipples);
+}
+
+dolphin = Object.create(mammal);
+dolphin.numberofNipples = 4;
+dolphin.swim = function() {
+	alert("I am swimming");
+}
+
+var oviparus = Object.create(animal);
+oviparus.spawn = function() {
+	alert("I am spawning");
+}
+
+var snake = Object.create(oviparus);
+snake.crawl = function() {
+	alert("I am crawling");
+}
+
+var platypus = Object.create(mammal);
+platypus.numberofNipples = 6;
+platypus.spawn = oviparus.spawn;
+
+function display(text) {
+	document.getElementById("output").innerHTML += text + "\n";
+}
+
+</script>
+</head>
+<body>
+<pre id="output">
+</pre>
+<a href="#" onClick="mammal.getNumberOfNipples();">mammal's number of nipples</a> <br/><br/>
+
+<a href="#" onClick="dolphin.swim();">dolphin swimming</a> <br/><br/>
+<a href="#" onClick="dolphin.nurse();">dolphin's nursing</a> <br/><br/>
+<a href="#" onClick="dolphin.getNumberOfNipples();">dolphin number of nipples</a> <br/><br/>
+
+
+<a href="#" onClick="snake.crawl();">snake crawling</a> <br/><br/>
+<a href="#" onClick="snake.spawn();">snake spawning</a> <br/><br/>
+
+<a href="#" onClick="platypus.nurse();">platypus nursing</a> <br/><br/>
+<a href="#" onClick="platypus.spawn();">platypus spawning</a> <br/><br/>
+<a href="#" onClick="platypus.getNumberOfNipples();">platypus's number of nipples</a> <br/><br/>
+</body>
+</html>
+\end{verbatim}
+

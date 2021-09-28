@@ -1,0 +1,12 @@
+sentence(Number) --> noun_phrase(Number), verb_phrase(Number).
+noun_phrase(Number) --> determiner(Number), noun(Number).
+verb_phrase(Number) --> verb(Number).
+
+determiner(singular) --> [a].
+determiner(_)   --> [the].
+determiner(plural)   --> [].
+noun(singular) --> [girl].
+noun(plural)   --> [girls].
+verb(singular) --> [likes].
+verb(plural)   --> [like].
+

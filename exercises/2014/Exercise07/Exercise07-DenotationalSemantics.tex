@@ -1,0 +1,73 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+
+\usepackage{sverb}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution }{}\xspace{}Serie 7 - Denotational Semantics}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 1}
+Answer the following questions:
+
+\begin{myitemize}
+\item What is the difference between syntax and semantics?
+\solution{Syntax: the arrangement of words and phrases to create well-formed sentences in a language \\
+Semantics: the meaning of a word, phrase, sentence or text\\
+You can create well-formed sentences (according to the syntax) that don't have a meaning (according to semantics).}
+
+\item How can you specify semantics as mappings from syntax to behaviour?
+\solution{This is done by the semantics (operational, denotational, axiomatic or structured operational). They specify an output for each syntactically correct input and how to interpret it ([[input]]). This mapping is of course not a bijection by default.}
+
+\item Does the calculator semantics specify strict or lazy evaluation?
+\solution{It is lazy. Operators are always evaluated first, then their arguments.
+If you consider the Expression \texttt{E1+E2} and evaluate it, you'll get \texttt{E1 '+' E2}, that is, first '+' is mapped. If it were strict, you would have had \texttt{[[E1+E2]] -> [[ [[E1]] + E2 ]]} etc.}
+
+\item Does the implementation of the calculator semantics use strict or lazy evaluation?
+\solution{It is lazy. Same argument as above. If it were strict, the expression \texttt{ee (Plus e1 e2) n} evaluated would be \texttt{ee (Plus (ee e1 n) e2) n}.}
+
+\item Why are semantic functions typically higher oder?
+\solution{It's easier to modell environments with high order functions.}
+\end{myitemize}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 2}
+
+Consider a language of decimal numerals. The numeral \textbf{'123'} is intended to denote the number \textbf{123}, and \textbf{'876'} to denote the number \textbf{876}. We define the \emph{syntax} of decimal numerals as:
+
+\begin{small}
+\begin{verbatim}
+        Numeral ::= Digit
+                 | Numeral Digit
+        Digit := 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+\end{verbatim}
+\end{small}
+
+\noindent Define the semantic functions and the domain of this language. As a test evaluate \textbf{'876'}.
+\\\\
+\solution{$
+value: Numeral \rightarrow Natural\\
+value[[Numeral~Digit]]= 10 \times value[[Numeral]] + value[[Digit]]\\
+value[[0]]=0, value[[1]]=1, ...\\
+$
+Test:\\
+$ value[[876]]=10 \times value[[87]] + value[[6]] = 10 \times (10 \times value[[8]] + value[[7]]) + value[[6]] = 10 \times (10 \times 8 + 7) + 6 = 876 $
+}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+\end{document}

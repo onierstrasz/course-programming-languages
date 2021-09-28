@@ -1,0 +1,33 @@
+\begin{verbatim}
+%!
+/olympicCircle{
+0 0 45 0 360 arc 8 setlinewidth stroke
+0 0 40 0 360 arc 3 setlinewidth 1 1 1 setrgbcolor stroke
+0 0 50 0 360 arc 3 setlinewidth 1 1 1 setrgbcolor stroke
+} def
+
+/smallarctop{
+0 0 45 -45 10 arc 8 setlinewidth stroke
+0 0 40 -45 10 arc 3 setlinewidth 1 1 1 setrgbcolor stroke
+0 0 50 -45 10 arc 3 setlinewidth 1 1 1 setrgbcolor stroke
+}def
+
+/smallarcbottom{
+0 0 45 -125 -92 arc 8 setlinewidth stroke
+0 0 40 -125 -92 arc 3 setlinewidth 1 1 1 setrgbcolor stroke
+0 0 50 -125 -92 arc 3 setlinewidth 1 1 1 setrgbcolor stroke
+}def
+
+
+200 200 translate 0 1 1 setrgbcolor stroke olympicCircle
+110 0 translate  0 0 0 setrgbcolor stroke olympicCircle
+110 0 translate 1 0 0 setrgbcolor stroke olympicCircle
+-165 -55 translate 1 1 0 setrgbcolor stroke olympicCircle
+110 0 translate 0 1 0 setrgbcolor stroke olympicCircle
+
+-165 55 translate 0 1 1 setrgbcolor stroke smallarctop
+110 0 translate  0 0 0 setrgbcolor stroke smallarctop 0 0 0 setrgbcolor stroke smallarcbottom
+110 0 translate 1 0 0 setrgbcolor stroke smallarcbottom
+
+showpage
+\end{verbatim}

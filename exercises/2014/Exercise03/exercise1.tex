@@ -1,0 +1,17 @@
+\fontsize{8pt}{10pt}
+\begin{verbatim}
+triangular 0            = 0
+triangular n            = n + triangular (n-1)
+
+triangular' n           = triangularh' n 0
+triangularh' 0 res      = res
+triangularh' n res      = triangularh' (n-1) (res+n)
+
+tetrahedral 0        = 0
+tetrahedral n        = (triangular n) + (tetrahedral (n-1))
+
+tetrahedral' n
+	| n == 1        = 1
+	| n > 1         = (triangular n) + (tetrahedral' (n - 1))
+	| otherwise	    = error "tetrahedral: illegal argument"
+\end{verbatim}

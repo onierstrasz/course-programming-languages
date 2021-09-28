@@ -1,0 +1,41 @@
+\begin{enumerate}
+% 1. Name three programming paradigms/styles and note their unique characteristic.
+\item 
+	\begin{description}
+	\item [imperative] program = algorithms + data
+	\item [functional] working in the terms of mathematical function, the state of a variable cannot be modified
+	\item [logic] a program is decomposed into facts and rules, used to develop new facts, that is express thing that you know and rules for inferring new thing
+	\item [OO] good for modeling
+	\end{description}
+% 2. How do you compute (1 + 3) * 2 in a stack-based language like PostScript? Note the contents of the stack after each operation.
+\iffalse
+\item
+	1 \% 1\\
+	3 \% 1 3\\
+	add \% 4\\
+	2 \% 4 2\\
+	mul \% 8
+\fi
+% 3. Can there be a side effect in a functional programming language? Justify your answer.
+%\item No, since the state of a variable cannot be modified. \texttt{f(x) + f(x) = 2 * f(x)} is always true in a pure functional language.
+% 4. Is there any difference between two following Haskell code examples? Justify your answer.
+\item The first function is curried. \texttt{times} is a function of one argument that returns a function as its result. The second code examples represents the \texttt{times} function of two arguments.
+% 5. What is the difference between monomorphic and polymorphic type? Is the following Haskell function monomorphic or polymorphic? Why?
+\item  ``Monomorphic'' means ``every value has a single, unique type''. ``Polymorphic'' means that a value can have more than one type. The function is polymorphic, since it accepts a list whose elements can be any type on which the \texttt{+} function can be applied.
+% 6. What is a normal form of a $\lambda$ expression? How does one reach it? Does the expression...
+\item A $\lambda$ expression is in normal form if it can no longer be reduced by beta or eta reduction rules. A $\lambda$ expression can be reduced to its normal form by applying beta or eta reduction rules. Yes, it has the normal form: \texttt{y}, obtained by the application of one eta reduction.
+% 7. Is it possible to express recursion in $\lambda$ calculus? Justify your answer.
+\item It is not possible to express recursion in $\lambda$ calculus, since we cannot bind a name to ``global function'', but we can only work with anonymous $\lambda$s.
+% 8. What is the difference between abstract and concrete syntax?
+\item Concrete syntax is needed for parsing. Abstract syntax suffices for semantics specifications.
+% 9. What is static semantics and what is dynamic semantics?
+\item The static semantics tells us which (syntactically valid) programs are semantically valid (i.e., which are type correct) and the dynamic semantics tells us how to interpret the meaning of valid programs.
+% 12. How are questions answered in a Prolog program?
+\item Questions in Prolog are answered by: 
+	\begin{itemize}
+	\item matching goals against facts or rules (resolution), 
+	\item unifying variables with terms (unification), and
+	\item backtracking when subgoals fail.
+	\end{itemize}
+\end{enumerate}
+

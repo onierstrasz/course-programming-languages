@@ -1,0 +1,14 @@
+/Times-Roman findfont
+    18 scalefont
+    setfont
+100 500 moveto
+
+/myprint {
+    /mystring exch def
+    mystring show
+} def
+
+/mystring (World) def
+(Hello) myprint
+mystring myprint
+showpage

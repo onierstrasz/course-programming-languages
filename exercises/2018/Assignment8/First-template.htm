@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>University of Bern</title>
+</head>
+
+<body>
+
+
+<script type="text/javascript">
+// After creation of your prototype, you need to define at least 2 objects to validate your prototype
+class ClassicalGreeting {
+	  constructor(greeting = "Hello", name = "World") {
+	    this.greeting = greeting
+	    this.name = name
+}
+
+	  greet() {
+	    return `${this.greeting}, ${this.name}!`
+	  }
+	}
+
+	const classyGreeting = new ClassicalGreeting("Hey", "folks")
+
+	console.log(classyGreeting.greet())
+	
+	
+</script>
+
+
+
+</body>
+
+</html>

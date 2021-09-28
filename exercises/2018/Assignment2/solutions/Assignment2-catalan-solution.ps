@@ -1,0 +1,59 @@
+/LM 100 def
+/UM 700 def
+/FS 18 def
+/showNum {100 string cvs show} def
+
+/Times-Roman findfont
+FS scalefont
+setfont
+
+/catalanDict 2 dict def
+/factorialDict 2 dict def
+
+/factorial{
+	factorialDict begin
+	dup 1 lt
+	{ pop 1 }
+	{ 	dup
+		1
+		sub
+		factorial
+		mul
+	}
+	ifelse
+	end
+	} def
+
+/newLine {
+	currentpoint exch pop
+	FS 2 add sub
+	LM exch moveto
+} def
+
+/catalans {
+	catalanDict begin
+		/n exch def
+		n 0 ge {
+			0 1 n {
+				/i exch def
+				(C \( n = ) show
+				i showNum
+				( \) = ) show
+				i 2 mul factorial
+				i 1 add factorial
+				i factorial
+				mul
+				div
+				showNum
+				newLine
+			} for
+		} {
+			(Inserted number is less than zero.) show
+		} ifelse
+	end
+} def
+
+
+%Usage n Catalan
+LM UM moveto
+17 catalans

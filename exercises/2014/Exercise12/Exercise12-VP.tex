@@ -1,0 +1,34 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{hyperref}
+
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+\setboolean{showsolution}{false}
+
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution }{}\xspace{}Serie 12 - Visual Programming}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\subsection*{Exercise 1: Scratch Demo} 
+
+Create a program for your mother / father / younger sister / younger brother demonstrating the loops and if statements.
+Use scratch \url{http://scratch.mit.edu/projects/editor/?tip\_bar=getStarted}.
+Submit the \texttt{sb2} file into your repo.
+
+
+\end{document}

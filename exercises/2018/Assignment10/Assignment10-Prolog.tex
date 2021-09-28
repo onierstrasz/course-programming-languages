@@ -1,0 +1,50 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution }{}\xspace{} Logic Programming}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 1}
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\begin{enumerate}
+
+\item You need to build a genealogy that covers relations in a family. The following predicates must be considered in your database: 
+
+\begin{verbatim}
+  female(X), male(X), parent(X,Y), 
+  mother(X,Y), father(X,Y),
+  sister(X,Y), brother(X,Y)
+\end{verbatim}
+%
+\noindent Define rules allowing you to determine the following relations:
+%
+\begin{verbatim}
+  grandfather(X,Y), grandmother(X,Y), grandparent(X,Y),
+  son(X,Y), daughter(X,Y), child(X,Y),
+  grandson(X,Y), granddaughter(X,Y), grandchild(X,Y)
+\end{verbatim}
+
+\solution{\fontsize{8pt}{10pt}\verbatimtabinput{solutions/ex1.tex}}
+
+%% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+\end{enumerate}
+
+
+\end{document}

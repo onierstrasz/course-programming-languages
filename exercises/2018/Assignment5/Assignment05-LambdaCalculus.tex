@@ -1,0 +1,85 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{moreverb}
+\usepackage{amssymb}
+
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true} %set it either to true or false
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{} Lambda Calculus}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\subsection*{Instructions:}
+
+\textbf{Solutions of the exercises are to be delivered before Wednesday, the 11th of April at 10:15AM.}\\
+Solutions should be placed in a separate folder with the name ``\textbf{Assignment05}''.\\
+Please submit answers to all the exercises in \textbf{one} text file.\\
+
+\subsection*{Exercise 1 (2 points)}
+%=============================================================================
+
+Consider the following $\lambda$-expressions. Indicate which occurrences of
+variables are bound and which ones are free in the expressions.
+\begin{enumerate}
+\item \texttt{($\lambda$ x .~x) y ($\lambda$ y .~y x) x}
+
+\item \texttt{(($\lambda$ x .~$\lambda$ y .~$\lambda$ z .~x y z ) ($\lambda$ x. y x) y) ($\lambda$ x .~z x)}
+
+\end{enumerate}
+
+\solution{\fontsize{9pt}{11pt}\verbatimtabinput{solutions/exercise1.tex}}
+
+%
+%=============================================================================
+\subsection*{Exercise 2 (2 points)}
+%=============================================================================
+
+Define boolean functions \verb!and! and \verb!or! in Lambda Calculus and show that \texttt{True and False  = False} and \texttt{True or False = True} based on the definitions of \texttt{True} and \texttt{False} functions from the lecture hours.
+
+\newpage
+\solution{\fontsize{9pt}{11pt}\input{solutions/exercise2.tex}}
+
+%
+%=================================================
+\subsection*{Exercise 3 (2 points)}
+%=================================================
+
+Reduce the following $\lambda$-expressions to their normal form where possible. 
+
+\begin{enumerate}
+\item \texttt{($\lambda$ x. ($\lambda$ z . z y) x )($\lambda$ x . x)}
+\item \texttt{($\lambda$ x. x x y)($\lambda$ x . x x y)}
+
+\vspace{0.2cm}
+\solution{\fontsize{9pt}{11pt}\input{solutions/exercise3.tex}}
+
+
+\end{enumerate}
+
+
+\end{document}

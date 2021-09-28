@@ -1,0 +1,125 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution }{}\xspace{}Serie 4 - Types in Haskell}
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 1}
+Infer the types of the following functions and say whether they are
+monomorphic or polymorphic functions. Justify your answer.
+\begin{enumerate}
+\renewcommand{\theenumi}{\alph{enumi}}
+
+\item \texttt{xor a b = a $\&$$\&$ not b || b $\&$$\&$ not a}
+
+\item \texttt{containsChar c s = elem (toLower c) s}
+
+\item \texttt{third (a, b, c) = c}
+
+\item \texttt{length [] = 0\\ length (x:xs) = 1 + length xs}
+
+\end{enumerate}
+%
+\solution{\fontsize{8pt}{10pt}\verbatimtabinput{exercise2.tex}}
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 2}
+Some functions can be used with different argument types, but rarely with any type. Consider the following function types, and identify which type is invalid for each function. Justify your answer.
+\begin{small}
+\begin{verbatim}
+    a)  square :: Int -> Int
+        square :: Float -> Float
+        square :: Char -> Char
+        square :: Double -> Double
+
+    b)  == :: Int -> Int -> Bool
+        == :: String -> String -> Bool
+        == :: (Char, Bool) -> (Char, Bool) -> Bool
+        == :: (Int -> Int) -> (Int -> Int) -> Bool
+\end{verbatim}
+\end{small}
+%
+\solution{\fontsize{8pt}{10pt}\verbatimtabinput{exercise3.tex}}
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 3}
+\emph{Infer} the type of the following function and explain your steps.
+\begin{verbatim}
+        foldl f z [] = z
+        foldl f z (x:xs) = foldl f (f z x) xs
+\end{verbatim}
+%
+\solution{%
+\texttt{foldl ::}\\
+\texttt{a -> b -> c -> d}~ - - since foldl takes three arguments and returns something\\
+\texttt{a -> b -> [e] -> b}~ - - since z is on both sides of '$=$', and c is of type list\\
+\texttt{(g -> h -> i) -> b -> [e] -> b}~ - - since f takes two arguments\\
+\texttt{(b -> e -> b) -> b -> [e] -> b}~ - - since the result of foldl is of type b\\
+\\
+\texttt{:t foldl}\\
+\texttt{foldl :: (a -> b -> a) -> a -> [b] -> a}\\
+}
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+%\subsection*{Exercise 6}
+%Given the following type:
+%\begin{small}
+%\begin{verbatim}
+%        data TipTree a = Tip a | Join (TipTree a) (TipTree a)
+%\end{verbatim}
+%\end{small}
+%define the following functions and determine their types:
+%
+%\begin{enumerate}
+%\renewcommand{\theenumi}{\alph{enumi}}
+%
+%\item \texttt{heightTip}, which returns the length of the longest path from the root to a leaf.
+%
+%\item \texttt{leaves}, which returns the number of leaves.
+%
+%\item \texttt{nodes}, which returns the number of nodes that are not leaves.
+%
+%\item \texttt{walkover}, which returns the list of the leaves, from the left to the right.
+%
+%\item \texttt{mirrorTip}, which returns the mirror of the tree; this means that the result is the tree which has exchanged the left and right subtrees of each node.
+%
+%\item \texttt{mapTip}, which takes a function and a tree as parameters and returns a tree where the function has been applied to each node of the tree.
+%\end{enumerate}
+%%
+%\solution{\fontsize{8pt}{10pt}\verbatimtabinput{exercise6.tex}}
+%% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+%\subsection*{Exercise 7}
+%
+%Given the data type \texttt{Figure}, which can represent right-angle triangles, rectangles and ellipses,
+%
+%\begin{small}
+%\begin{verbatim}
+%  data Figure = Rtriangle Float Float | Rectangle Float Float | Ellipse Float Float
+%\end{verbatim}
+%\end{small}
+%
+%\begin{enumerate}
+%\renewcommand{\theenumi}{\alph{enumi}}
+%
+%\item define a function \texttt{area}, which computes the area of a figure, and determine the type of the function.
+%\item modify the type \texttt{Figure} such that a user data type may be specified instead of \texttt{Float}, as in the given definition.
+%\item adapt the function \texttt{area} according to the modified definition of the \texttt{Figure} type.
+%\end{enumerate}
+%%
+%\solution{\fontsize{8pt}{10pt}\verbatimtabinput{exercise7.tex}}
+%% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+\end{document}

@@ -1,0 +1,344 @@
+\documentclass[12pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{prooftree}
+
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{empty}
+
+% ----------------------------------------
+\section*{Product Introduction}
+\[
+\begin{prooftree}
+n: N, m: M
+\justifies
+\langle n, m \rangle : N \times M
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Product Elimination}
+\[
+\begin{prooftree}
+e : N \times M
+\justifies
+\pi_1(e) : N, \pi_2(e) : M
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Function Introduction}
+\[
+\begin{prooftree}
+x : D \vdash e : C
+\justifies
+\lambda x.e : D \rightarrow C
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Function Elimination}
+\[
+\begin{prooftree}
+f : D \rightarrow C, v : D
+\justifies
+f(v) : C
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Record Introduction}
+\[
+\begin{prooftree}
+\alpha_i : A, e_i : T_i
+\justifies
+\{ \alpha_1 \mapsto e_1, \cdots , \alpha_n \mapsto e_n \} : \{ \alpha_1 : T_1, \cdots , \alpha_n : T_n \}
+\using \textit{for}\ i=1..n
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Record Elimination}
+\[
+\begin{prooftree}
+e : \{ \alpha_1 : T_1, \cdots , \alpha_n : T_n \}
+\justifies
+e.\alpha_i : T_i
+\using \textit{for}\ i=1..n
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Applying the Rules I}
+\[
+\textrm{make-point} : \textrm{Integer} \times \textrm{Integer} \rightarrow \textrm{Point}
+\]
+\newpage
+% ----------------------------------------
+\section*{Applying the Rules II}
+\[
+\begin{array}{ll}
+\textrm{make-point} = & \lambda(e : \textrm{Integer} \times \textrm{Integer} ) . \{ \\
+& x \mapsto \pi_1(e), \\
+& y \mapsto \pi_2(e), \\
+& \textrm{equal} \mapsto \lambda(p : \textrm{Point}).(\pi_1(e) = p.x \wedge \pi_2(e) = p.y) \}
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{Applying the Rules III}
+\[
+\begin{prooftree}
+	\begin{prooftree}
+		\begin{prooftree}
+		e : \textrm{Integer} \times \textrm{Integer}
+		\justifies
+		\pi_1(e) : \textrm{Integer},
+		\pi_2(e) : \textrm{Integer}
+		\end{prooftree}
+	\justifies
+	...
+	\end{prooftree}
+	\begin{prooftree}
+		\begin{prooftree}
+		p : \textrm{Point}
+		\justifies
+		p.x : \textrm{Integer},
+		p.y : \textrm{Integer}
+		\end{prooftree}
+	\justifies
+	...
+	\end{prooftree}
+\justifies
+\textrm{make-point} : \textrm{Integer} \times \textrm{Integer} \rightarrow \textrm{Point}
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Existential Object Encoding}
+\newcommand{\Integer}{\textrm{Integer}}
+\newcommand{\Point}{\textrm{Point}}
+\newcommand{\Boolean}{\textrm{Boolean}}
+\newcommand{\rep}{\textrm{rep}}
+\[
+\begin{array}{lll}
+\Point = \exists \rep . (\rep \times & \{ & x : \rep \rightarrow \Integer; \\
+&& y : \rep \rightarrow \Integer; \\
+&& \textrm{equal} : \rep \times \rep \rightarrow \Boolean\\
+&\})
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{An Existential Point}
+%\newcommand{\rep}{\textrm{rep}}
+\[
+\begin{array}{lll}
+\textrm{aPoint} = \langle\langle 2, 3 \rangle, &\{& x \mapsto \lambda(s : \rep).\pi_1(s),\\
+&& y \mapsto \lambda(s : \rep).\pi_2(s),\\
+&&\textrm{equal} \mapsto \lambda(p : \rep \times \rep). \\
+&& \qquad (\pi_1(\pi_1(p)) = (\pi_1(\pi_2(p)) \\
+&& \qquad \wedge \pi_2(\pi_1(p)) = \pi_2(\pi_2(p))) \\
+&\}\rangle
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{Functional Object Encoding}
+%\newcommand{\Integer}{\textrm{Integer}}
+%\newcommand{\Point}{\textrm{Point}}
+%\newcommand{\Boolean}{\textrm{Boolean}}
+\newcommand{\pnt}{\textrm{pnt}}
+\[
+\begin{array}{lll}
+% \Point = \mu ~ \pnt . & \{ & x : \rightarrow \Integer; \\
+% && y : \rightarrow \Integer; \\
+\Point = \mu ~ \pnt . & \{ & x : \Integer; \\
+&& y : \Integer; \\
+&& \textrm{equal} : \pnt \rightarrow \Boolean\\
+&\})
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{A Functional Object}
+%\newcommand{\Point}{\textrm{Point}}
+\[
+\begin{array}{rl}
+\textbf{let}~xv = 2, yv = 3~\textbf{in} \\
+\textrm{aPoint} =  \{& x \mapsto xv,\\
+& y \mapsto yv,\\
+&\textrm{equal} \mapsto \lambda(p : \Point). \\
+& \qquad (xv = p.x \wedge yv = p.y) \\
+\}
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{Objects and Recursion}
+%\newcommand{\Point}{\textrm{Point}}
+\newcommand{\self}{\textrm{self}}
+\[
+\begin{array}{rl}
+\textbf{let}~xv = 2, yv = 3~\textbf{in} \\
+\textrm{aPoint} = \mu~\self. \{ & x \mapsto xv,\\
+& y \mapsto yv,\\
+&\textrm{equal} \mapsto \lambda(p : \Point). \\
+& \qquad (\self.x = p.x \wedge \self.y = p.y) \\
+\}
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{Object Calculus}
+%\newcommand{\self}{\textrm{self}}
+\[
+\begin{array}{rll}
+\textrm{aPoint} = [
+& x = \varsigma(\self) 2, \\
+& y = \varsigma(\self) 3, \\
+& \textrm{equal} = \varsigma(\self) \lambda(p) & (~\self.x = p.x \\
+&&\wedge~\self.y = p.y) \\
+]
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{Generators and fixpoints}
+%\newcommand{\Point}{\textrm{Point}}
+%\newcommand{\self}{\textrm{self}}
+\[
+\begin{array}{rl}
+\textrm{aPoint} = \mu~\self. \{ & x \mapsto 2,\\
+& y \mapsto 3,\\
+&\textrm{equal} \mapsto \lambda(p : \Point). \\
+& \qquad (\self.x = p.x \wedge \self.y = p.y) \\
+\}
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{Generators and fixpoints II}
+%\newcommand{\Point}{\textrm{Point}}
+%\newcommand{\self}{\textrm{self}}
+\newcommand{\Y}{\textbf{Y}}
+\[
+\begin{array}{rlrl}
+\textrm{genAPoint} &=& \lambda~\self. \{ & x \mapsto 2,\\
+&&& y \mapsto 3,\\
+&&&\textrm{equal} \mapsto \lambda(p : \Point). \\
+&&& \qquad (\self.x = p.x \wedge \self.y = p.y) \\
+&&\} \\
+\textrm{aPoint} &=& \multicolumn{2}{l}{\Y~\textrm{genAPoint}} \\
+&\Rightarrow& \multicolumn{2}{l}{\textrm{genAPoint(genAPoint(genAPoint($\cdots$)))}}\\
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{Recursive Types I}
+%\newcommand{\Point}{\textrm{Point}}
+\newcommand{\GenPoint}{\textrm{GenPoint}}
+%\newcommand{\Integer}{\textrm{Integer}}
+%\newcommand{\Boolean}{\textrm{Boolean}}
+\newcommand{\equal}{\textrm{equal}}
+%\newcommand{\self}{\textrm{self}}
+%\newcommand{\Y}{\textbf{Y}}
+\[
+\begin{array}{rcl}
+\Point &=& \mu \sigma . \{ x : \Integer; y: \Integer; \equal : \sigma \rightarrow \Boolean \}
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{Recursive Types II}
+%\newcommand{\Point}{\textrm{Point}}
+%\newcommand{\GenPoint}{\textrm{GenPoint}}
+%\newcommand{\Integer}{\textrm{Integer}}
+%\newcommand{\Boolean}{\textrm{Boolean}}
+%\newcommand{\equal}{\textrm{equal}}
+%\newcommand{\self}{\textrm{self}}
+%\newcommand{\Y}{\textbf{Y}}
+\[
+\begin{array}{rcl}
+\GenPoint &=& \lambda \sigma . \{ x : \Integer; y: \Integer; \equal : \sigma \rightarrow \Boolean \} \\
+\Point &=& \Y ~ \GenPoint \\
+&\Rightarrow& \GenPoint[\GenPoint[\GenPoint[\cdots]]]
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{Function Subtype I}
+\[
+\begin{array}{l}
+f_Y : D_Y \rightarrow C_Y \\ 
+f_X : D_X \rightarrow C_X
+\end{array}
+\]
+\newpage
+% ----------------------------------------
+\section*{Function Subtype II}
+\[
+\begin{prooftree}
+D_X <: D_Y, C_Y <: C_X
+\justifies
+D_Y \rightarrow C_Y <: D_X \rightarrow C_X
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Record extension}
+\[
+\begin{prooftree}
+a_1, \cdots a_k, \cdots a_n : A
+\justifies
+\{ a_1 : T_1, \cdots a_n : T_n \} <: \{ a_1 : T_1, \cdots a_ : T_k \}
+\using
+\textit{for $1 <= k <= n$}
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Record overriding}
+\[
+\begin{prooftree}
+a_i : A, S_i <: T_i
+\justifies
+\{ a_i : S_i \} <: \{ a_i : T_i \}
+\using
+\textit{for $i=1..n$}
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Record subtyping}
+\[
+\begin{prooftree}
+a_i : A, S_1 <: T_1, \cdots S_k <: T_k
+\justifies
+\{ a_1 : S_1, \cdots a_n : S_n \} <: \{ a_1 : T_1, \cdots a_k : T_k \}
+\using
+\textit{for $1 <= k <= n$}
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\section*{Recursive subtype}
+\[
+\begin{prooftree}
+\sigma <: \tau \vdash S <: T
+\justifies
+\mu \sigma . S <: \mu \tau . T
+\using
+\textit{$\sigma$ free only in $S$, $\tau$ free only in T}
+\end{prooftree}
+\]
+\newpage
+% ----------------------------------------
+\end{document}
+

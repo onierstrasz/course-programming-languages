@@ -1,0 +1,153 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{hyperref} % for figures
+\usepackage{listings} % for Java code
+\usepackage{color} % for Java code
+
+%========================JAVA CODE========================
+\definecolor{source}{gray}{0.9}
+\lstset{
+	% characters
+	tabsize=3,
+	upquote=true, % straight quote; requires textcomp package
+	escapechar={!},
+	keepspaces=true,
+	breaklines=false,
+	alsoletter={:},
+	breakautoindent=true,
+	columns=fullflexible,
+	showspaces=false,
+	showstringspaces=false,
+	basicstyle=\small\ttfamily,
+	% background
+	frame=single,
+   	framerule=0pt,
+	backgroundcolor=\color{source},
+	% numbering
+	numbersep=10pt,
+	stepnumber=1,
+	numberstyle=\tiny,
+	numberfirstline=true,
+	% captioning
+	captionpos=b,
+	numberbychapter=false}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+%Java listing
+\lstdefinestyle{Java}{
+	language=Java,
+	keywordstyle=\color{javapurple}\bfseries,
+	stringstyle=\color{javared},
+	commentstyle=\color{javagreen},
+	morecomment=[s][\color{javadocblue}]{/**}{*/}
+}
+\newcommand{\jlct}{\lstinline[backgroundcolor=\color{white},style=Java]}
+%========================================================
+
+% solution switch
+\newboolean{showsolution}
+%\setboolean{showsolution}{true}
+\setboolean{showsolution}{true}
+
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{
+    \ifthenelse{\boolean{showsolution}}{Solution }{}
+    \xspace{}Serie 9 - Objects and Types}
+
+%==============================================================================
+\subsection{Theoretical Questions (6 points)}
+
+\begin{myenumerate}
+
+\item What is the difference between subtyping and subclassing? Provide an example for your explanation.
+
+\vspace{0.5cm}
+
+\solution{\input{solutions/exer1}}
+
+
+\item Using the Java class-interface hierarchy given in \autoref{fig:hierarchy}, explain what is the relationship between classes and interfaces.
+
+\begin{figure}[h!]
+\includegraphics[width=0.5\linewidth]{figs/hierarchy.jpg}
+\caption{Java interface hierarchy}
+\label{fig:hierarchy}
+\end{figure}
+
+\vspace{0.5cm}
+
+\solution{\input{solutions/exer2}}
+
+\item Which forms of polymorphism are used in the Java code in \autoref{lst:poly}? Explain each of the forms.
+
+\begin{lstlisting}[float=h,style=Java,caption={Forms of polymorphism},label=lst:poly]
+public class Bern<TT> { // Hint 2
+    private TT var1;
+    public void set(TT mh) { this.var1 = mh; }
+    public TT get() { return var1; }
+
+ public static void main(String[] args) {
+ 	int a = 3;
+	float b = 2F;
+	b = a;   // Hint 1
+	System.out.println(b);
+	Bern<Integer> mj = new Bern();
+	mj.set(12);
+	System.out.println(mj.get());
+	}
+}
+\end{lstlisting}
+
+\solution{\input{solutions/exer3}}
+
+\item Use Java subclassing to better structure the code in \autoref{lst:subclassing} and avoid code cloning.
+
+\begin{lstlisting}[float=t,style=Java,caption={Subclassing},label=lst:subclassing]
+	class Bicycle {
+		private int frame_size;
+		
+		// the price of this bicycle
+		public float price() { return 100 * 2; }
+
+		// the sales tax on this bicycle
+		public float salesTax() { return price() * .08; }
+}
+
+	class RacingBicycle {
+		private int frame_size;
+		private int pieces_count;
+
+		// the price of this bicycle
+		public float price() { return 100 * 2; }
+
+		// the sales tax on this bicycle
+		public float salesTax() { return price() * .08; }
+
+		// returns the weight of this bicycle
+		public void calculateWeight();
+}
+\end{lstlisting}
+
+\solution{\input{solutions/exer4}}
+
+\item In the code in \href{http://scg.unibe.ch/download/lectures/pl2018-exercises/q5.zip}{q5.zip} explain how covariant and contravariant are used in each code block. Why are there compile-time errors if you try to run the code?
+\end{myenumerate}
+
+\solution{\input{solutions/exer5}}
+
+\end{document}
+

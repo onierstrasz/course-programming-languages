@@ -1,0 +1,29 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 90 90 360 860
+
+/fibInc {			% m n -> n (m+n)
+	exch			% m n -> n m
+	1 index			% n m -> n m n
+	add
+} def
+
+/x 0 def
+/y 0 def
+/dx 10 def
+
+newpath
+100 100 translate
+x y moveto
+0 1
+25 {
+	/x x dx add def			% increment x
+	dup /y exch 100 idiv def	% set y to last fib value
+	x y lineto			% draw segment
+	fibInc
+} repeat
+
+1 setlinewidth
+stroke
+
+showpage
+

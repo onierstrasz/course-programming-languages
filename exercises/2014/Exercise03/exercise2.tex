@@ -1,0 +1,10 @@
+\fontsize{8pt}{10pt}
+\begin{verbatim}
+sumOfSquares [] = 0
+
+sumOfSquares (x:xs) = x*x + sumOfSquares xs
+
+squareOfSum x = a * a where a = sum x
+
+res2 = squareOfSum a - sumOfSquares a where a = [1..100]
+\end{verbatim}

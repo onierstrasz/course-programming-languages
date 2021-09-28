@@ -1,0 +1,13 @@
+
+
+/star {
+	% the procedure that draws one star
+	% usage: x y rad star
+} def
+
+/draw{
+	% the main procedure which draws all the stars
+	} def
+
+% usage: x y rad n draw
+300 400 200 10 draw 

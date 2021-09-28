@@ -1,0 +1,91 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage{stmaryrd}
+\usepackage[colorlinks=true, urlcolor = blue, linkcolor=blue]{hyperref}
+\usepackage{listings}
+\usepackage{color}
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution }{}\xspace{}Objects and Prototypes}
+
+\subsection*{Instructions:}
+
+\textbf{Solutions of the exercises are to be delivered before Thursday, the 03th of May at 10:15AM.}\\
+Solutions should be placed in a separate folder with the name ``\textbf{Assignment08}''.\\
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 1 (2 points)}
+
+You should implement the \texttt{Person} prototype which has the following characteristics:
+
+\begin{enumerate}
+   \item The \texttt{name} property which is accessible by other objects of this prototype.
+   \item The \texttt{password} property which cannot be accessed by other objects of this prototype.
+   \item The \texttt{counter} property whose value is shared among all objects of this prototype.
+ \end{enumerate}
+
+You need to create two objects of this prototype in order to do the following tasks:
+
+\begin{enumerate}
+   \item Show how to access the \texttt{name} property in both objects.
+   \item What output do you get if you try to access the \texttt{password} property? How can you correct it?
+   \item How to access the \texttt{counter} property? If you change the value of the \texttt{counter} property in one object, does it affect the property value on the second object?
+ \end{enumerate}
+
+\vspace{0.5cm}
+
+\solution{\input{solutions/exercise1}}
+
+
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 2 (2 points)}
+
+
+A possible classification for animals is shown in Figure \ref{fig:ex2}. When it comes to classify the platypus you realize that it nurses but it also spawns. So implement the class diagram shown in figure \ref{fig:ex2} including the poor platypus in Java Script. Use the \href{http://scg.unibe.ch/download/lectures/pl2018-exercises/poorPlatypusToSolve.html}{poorPlatypusToSolve.html} file as skeleton for your implementation.
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[width=0.4\columnwidth]{solutions/Ex2.pdf}
+\caption{Animal classification}
+\label{fig:ex2}
+\end{center}
+\end{figure}
+
+\solution{\input{solutions/poorPlatypusSolution.tex}}
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 3 (2 points)}
+
+
+
+In this exercise, the prototype \texttt{People} is defined. You need to define two objects of this prototype.
+The first object must be created by the \texttt{Object.create()} method and the second object must be created by a constructor function.
+Finally, to check if your solution is correct, run the \texttt{checkit} method from the \href{http://scg.unibe.ch/download/lectures/pl2018-exercises/Third-template.htm}{template}.
+This method must return \texttt{Bern} in both objects.
+
+
+
+
+\vspace{0.5cm}
+\solution{\input{solutions/third}}
+
+\end{document}

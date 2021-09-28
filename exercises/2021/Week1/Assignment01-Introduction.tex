@@ -1,0 +1,72 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\hypersetup{
+    % true means draw the links themselves colored and do not draw a bounding
+    % box
+    colorlinks=true,
+    linkcolor= blue,
+    citecolor= blue,
+    filecolor=blue,
+    urlcolor= blue
+}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution}{}\space{} Introduction to Programming Languages}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\subsection*{Instructions and remarks}
+\begin{myitemize}
+\item Exercises are given every week on the PL page of the SCG website \\ (\url{http://scg.unibe.ch/teaching/pl})
+\item Solutions to each assignment must be sent to \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\item The solutions of the assignments are to be delivered before every Thursday at 5 PM. Solutions handed in later than the specified time will not be accepted. In case of serious reasons send an e-mail to  \textbf{mohammadreza.hazhirpasand@inf.unibe.ch}
+\end{myitemize}
+
+
+\subsection*{Exercise (5 points)}
+Answer the following questions about programming languages:
+
+\begin{myitemize}
+
+\item What is a programming language? (1 pts)
+
+\solution{According to Louden's definition, ``A programming language is a notational system for describing computation in a machine-readable and human-readable form"}
+
+\item What is the difference between functional and logic programming style? provide an programming language as an example for each type. (2 pts)
+
+\solution{Functional style focuses mostly on functions and with pure functional style there is no state change.
+Functional programming is declarative rather than imperative.
+One can consider functions as something that have input and output characteristics. Such style of programming is suitable for reasoning.
+Haskell is an example of functional programming.
+\\
+In logic programming style, the program is composed of facts and rules and largely focuses on formal logic. Logic programming languages are suitable for search\-related problems. Prolog is an example of logic programming.}
+
+\item What is SQL and how can one print ``hello world'' in SQL?  (1.5 pts)
+
+\solution{SQL is a domain-specific language used in programming and designed for managing data stored in a relational database management system (RDBMS), or for stream processing in a relational data stream management system (RDSMS).} \\
+\solution{It can be done via various ways but a simple way is to use \textbf{select 'hello world'}}
+
+\item What are the key innovations of the object oriented languages? (0.5 pts)
+
+\solution{Encapsulation and inheritance}
+
+
+\end{myitemize}
+
+
+
+\end{document}

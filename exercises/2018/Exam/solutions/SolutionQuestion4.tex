@@ -1,0 +1,18 @@
+\begin{verbatim}
+b = bound
+f = free
+\end{verbatim}
+\begin{itemize}
+\item
+\begin{verbatim}
+(\x . x  y) (\ x y z. x) x z
+      |  |            | 	| | 
+      b  f            b  f f
+\end{verbatim}        
+\item
+\begin{verbatim}
+(((\x \y \z. z y ) (\x \y \z. y x) y) z (\x \z. z x) (\x . z x)
+             | |              | |  |  |         | |        | |
+             b b              b b  f  f         b b        f b
+\end{verbatim}
+\end{itemize}

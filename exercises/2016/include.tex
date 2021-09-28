@@ -1,0 +1,62 @@
+
+%layout
+\topmargin      -5.0mm
+\oddsidemargin  6.0mm
+\evensidemargin -6.0mm
+\textheight 215.5mm
+\textwidth      160.0mm
+\parindent        1.0em
+\headsep          10.3mm
+\headheight        12pt
+\lineskip    1pt
+\normallineskip     1pt
+
+%header
+\lhead{Programming Languages \\ 2016}
+
+\rhead{Prof. O. Nierstrasz\\
+Boris Spasojevi\'{c}, Jan Kur\v{s}}
+\lfoot{page \thepage}
+\rfoot{\today}
+\cfoot{}
+
+\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+%enumeration
+\newenvironment{myitemize}{%
+     \begin{itemize}
+     \setlength{\itemsep}{0cm}}
+     {\end{itemize}}
+
+\newenvironment{myenumerate}{%
+     \begin{enumerate} \setlength{\itemsep}{0cm}}
+     {\end{enumerate}}
+
+
+%solution
+\ifthenelse{\boolean{showsolution}}
+   {  \newcommand{\solution}[1]{
+   	\noindent\underline{\textbf{Answer:}}\\[2mm]
+   	 \textsl{#1}
+	 \vspace{10pt}
+	 \normalsize
+	}
+  }
+  {  \newcommand{\solution}[1]{} }
+
+\newcounter{exnum}
+\def\xexercise{\fontsize{12}{10}\fontseries{bx}\selectfont}
+\def\xnormal{\fontseries{m}\fontshape{n}\selectfont}
+
+
+\newcommand{\exercise}[1]{%
+     {\addtocounter{exnum}{1}\vskip 0.8cm{\xexercise \noindent Exercise
+\arabic{exnum} (#1)} \xnormal} \vskip 0.3cm} 
+ \newcommand{\aufgabe}[1]{
+     {\addtocounter{exnum}{1}\vskip 0.8cm{\xexercise \noindent Aufgabe
+\arabic{exnum} (#1)} \xnormal} \vskip 0.3cm} 
+
+\pagestyle{fancy}

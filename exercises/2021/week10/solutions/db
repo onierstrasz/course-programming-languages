@@ -1,0 +1,18 @@
+program(monday,english). \\
+program(tuesday,programming). \\
+program(tuesday,ai).\\
+program(wednesday,hacking).\\
+program(thursday,networking).\\
+program(friday,pl).\\
+
+difficulty(english,simple).\\
+difficulty(programming,medium).\\
+difficulty(ai,hard).\\
+difficulty(hacking,hard).\\
+difficulty(networking,medium).\\
+difficulty(pl,easiest).\\
+
+
+showit(Day,Class,Diff) :- program(Day,Class), difficulty(Class,Diff).\\
+
+

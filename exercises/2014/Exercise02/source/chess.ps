@@ -1,0 +1,163 @@
+% Chessboard
+
+/inch {72 mul} def
+
+/box {						% size -> __
+	newpath
+	0 0 moveto
+	dup 0 exch rlineto		% relative lineto
+	dup 0 rlineto			% relative lineto
+	neg 0 exch rlineto		% relative lineto
+	closepath				% cleanly close path!
+} def
+
+/filledBox {				% grey size -> __
+	box 
+	setgray 
+	gsave
+		fill
+	grestore
+	stroke					% colour in region
+} def
+
+/borderedBox {				% grey size -> __
+	box
+	setgray					% grey -> __
+	stroke					% stroke in region
+} def
+
+% ----------------------------------------------------------------------------
+
+gsave
+
+50 700 translate
+0.5 25 filledBox
+25 0 translate
+0 25 borderedBox
+
+grestore
+
+% ----------------------------------------------------------------------------
+
+/evenBox { borderedBox } def
+/oddBox { filledBox } def
+	
+/drawLine {					% size number --> __
+	gsave
+	{
+		dup 0 exch evenBox 	% size -> 0 size 0 0  -> __
+		dup 0 translate 	% size -> size
+		dup 0 exch oddBox 	% size -> 0 size 0 0  -> __
+		dup 0 translate 	% size -> size
+	} repeat
+	grestore
+	pop
+} def
+
+% ----------------------------------------------------------------------------
+
+gsave
+
+50 650 translate
+45 rotate
+
+5 3 drawLine
+0 -5 translate
+5 5 drawLine
+0 -5 translate
+5 7 drawLine
+0 -5 translate
+5 11 drawLine
+
+grestore
+
+% ----------------------------------------------------------------------------
+
+/evenline {					% size number --> __
+	/evenBox { borderedBox } def
+	/oddBox { filledBox } def
+	drawLine
+} def
+
+/oddline {					% size number --> __
+	/evenBox { filledBox } def
+	/oddBox { borderedBox } def
+	drawLine
+} def
+
+% ----------------------------------------------------------------------------
+
+gsave
+
+50 600 translate
+0 rotate
+
+5 3 evenline
+0 -5 translate
+5 5 oddline
+0 -5 translate
+5 7 evenline
+0 -5 translate
+5 11 oddline
+
+grestore
+
+% ----------------------------------------------------------------------------
+
+/chessboard {						% size number --> __
+	/ynumber exch def
+	gsave
+	ynumber {
+		dup ynumber evenline
+		dup 0 exch translate 		% size -> size
+		dup ynumber oddline
+		dup 0 exch translate 		% size -> size
+	} repeat
+	grestore
+	pop
+} def
+
+% ----------------------------------------------------------------------------
+
+gsave
+
+250 300 translate
+
+
+90 rotate
+25 3 chessboard
+-90 rotate
+
+0 -200 translate
+25 4 chessboard
+0 200 translate
+
+0 150 translate
+-36.869897645844013 rotate
+25 5 chessboard
+
+grestore
+gsave
+
+250 300 translate
+/Arial findfont 20 scalefont setfont
+
+90 rotate
+45 -20 moveto
+(a = 6) show
+-90 rotate
+
+70 6 moveto
+(b = 8) show
+
+50 90 translate
+-36.869897645844013 rotate
+0 0 moveto
+(c = 10) show
+
+grestore
+
+
+% ----------------------------------------------------------------------------
+
+showpage

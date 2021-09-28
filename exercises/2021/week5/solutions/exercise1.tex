@@ -1,0 +1,19 @@
+b = bound
+f = free
+
+ex. a
+
+(\ x . x) y (\ y . y x) x
+       |  |        | |  | 
+       b  f        b f  f
+         
+ex. b
+
+((\ x . \ y . \ z .  x y z) (\ x .  y x) y) (\ x . z x)
+                     | | |          | |  |         | |
+                     b b b          f b  f         f b
+ex. c)
+
+\ y . (\ x . z(x(\ x . y(z)))) (\ z . y(x(z)))
+             | |       | |            | | |
+             f b       b f            b f b

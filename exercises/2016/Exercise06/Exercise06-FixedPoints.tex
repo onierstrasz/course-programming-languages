@@ -1,0 +1,105 @@
+\documentclass [11pt, a4wide, twoside]{article}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+% solution switch
+\newboolean{showsolution}
+\setboolean{showsolution}{true}
+
+\def\ite{\ensuremath{\mathtt{if~}}}
+\def\mul{\ensuremath{\mathtt{mult~}}}
+\def\zero{\ensuremath{\mathtt{isZero~}}}
+\def\pred{\ensuremath{\mathtt{pred~}}}
+\def\succ{\ensuremath{\mathtt{succ~}}}
+\def\fst{\ensuremath{\mathtt{1st~}}}
+\def\snd{\ensuremath{\mathtt{2nd~}}}
+\def\pair{\ensuremath{\mathtt{pair~}}}
+\def\true{\ensuremath{\mathtt{True~}}}
+\def\false{\ensuremath{\mathtt{False~}}}
+\def\l{\ensuremath{\lambda~}}
+
+\input{../include}
+
+\begin{document}
+
+% title
+\section*{\ifthenelse{\boolean{showsolution}}{Solution }{}\xspace{}Serie 6 - Fixed Points}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 1}
+
+We represent non-negative integers with the following Lambda expressions:
+%
+\begin{align*}
+	0 & \equiv \lambda f~.~\lambda x~.~x \\
+	1 & \equiv \lambda f~.~\lambda x~.~f x \\
+	2 & \equiv \lambda f~.~\lambda x~.~f (f x) \\
+	& \vdots  \\
+	n & \equiv \lambda f~.~\lambda x~.~f^{n}x
+\end{align*}
+%
+Suppose you have defined the function \textbf{if} and the operations \textbf{add}, \textbf{pred} and \textbf{isZero}. Consider the following recursive (and hence not valid) definition for the multiplication:
+%
+\begin{equation*}
+\textbf{times} = \lambda n_{1}~.~\lambda n_{2}~.~\textbf{if} ~(\textbf{isZero}~ n_{1}) ~\textbf{0}~ (\textbf{add}~ n_{2}~
+(\textbf{times} ~(\textbf{pred}~ n_{1}) ~n_{2}))
+\end{equation*}
+%
+If we abstract the name \textbf{times}, we get the new expression:
+%
+\begin{equation*}
+\textbf{t} = \lambda f~.~\lambda n_{1}~.~\lambda n_{2}~.~\textbf{if}~ (\textbf{isZero}~ n_{1}) ~\textbf{0}~ (\textbf{add}~ n_{2}~ (f~ (\textbf{pred}~ n_{1})~ n_{2}))
+\end{equation*}
+%
+By the FP theorem we know that \textbf{(Y t)} is a non-recursive equivalent of the above \textbf{times} definition.\\
+
+\noindent The exercise: write down the reduction sequence to demonstrate that
+%
+\begin{equation*}
+(((\textbf{Y t}) ~\textbf{1}) ~\textbf{k}) \rightarrow \textbf{k}.\\
+\end{equation*}
+%
+\solution{\input{solution1}}
+
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection*{Exercise 2}
+
+We can represent lists and list operators with the following Lambda expressions:
+%
+\begin{align*}
+	\textbf{nil} & = \lambda f~.~true\\
+	\textbf{null} & = \lambda l~.~l~(\lambda h~.~\lambda t~.~false)\\
+	\textbf{cons} & = \lambda h~.~\lambda t~.~\lambda f~.~f h t\\
+	\textbf{head} & = \lambda l~.~l~( \lambda h~.~ \lambda t~.~h)\\
+	\textbf{tail} & = \lambda l~.~l~( \lambda h~.~ \lambda t~.~t)
+\end{align*}
+%
+Example: the list $[1,2,3]$ is represented by the $\lambda$-expression \textbf{cons} \textbf{1} (\textbf{cons} \textbf{2} (\textbf{cons} \textbf{3 nil})).\pagebreak
+
+\noindent To do:
+%
+\begin{enumerate}
+\item Translate the following definition into a non-recursive form:
+	\begin{equation*}
+	\textbf{append} = \lambda~ l_{1} ~.~ \lambda~ l_{2} ~.~\textbf{if}~ (\textbf{null}~ l_{1}) ~l_{2} ~(\textbf{cons} ~(\textbf{head} ~l_{1}) ~ (\textbf{append}~ (\textbf{tail} ~ l_{1}) ~ l_{2}))
+	\end{equation*}
+\item Test your result by appending list $L_2$ to list $L_1$, which are defined below:
+	\begin{align*}
+	L_{1}  = \textbf{cons}~\textbf{1} ~(\textbf{cons} ~\textbf{2} ~\textbf{nil})~ \text{ and } ~ L_{2} = \textbf{cons}~ \textbf{3} ~\textbf{nil}\\
+	\end{align*}
+\end{enumerate}
+%
+
+\solution{\input{solution2}t}
+
+
+
+\end{document}

@@ -1,0 +1,129 @@
+
+% --------------------------------------------------
+% L-System interpretation
+% --------------------------------------------------
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+/START { X } def        % expects order on the stack
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% expects current depth on the stack 
+/apply {
+  /size exch def		% number specifications to be executed (Xsize or Ysize), pop
+  /spec exch def        % the D0L sequence: Xspec / Yspec, pop
+  						% now depth remains on the stack
+  
+  dup 0 ne {            % if depth is not 0...
+    1 sub               % push depth and decrease it by one
+    size {
+      dup } repeat      % dup depth size-times
+    spec cvx exec       % ...execute recursive specification
+  } {
+    linelength 0 rlineto
+  } ifelse
+  pop					% pop the order from the stack at the end
+} def
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+% expects current depth on the stack
+/X {                   
+  /Xspec Xsize apply
+} def				
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+% expects current depth on the stack
+/Y {                    
+  /Yspec Ysize apply
+} def
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% turn left by angle
+/+ { angle rotate } def
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% turn right by angle
+/- { angle -1 mul rotate } def
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% open bracket "[" for Bracketed L-Systems
+/o { gsave } def
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% close bracket "]" for Bracketed L-Systems
+/c {
+  stroke
+  grestore
+} def
+
+% --------------------------------------------------
+% Dragon specification
+% --------------------------------------------------
+/loadDragon {
+  /order 14 def
+  /angle 45 def
+  /Xspec { - X + + Y - } def
+  /Xsize 2 def
+  /Yspec { + X - - Y + } def
+  /Ysize 2 def
+} def
+
+% --------------------------------------------------
+% Koch's snowflake specification
+% --------------------------------------------------
+/loadKoch {
+  0.3 0.3 scale
+  /order 7 def
+  /angle 60 def
+  /Xspec { + Y - - Y - - Y } def
+  /Xsize 3 def
+  /Yspec { Y + Y - - Y + Y } def
+  /Ysize 4 def
+} def
+
+% --------------------------------------------------
+% Sierpinski triangle specification
+% --------------------------------------------------
+/loadSierpinski {
+  0.6 0.6 scale
+  /order 8 def
+  /angle 60 def
+  /Xspec { Y - X - Y } def
+  /Xsize 3 def
+  /Yspec { X + Y + X } def
+  /Ysize 3 def
+} def
+
+% --------------------------------------------------
+% Plant specification
+% --------------------------------------------------
+/loadPlant {
+  /linelength 10 def
+  0.4 0.4 scale
+  90 rotate
+  /order 5 def
+  /angle 22.5 def
+  /Xspec { Y - o o X c + X c + Y o + Y X c - X } def
+  /Xsize 7 def
+  /Yspec { Y Y } def
+  /Ysize 2 def
+} def
+
+
+% --------------------------------------------------
+% main
+% --------------------------------------------------
+
+/linelength 2 def
+
+newpath
+150 300 moveto
+
+%loadDragon
+loadSierpinski
+%loadKoch
+%loadPlant
+
+order START
+
+stroke
+showpage

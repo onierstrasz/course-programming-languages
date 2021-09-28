@@ -1,0 +1,18 @@
+\begin{verbatim}
+% b)
+
+reachable(X,Y) :- reachableVia(X,Y,[X]). 
+reachableVia(X,Y,S) :- connected(X,Y,_), not(in(Y,S)). 
+reachableVia(X,Y,S) :- connected(X,A,_), not(in(A,S)), reachableVia(A,Y,[A|S]).
+
+% c)
+	
+reachableBy(X,Y,Z) :- reachableByVia(X,Y,Z,[X]). 
+reachableByVia(X,Y,Z,S) :- connected(X,Y,Z), not(in(Y,S)). 
+reachableByVia(X,Y,Z,S) :- connected(X,A,Z), not(in(A,S)), reachableByVia(A,Y,Z,[A|S]). 
+
+% helper
+in(X,[X|_]).
+in(X,[_|L]):- in(X,L).
+not(X):- (X -> fail); true.
+\end{verbatim}

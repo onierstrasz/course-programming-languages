@@ -1,0 +1,38 @@
+\% Extended syntactic and semantic rules are written in blue.\\ \\
+\textbf{Abstract syntax:} \\ \\
+Prog ::= 'ON' Stmt \\ \\
+Stmt ::= Expr 'TOTAL' Stmt \\ 
+$~~~~~~~~~~~~~~~|$ Expr 'TOTAL' 'OFF' \\ \\
+Expr ::= Expr1 '+' Expr2 \\
+$~~~~~~~~~~~~~~~|$ Expr1 '*' Expr2 \\
+$~~~~~~~~~~~~~~~|$ \textcolor{blue}{Expr1 '-' Expr2} \\
+$~~~~~~~~~~~~~~~|$ \textcolor{blue}{Expr1 '/' Expr2} \\
+$~~~~~~~~~~~~~~~|$ 'IF' Expr1 ',' Expr2 ',' Expr3 \\
+$~~~~~~~~~~~~~~~|$ 'LASTANSWER' \\
+$~~~~~~~~~~~~~~~|$ \textcolor{blue}{'ERROR'} \\
+$~~~~~~~~~~~~~~~|$ '(' Expr ')' \\
+$~~~~~~~~~~~~~~~|$ Num \\ \\
+\textbf{Semantics:} \\ \\
+% program
+\textbf{P} : Program $\rightarrow$ Int$^{*}$ \textcolor{blue}{$\cup$ String} \\
+\textbf{P} $\llbracket$ ON S $\rrbracket$ = \textbf{S} $\llbracket$ S $\rrbracket$ (0) \\ \\
+% statements
+\textbf{S} : ExprSequence $\rightarrow$ Int $\rightarrow$ Int$^{*}$  \textcolor{blue}{$\cup$ String} \\
+\textbf{S} $\llbracket$ E TOTAL S $\rrbracket$ (n) = let n' = \textbf{E} $\llbracket$ E $\rrbracket$ (n) in \\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$cons(n', \textbf{S} $\llbracket$ S $\rrbracket$ (n')) \\
+\textbf{S} $\llbracket$ E TOTAL OFF $\rrbracket$ (n) = [ \textbf{E}  $\llbracket$ E $\rrbracket$ (n)] \\ \\
+% expressions
+\textbf{E} : Expression $\rightarrow$ Int $\rightarrow$ Int \textcolor{blue}{$\cup$ String} \\ 
+\textbf{E} $\llbracket$ E1 + E2 $\rrbracket$ (n) = \textbf{E} $\llbracket$ E1 $\rrbracket$ (n) + \textbf{E} $\llbracket$ E2 $\rrbracket$ (n) \\
+\textcolor{blue}{\textbf{E} $\llbracket$ E1 - E2 $\rrbracket$ (n) = \textbf{E} $\llbracket$ E1$\rrbracket$ (n) - \textbf{E} $\llbracket$ E2 $\rrbracket$ (n)} \\
+\textcolor{blue}{\textbf{E} $\llbracket$ E1 / E2 $\rrbracket$ (n) = if \textbf{E} $\llbracket$ E2$\rrbracket$ (n) = 0\\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ then \textbf{E} $\llbracket$ ERROR $\rrbracket$ (n) \\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$ else \textbf{E} $\llbracket$ E1 $\rrbracket$ (n) / \textbf{E} $\llbracket$ E2 $\rrbracket$ (n) \\
+\textbf{E} $\llbracket$ ERROR $\rrbracket$ (n) = ``NOT A NUMBER''}\\
+\textbf{E} $\llbracket$ E1 * E2 $\rrbracket$ (n) = \textbf{E} $\llbracket$ E1 $\rrbracket$ (n) * \textbf{E} $\llbracket$ E2 $\rrbracket$ (n) \\
+\textbf{E} $\llbracket$ IF E1, E2, E3 $\rrbracket$ (n) = if \textbf{E} $\llbracket$ E1 $\rrbracket$ (n) = 0 \\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$then \textbf{E} $\llbracket$ E2 $\rrbracket$ (n) \\
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$else \textbf{E} $\llbracket$ E3 $\rrbracket$ (n) \\
+\textbf{E} $\llbracket$ LASTANSWER $\rrbracket$ (n) = n \\
+\textbf{E} $\llbracket$ (E) $\rrbracket$ (n) = \textbf{E} $\llbracket$ E $\rrbracket$ (n) \\
+\textbf{E} $\llbracket$ N $\rrbracket$ (n) = N \\

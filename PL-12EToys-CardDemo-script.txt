@@ -1,0 +1,22 @@
+# PL EToys Car demo script
+
+In this demo we will see how EToys supports tile-based visual programming of graphical objects by composing scripts from “tiles” consisting of commands, each of which controls some aspect of the object.
+
+First we draw a hi-tech car with the drawing tool.
+We make the front fender a bright red so we can detect when it bumps against something.
+
+We click on the “eye” icon to open the script editor.
+Here we see several commands that we can directly execute by clicking on the exclamation mark.
+
+We can define variables if we need them. (We don't for now.)
+
+We can create a script and drag commands into it.
+We can let a script run repeatedly in the background using the ticking clock.
+
+Next, we'll draw a race track for the car to drive along.
+We'll give it a grassy lawn so the car can detect when it veers too far to the right.
+
+We modify the script to detect when the (red) fender sees the (green) lawn.
+It then adjusts the steering back to the right.
+
+Similarly if the car veers onto the concrete, we adjust the steering to the right.

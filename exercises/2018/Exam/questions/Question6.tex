@@ -1,0 +1,33 @@
+\noindent
+Suppose you have a small JavaScript program with a database of animals:
+
+\begin{verbatim}
+var animal = {
+   eat: function () {
+       return "munch";
+   }
+};
+
+var tom = Object.create(animal);
+tom.name = "Tom";
+tom.size = 70;
+
+var jerry = Object.create(animal);
+jerry.name = "Jerry";
+jerry.size = 5;
+
+var spike = Object.create(animal);
+spike.name = "Spike";
+spike.size = 100;
+\end{verbatim}
+
+\begin{enumerate}
+\item (2 points) What is the prototype of Tom, Jerry and Spike?
+\vspace{4cm}
+
+\item (3 points) Extend the code so that \texttt{tom}, \texttt{jerry} and \texttt{spike} respond to the message \texttt{sleep}. For example, \texttt{jerry.sleep()} outputs \texttt{"Jerry sleeps"}.
+\vspace{5cm}
+
+\item (3 points) \texttt{jerry} is sick and no longer eats, instead he responds with \texttt{"I am sick"}, while the others still respond with \texttt{"munch"}. Update the code correspondingly.
+\end{enumerate}
+

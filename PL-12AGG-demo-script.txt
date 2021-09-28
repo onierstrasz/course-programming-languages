@@ -1,0 +1,42 @@
+# PL AGG demo script
+
+First we set up AGG so it will evaluate rules dynamically.
+
+We'll open up the pre-defined Factorial example.
+
+At the left we see the list of graph grammar rules.
+
+At the right we see that this project uses two kinds of nodes:
+Fact nodes to be evaluated and Result nodes with computed values
+
+These can be connected with edges that represent partial computations to be evaluated.
+
+In the center panel we have an example Fact node that should be evaluated to compute the factorial of 6.
+
+Above it we one of the graph grammar rules to define the behaviour of the graph.
+
+First we'll look at the rules for the recursive case.
+
+Each rule is a transformation rule that tries to rewrite part of the graph using a subgraph to match, a negative subgraph that must not be matched, and a target subgraph which is the result of the rewrite.
+
+We can see in the top middle that we should match a Fact node with some argument n.
+At the left we see the negative condition that there should not already exist a link to another Fact node (because we will generate one).
+There should also be no link to a Result node, and n should be greater than 1.
+Finally at the right we see that a new link should be generated to a Fact node for n-1.
+
+Applying this rule rewrites the graph, to make Fact 6 point to Fact 5.
+We repeatedly apply the rule until the condition that n>1 is violated.
+
+Now we see the rule for the base case.
+Here the subgraph to match has a Fact node for 1, we generate a Result node with the value 1., and the negative condition states that we do not already have a Result node linked.
+
+We can apply this rule just once.
+
+Now the Compute rule looks for a subgraph with two connected Fact nodes pointing to a partial result.
+If we match this, we multiply the partial result by the n of the linked Fact node, and replace the two of them by a new Result node.
+
+We apply this rule until there are no more matches.
+
+Finally we have a rule that checks that there are no more pairs of connected Fact nodes to evaluate, and replaces the Fact node connected to its result to just the Result node.
+
+We can now run the rules in an automated fashion for a different initial value of n.

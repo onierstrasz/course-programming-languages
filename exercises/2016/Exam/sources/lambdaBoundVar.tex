@@ -1,0 +1,17 @@
+\texttt{($\lambda$ a b .~c a b) a b ($\lambda$ c d .~d c)($\lambda$ e f .~f) }\\
+\texttt{($\lambda$ a b .~f b b) f f ($\lambda$ c d .~b b)($\lambda$ e f .~b) }\\
+
+\noindent
+\texttt{(($\lambda$ u v .~$\lambda$ w .~w ($\lambda$ x .~x(u)) (v)) (y)) ($\lambda$ z .~$\lambda$ y .~z(y))}\\
+\texttt{(($\lambda$ u v .~$\lambda$ w .~b ($\lambda$ x .~b(b)) (b)) (f)) ($\lambda$ z .~$\lambda$ y .~b(b))}\\
+
+\noindent
+\texttt{($\lambda$ y .~$\lambda$ x .~z(x($\lambda$ x .~y(z)))) ($\lambda$ z .~y(x(z)))}\\
+\texttt{($\lambda$ y .~$\lambda$ x .~f(b($\lambda$ x .~b(f)))) ($\lambda$ z .~f(f(b)))}\\\\
+
+\noindent
+\texttt{($\lambda$ x y .~y x) ($\lambda$ x y .~y x)($\lambda$ x .~x x)($\lambda$ y .~y)} \\
+\texttt{($\lambda$ x .~x x)($\lambda$ x y .~y x)($\lambda$ y .~y)} \\
+\texttt{($\lambda$ x y .~y x)($\lambda$ x y .~y x)($\lambda$ y .~y)}\\ 
+\texttt{($\lambda$ y .~y)($\lambda$ x y .~y x)} \\
+\texttt{($\lambda$ x y .~y x)} \\

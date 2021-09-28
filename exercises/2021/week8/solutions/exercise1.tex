@@ -1,0 +1,50 @@
+\begin{verbatim}
+var person = function (nm) {
+	this.name = nm  
+	var secret = "Secret";  
+        person.shared_secret = 25; 
+	
+	
+	this.getSecret = function () {
+	return secret;
+	}
+	this.setSecret = function () {
+	secret = "not secret";
+	}
+    this.getName = function () {
+        return this.name;
+    }
+	this.getAge = function() {
+		return person.shared_secret;
+	};
+	this.growOlder = function () {
+	person.shared_secret++;
+	}
+
+    return this;
+};
+
+
+
+var person1 = new person("mh1");
+var person2 = new person("mh2");
+console.log(person1.name); 
+console.log(person2.name); 
+console.log(person2.secret); 
+console.log(person2.secret); 
+console.log(person1.getSecret());
+person1.setSecret();
+console.log(person1.getSecret());
+console.log(person2.getSecret());
+
+
+
+console.log(person1.getAge()); // 25
+console.log(person2.getAge()); // 25
+person1.growOlder();
+console.log(person1.shared_secret)
+console.log(person1.getAge()); // 26
+console.log(person2.getAge()); // 26
+
+console.log(person1.shared_secret);
+\end{verbatim}

@@ -1,0 +1,22 @@
+% Adapted from:
+% Postscript Language Tutorial and Cookbook, Addison-Wesley, 1985
+% p. 30
+
+/box {			% grey x y -> __
+	newpath
+	moveto		% x y -> __
+	0 150 rlineto
+	150 0 rlineto
+	0 -150 rlineto
+	closepath
+	setgray		% grey -> __
+	fill
+} def
+
+0 100 100 box
+0.4 200 200 box
+0.6 300 300 box
+0 setgray
+
+showpage
+

@@ -1,0 +1,62 @@
+<html>
+<head>
+	<title>Snakes and Ladders</title>
+	<style>  
+		.pass:before {  
+			content: 'PASS: ';  
+			color:  blue;  
+			font-weight: bold;  
+		}
+		.fail:before {  
+			content: 'FAIL: ';  
+			color: red;  
+			font-weight: bold;  
+		}  
+	</style>
+
+</head>
+
+<body>
+
+<h1 id="status">Welcome to Snakes and Ladders: Jack starts!</h1>
+
+<p>Jack and Jill take turns rolling a die and moving forward. If they land on the bottom of a ladder, they go up; if they land on the head of a snake, they slither down. If they land on an occupied square, they must go home.  If they go past the end, they turn and go backward. The first to land exactly on the last square wins.</p>
+
+<canvas id="display"></canvas>
+
+<ul id="debug"></ul>
+
+<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="snakes.js"></script>
+
+<script type="text/javascript">
+/*
+NB: Will not work locally with Chrome; must go through URL
+- Take care with JSON syntax; field names must be quoted!
+*/
+jQuery.getJSON("board12.json", newGame);
+
+function newBoard12() {
+	jQuery.getJSON("board12.json", newGame);
+}
+
+function newBoard36() {
+	jQuery.getJSON("board36.json", newGame);
+}
+
+</script>
+
+<button type="button" onclick="game.move()">move</button>
+<button type="button" onclick="newBoard12()">new 3x4 game</button>
+<button type="button" onclick="newBoard36()">new 6x6 game</button>
+
+<ul>
+	<li><a href="snakes.js">source code</a> (JS)</li>
+	<li><a href="board12.json">3x4 configuration</a> (JSON)</li>
+	<li><a href="board36.json">6x6 configuration</a> (JSON)</li>
+	<li><a href=".">all files</a></li>
+</ul>
+
+</body>
+</html> 
+

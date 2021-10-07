@@ -1,0 +1,12 @@
+{
+  "rows" : 3,
+  "cols" : 4,
+  "board" : "board12.png",
+  "piece1" : "blue.png",
+  "piece2" : "yellow.png",
+  "ladders" : [
+    { "posn" : 2, "forward" : 4 },
+    { "posn" : 7, "forward" : 2 },
+    { "posn" : 11, "forward" : -6 }
+  ]
+}

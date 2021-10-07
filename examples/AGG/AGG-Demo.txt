@@ -1,0 +1,62 @@
+---
+# Visual Programming Notes
+
+---
+# AGG
+
+NB: There is a canned video available
+
+	http://scg.unibe.ch/download/Demos/Videos/AGG-factorial-demo.mov
+
+## Factorial example [from pre-scripted solution]
+- Start agg.command
+- Open AGG/factorial.ggx
+- Set Preferences>Options>General>Rule applicability>check
+- Set Preferences>Options>Layouter>perform during graph transformation
+- Show Node and Edge types
+- Examine rules: 1. Recurse; 2. Base; 3. Compute; 4. Done
+- Check rule applicability
+- Apply selected rules using => (Transformation Step)
+- Recurse => => ... Base => Compute ... => Done
+
+- Select Host Graph and relaod to restore Fact node
+- Select Fact node; edit attributes; set arg to 10
+- redo with ND transformations to end
+
+- Alternatively:
+- Add a new Fact node (open right window, select Fact, and click on workspace)
+- Select Fact node; edit attributes; set arg to 10
+
+---
+## Factorial [done interactively] -- timing ~ 12 minutes
+
+- Start agg.command
+- Set Preferences>General>check rule applicability
+- Set Preferences>Layouter>perform during graph transformation
+- Create new GG called "Fact"
+- Define nodes Fact and Result and unnamed edge
+- set Draw mode
+- Create a graph with node Fact and attribute int arg=6
+- Create rule "Recurse"
+	- LHS Fact arg=n; Attribute Context n>1
+	- Add Identical to RHS
+	- Edge to Fact arg=n-1
+	- NAC Fact->Fact
+	- NAC Fact->Result
+- Recurse => => => ...
+- Create rule "Base"
+	- LHS Fact arg=1
+	- RHS Fact -> Result val=1
+	- NAC Fact -> Result
+- Base => ...
+- Create Rule "Compute"
+	- LHS Fact arg=m -> Fact arg=n -> Result val=k
+	- RHS Fact arg=m -> Result val=n*k
+- Compute => => => ...
+- Create Rule "Done"
+	- LHS Fact arg=n -> Result val=k
+	- NAC Fact -> Fact
+	- RHS Result val=n*k
+- Set arg to 10 and redo with ND transformations to end
+
+---

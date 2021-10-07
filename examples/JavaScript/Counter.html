@@ -1,0 +1,162 @@
+<html>
+<head>
+	<title>Counters</title>
+<script type="text/javascript">
+
+var counter1 = {
+	val : 0,
+	name : 'counter1',
+	inc : function() {
+		this.val++;
+		update(this);
+	},
+	dec : function() {
+		this.val--;
+		update(this);
+	}
+}
+
+var counter2 = Object.create(counter1);
+counter2.val = 0;
+counter2.name = 'counter2';
+
+function Counter(name) {
+	this.val = 0;
+	this.name = name;
+}
+Counter.prototype.inc = counter1.inc;
+Counter.prototype.dec = counter1.dec;
+var counter3 = new Counter('counter3');
+
+var counter4 = (function(name) {
+	var val = 0;
+	var name = name;
+	return {
+		inc : function() {
+			val++;
+			update(this);
+		},
+		dec : function() {
+			val--;
+			update(this);
+		},
+		get val() {
+			return val;
+		},
+		get name() {
+			return name;
+		}
+	}
+})('counter4');
+
+function ColoredCounter(name, color) {
+	this.val = 0;
+	this.name = name;
+	this.color = color;
+	var that = this;
+	window.onload = function() {
+		document.getElementById(that.name).style.color = that.color;
+	};
+}
+ColoredCounter.prototype = new Counter('x');
+var blueCounter = new ColoredCounter('blueCounter', 'Blue');
+
+function update(counter) {
+	document.getElementById(counter.name).innerHTML=counter.val;
+}
+
+</script>
+</head>
+<body>
+
+<h1>Counter examples</h1>
+<p>These examples illustrate four ways of creating JavaScript objects:
+(1) object literals,
+(2) cloning (delegating to) a prototype,
+(3) calling a constructor,
+and
+(4) returning a closure.
+Example (5) illustrates a form of "inheritance".
+</p>
+
+<hr>
+<h1>Object literals</h1>
+<h1 id="counter1">0</h1>
+<button type="button" onclick="counter1.dec()">--</button>
+<button type="button" onclick="counter1.inc()">++</button>
+<pre>
+var counter1 = {
+	val : 0,
+	name : 'counter1',
+	inc : function() { this.val++; update(this); },
+	dec : function() { this.val--; update(this); }
+}	
+</pre>
+
+<hr>
+<h1>Cloning a prototype</h1>
+<h1 id="counter2">0</h1>
+<button type="button" onclick="counter2.dec()">--</button>
+<button type="button" onclick="counter2.inc()">++</button>
+<pre>
+var counter2 = Object.create(counter1);
+counter2.val = 0;
+counter2.name = 'counter2';
+</pre>
+
+<hr>
+<h1>Calling a constructor</h1>
+<h1 id="counter3">0</h1>
+<button type="button" onclick="counter3.dec()">--</button>
+<button type="button" onclick="counter3.inc()">++</button>
+<pre>
+function Counter(name) {
+	this.val = 0;
+	this.name = name;
+}
+Counter.prototype.inc = counter1.inc;
+Counter.prototype.dec = counter1.dec;
+var counter3 = new Counter('counter3');
+</pre>
+
+<hr>
+<h1>Returning a closure</h1>
+<h1 id="counter4">0</h1>
+<button type="button" onclick="counter4.dec()">--</button>
+<button type="button" onclick="counter4.inc()">++</button>
+<pre>
+var counter4 = (function(name) {
+	var val = 0;
+	var name = name;
+	return {
+		inc : function() { val++; update(this); },
+		dec : function() { val--; update(this); },
+		get val() { return val; },
+		get name() { return name; }
+	}
+})('counter4');
+</pre>
+
+<hr>
+<h1>A Colored Counter</h1>
+<h1 id="blueCounter">0</h1>
+<button type="button" onclick="blueCounter.dec()">--</button>
+<button type="button" onclick="blueCounter.inc()">++</button>
+<pre>
+function ColoredCounter(name, color) {
+	this.val = 0;
+	this.name = name;
+	this.color = color;
+	var that = this;
+	window.onload = function() {
+		document.getElementById(that.name).style.color = that.color;
+	};
+}
+ColoredCounter.prototype = new Counter('x');
+var blueCounter = new ColoredCounter('blueCounter', 'Blue');
+</pre>
+
+<hr>
+</body>
+</html> 
+

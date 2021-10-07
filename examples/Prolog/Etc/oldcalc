@@ -1,0 +1,86 @@
+% Calculator example from Schmidt
+
+% p ::= ON s
+% s ::= e TOTAL s | e TOTAL OFF
+% e ::= e1 + e2 | e1 * e2 | if e1 then e2 else e3
+%     | LASTANSWER | ( e )
+
+% ==================================================
+% === syntax =======================================
+
+:- op(900, fx, on).
+:- op(800, xfy, total).
+:- op(600, fx, if).
+:- op(590, xfy, then).
+:- op(580, xfy, else).
+% op(500, yfx, +).
+% op(400, yfx, *).
+
+% ==================================================
+% === semantics ====================================
+
+
+on S :-
+	peval(S, L),
+	write(L).
+
+peval(S,L) :-
+	seval(S, 0, L).
+
+seval(E total off, Prev, [Val]) :-
+	xeval(E, Prev, Val).
+
+seval(E total S, Prev, [Val|L]) :-
+	xeval(E, Prev, Val),
+	seval(S, Val, L).
+
+xeval(N, _, N) :- number(N).
+xeval(E1+E2, Prev, V) :-
+	xeval(E1, Prev, V1),
+	xeval(E2, Prev, V2),
+	V is V1+V2.
+
+xeval(E1*E2, Prev, V) :-
+	xeval(E1, Prev, V1),
+	xeval(E2, Prev, V2),
+	V is V1*V2.
+
+xeval(lastanswer, Prev, Prev).
+
+xeval(if E1 then E2 else _, Prev, Val) :-
+	xeval(E1, Prev, 0),
+	xeval(E2, Prev, Val).
+
+xeval(if E1 then _ else E3, Prev, Val) :-
+	xeval(E1, Prev, V1), V1 =\= 0,
+	xeval(E3, Prev, Val).
+
+
+% ==================================================
+
+check(Name, Goal) :-
+	% writeln(['Testing ', Name, '...']),
+	Goal, !.
+check(Name, Goal) :-
+	writeln([Name, ' FAILED']).
+
+writeln([]) :- nl.
+writeln([X|L]) :- write(X), writeln(L).
+
+% ==================================================
+
+test :-
+	check(addPriority, 1+2+3*4 = +(+(1,2),*(3,4))),
+	check(syntax,
+		(on 2+3 total lastanswer+1 total off) 
+		== on(total(2+3, total(lastanswer+1, off)))),
+	check('on 2+3 total off',
+		peval(2+3 total off, [5])),
+	check('on 2+3 total lastanswer+1 total off',
+		peval(2+3 total lastanswer+1 total off, [5,6])),
+	check('on if lastanswer then 3*4 else 3+4 total off',
+		peval(if lastanswer then 3*4 else 3+4 total off,
+			[12])).
+
+% ==================================================
+

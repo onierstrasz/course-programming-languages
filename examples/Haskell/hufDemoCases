@@ -1,0 +1,39 @@
+freqCount iam
+sum (map snd (freqCount iam))
+lookup 'I' (freqCount iam)
+
+map Leaf (freqCount iam)
+map weight (map Leaf (freqCount iam))
+sum (map weight (map Leaf (freqCount iam)))
+
+mergeTrees (map Leaf (freqCount iam))
+
+huf iam
+
+mkEncode "" (huf iam)
+
+(map (encChar (mkEncode "" (huf iam))) iam)
+encode (huf iam) iam
+
+foldr (+) 0 [1..10]
+foldr (*) 1 [1..10]
+
+let tree = huf iam in	putStr (decode tree (encode tree iam))
+
+showTree (huf iam)
+showTree (huf "()\\\n")
+putStr (showTree (huf "()\\\n"))
+
+parseTree (showTree (huf "()\\\n"))
+-- same as:
+parseTree "((\\\\\\n)(\\(\\)))"
+-- or even:
+parseTree "\\\\\\n)\\(\\)))"
+
+enc "iam"
+enc "huf"
+
+enc2 "huf" -- open huf.enc with Framemaker
+
+-- save huf.orig
+dec "huf"

@@ -1,0 +1,34 @@
+% Adapted from:
+% Postscript Language Tutorial and Cookbook, Addison-Wesley, 1985
+% p. 82
+
+/LM 100 def		% left margin
+/RM 250 def		% right margin
+/FS 18 def		% font size
+
+/showStr {
+	dup stringwidth pop	% get (just) string's width
+	currentpoint pop	% current x position
+	add			% where printing would bring us
+	RM gt { newline } if	% newline if this would overflow RM
+	show
+} def
+
+/newline {			% __ -> __
+	currentpoint exch pop	% get current y
+	FS 2 add sub		% subtract offset
+	LM exch moveto		% move to new x y
+} def
+
+/format {
+	{ showStr ( ) show } forall
+} def
+
+/Times-Roman findfont FS scalefont setfont
+LM 600 moveto
+
+[ (Now) (is) (the) (time) (for) (all) (good) (men) (to) (come) (to)
+(the) (aid) (of) (the) (party.) ] format
+
+showpage
+

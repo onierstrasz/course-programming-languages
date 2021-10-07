@@ -1,0 +1,27 @@
+/LM 100 def             % left margin
+/FS 18 def              % font size
+/sBuf 20 string def     % string buffer
+
+/showInt {			% n -> __
+	sBuf cvs show
+} def
+
+/newline {			% __ -> __
+	currentpoint exch pop	% get current y
+	FS 2 add sub		% subtract offset
+	LM exch moveto		% move to new x y
+} def
+
+/Times-Roman findfont FS scalefont setfont
+LM 600 moveto
+
+40 60 add 2 div
+showInt
+newline
+
+/average { add 2 div } def	% bind the name "average" to "{ add 2 div }"
+40 60 average
+showInt
+
+showpage
+

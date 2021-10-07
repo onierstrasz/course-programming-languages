@@ -1,0 +1,51 @@
+---
+# Visual Programming Notes
+
+---
+# EToys
+
+Canned videos are available from the scg web site:
+
+	http://scg.unibe.ch/download/Demos/Videos/eToysCarDemo.mov
+	
+	http://scg.unibe.ch/download/Demos/Videos/eToys-StateMachine-Demo.mov
+
+## Canonical Car Demo
+- Supplies>Object Catalog
+- Paint
+- Paint a car with a front
+- Show Morphic handles
+- Change name to Car
+- Open Script viewer
+- Move and turn it
+- Create an empty script
+- Make it go forward 10 and turn
+- Paint a Track; fill the centre
+- Put the car on the track
+- Open the tests menu
+- Adapt the script to turn +/-20 if it is not on the track
+- increase the ticking speed to make the car go faster
+
+## State Machine Demo
+- Open Object Catalog>Connectors
+- Grab a Pin
+	- Change its color to white; border to black; name to State
+	- Define scripts "turnOn" and "turnOff" that set the color
+	- Add a variable "enabled" and change its type to Boolean
+	- Define scripts "enable" and "disable" that set/unset the variable
+	- To assign a variable, drag the arrow out of the viewer
+- Duplicate the State and attach a Curvy Connector between them
+- Define a script "click" which runs when the mouse is down
+	- Add a test if it is enabled
+	- Tell predecessors to turnOff; self to turnOn
+	- Adapt turnOn and turnOff to enable/disable successors
+	- Croak if not enabled!
+- Destroy the second State
+	- disable and turnOff the scripted State
+	- clone and connect it
+- Turn on one state and play
+- Grab two Maker Buttons
+	- Make buttons for On and Off States and Curvy Connectors
+	- Add them to a ButtonBar
+
+---

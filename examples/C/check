@@ -1,0 +1,10 @@
+#! /bin/sh
+# check <command> <expected result>
+#
+# used for various test cases
+
+case `./$1` in
+$2 )	echo PASSED $1 test ;;
+* )		echo FAILED $1 test
+		exit 1 ;;
+esac

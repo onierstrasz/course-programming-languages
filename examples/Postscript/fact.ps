@@ -1,0 +1,43 @@
+% Adapted from:
+% Postscript Language Tutorial and Cookbook, Addison-Wesley, 1985
+% p. 71
+
+/LM 100 def		% left margin
+/FS 18 def		% font size
+/sBuf 20 string def	% string buffer
+
+/fact {				% n -> n!
+	dup 1 lt		% -> n bool
+	{ pop 1 }		% 0 -> 1
+	{
+		dup		% n -> n n
+		1		% -> n n 1
+		sub		% -> n (n-1)
+		fact		% -> n (n-1)!
+		mul		% n!
+	}
+	ifelse
+} def
+
+/showInt {			% n -> __
+	sBuf cvs show
+} def
+
+/showFact {
+	dup showInt
+	(! = ) show
+	fact showInt
+} def
+
+/newline {			% __ -> __
+	currentpoint exch pop	% get current y
+	FS 2 add sub		% subtract offset
+	LM exch moveto		% move to new x y
+} def
+
+/Times-Roman findfont FS scalefont setfont
+LM 600 moveto
+0 1 20 { showFact newline } for
+
+showpage
+

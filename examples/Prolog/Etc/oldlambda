@@ -1,0 +1,480 @@
+
+/*
+	lambda calculus interpreter
+	© Oscar Nierstrasz, 1996
+	06.10.96 -- first complete version
+	08.10.96 -- added beta reduction inside applications
+	08.10.96 -- added test module
+	2001-03-02 -- minor fixes
+*/
+
+% ==================================================
+% ===== SYNTAX =====================================
+
+:- op(600, fx, \).
+:- op(650, xfy, :).
+:- op(500, yfx, @).
+
+:- op(800, fx, eval).
+:- op(800, fx, seval).
+:- op(900, xfx, =>).
+
+% Needed for SICSTUS Prolog:
+
+not(X) :- X, !, fail.
+not(_).
+
+% ==================================================
+% ===== LAZY EVALUATION ============================
+
+/*
+	eval E -- eval E by repeated normal-order reductions
+	lazy(E) -- make one lazy reduction, if possible.
+	E => NF -- E reduces to normal form NF
+*/
+
+eval E :-
+	lazy(E, EE), !,
+	write(E), nl, write('	-> '),
+	eval EE.
+
+eval E :-
+	write(E), nl,
+	write('	STOP'), nl.
+
+lazy(E1, E2) :-
+	beta(E1, E2), !.
+lazy(E1, E2) :-
+	eta(E1, E2), !.
+lazy(E0@E2, E1@E2) :-
+	lazy(E0, E1), !.
+
+% Need this to get S@K@K@ => I
+
+lazy(\X:E1, \X:E2) :-
+	lazy(E1, E2), !.
+
+E => NF :-
+	lazy(E, EE), !,
+	EE => NF.
+
+X => X.
+
+% ==================================================
+% ===== STRICT EVALUATION ==========================
+
+seval E :-
+	strict(E, EE), !,
+	write(E), nl, write('	-> '),
+	seval EE.
+
+eval E :-
+	write(E), nl,
+	write('	STOP'), nl.
+
+% NB: note order of rules!
+
+strict(E1@E2, E1@E3) :-
+	strict(E2, E3), !.
+strict(E1, E2) :-
+	beta(E1, E2), !.
+strict(E1, E2) :-
+	eta(E1, E2), !.
+
+% ==================================================
+% ===== SEMANTICS ==================================
+
+/*
+	alpha(E1, E2) -- E1 can be alpha converted to E2
+	beta(E1, E2) -- E1 can be beta reduced to E2
+	eta(E1, E2) -- E1 can be eta reduced to E2
+
+	a conversion (renaming):
+		\x.e <-> \y.[y/x]e where y is not free in e
+	b reduction (application):
+		(\x.e1) e2 -> [e2/x] e1 avoiding name capture
+	h reduction:
+		\x.(e x) -> e if x is not free in e
+*/
+
+alpha(\X:E, \Y:EY) :-
+	fv(E, FE),
+	not(in(Y, FE)),
+	subst(Y, X, E, EY).
+
+beta((\X:E1)@E2, E3) :-
+	subst(E2, X, E1, E3).
+
+eta(\X:E@X, E) :-
+	fv(E, F),
+	not(in(X, F)).
+
+% --------------------------------------------------
+
+/*
+	subst(E, X, EX, EE) -- substitute E for X in EX yielding EE
+	X must be a name (atom or number)
+	[e/x] x = e
+	[e/x] y = y if x != y
+	[e/x] (e1 e2) = ([e/x] e1) ([e/x] e2)
+	[e/x] (\x.e1) = (\x.e1)
+	[e/x] (\y.e1) = (\y.[e/x] e1)
+			if x != y and y not in fv(e)
+	[e/x] (\y.e1) = (\z.[e/x] [z/y] e1)
+			if x != y and z not in fv(e) U fv(e1)
+
+*/
+
+subst(E, X, X, E) :-
+	isname(X), !.
+
+subst(_, X, Y, Y) :-
+	isname(X), isname(Y),
+	X \== Y.
+
+subst(E, X, E1@E2, EE1@EE2) :-
+	subst(E, X, E1, EE1),
+	subst(E, X, E2, EE2).
+
+subst(_, X, \X:E1, \X:E1).
+
+subst(E, X, \Y:E1, \Y:EE1) :-
+	X \== Y,
+	fv(E, FE),
+	not(in(Y, FE)), !,
+	subst(E, X, E1, EE1).
+
+subst(E, X, \Y:E1, \Z:EEZ) :-
+	X \== Y,
+	fv(E, FE),
+	% in(Y, FE),
+	fv(E1, F1),
+	union(FE, F1, FU),
+	newname(Y, Z, FU),
+	subst(Z, Y, E1, EZ),
+	subst(E, X, EZ, EEZ).
+
+% --------------------------------------------------
+
+/*
+	fv(E, F) -- F is the list of free variables in E
+
+	fv(x) = { x }
+	fv(e1 e2) = fv(e1) U fv(e2)
+	fv(\x.e) = fv(e) - { x }
+*/
+
+fv(X, [X]) :-
+	isname(X).
+
+fv(E1@E2, F12) :-
+	fv(E1, F1),
+	fv(E2, F2),
+	union(F1, F2, F12).
+
+fv(\X:E, F) :-
+	isname(X),
+	fv(E, FE),
+	diff(FE, [X], F).
+
+isname(N) :-
+	atom(N); number(N).
+
+% ==================================================
+% ===== SYMBOLS ====================================
+
+/*
+	newname(Y, Z, F) -- Z is a new name for Y, not in F
+	tick(Y, Z) -- Z is Y with a "tick" (') appended
+*/
+
+newname(Y, Y, F) :-
+	not(in(Y, F)), !.
+
+newname(Y, Z, F) :-
+	% in(Y, F),
+	tick(Y, T),
+	newname(T, Z, F).
+
+tick(Y, Z) :-
+	name(Y, LY),
+	append(LY, [39], LZ),
+	name(Z, LZ).
+
+% ==================================================
+% ===== LISTS AND SETS =============================
+
+/*
+	in(X,L)			-- X is in list L
+	append(L1,L2,L3) -- L1 append L2 yields L3
+	rem(X,S,R)		-- list (set) R is S with X removed.
+	diff(L1,L2,D)	-- list D is L1 minus L2
+	union(L1,L2,U)	-- list U is L1 union L2
+	inter(L1,L2,I)	-- list I is L1 intersection L2
+*/
+
+in(X, [X|_]).
+in(X, [_|L]) :-
+	in(X, L).
+
+append([],L,L).
+append([X|L1],L2,[X|L3]) :-
+	append(L1,L2,L3) .
+
+rem(_,[],[]) .
+rem(X,[X|S],R) :-
+	rem(X,S,R), !.
+rem(X,[Y|S],[Y|R]) :-
+	rem(X,S,R) .
+
+diff(L,[],L).
+diff(L1,[X|L2],D) :-
+	rem(X,L1,L),
+	diff(L,L2,D).
+
+union([],L,L) .
+union([X|L1],L2,U) :-
+	rem(X,L2,L),
+	union(L1,[X|L],U) .
+
+/* not used:
+inter([],L,[]) .
+inter([X|L1],L2,[X|I]) :-
+	in(X,L2), !,
+	inter(L1,L2,I).
+inter([X|L1],L2,I) :-
+	inter(L1,L2,I).
+*/
+
+% ==================================================
+% ===== TESTS ======================================
+
+/*
+	These tests can be run whenever changes are made ...
+	NB: skitest does not pass because alpha/2 is not robust.
+*/
+
+% --------------------------------------------------
+% ----- TEST PREDICATE -----------------------------
+
+check(T) :-
+	T, !,
+	% write('OK: '), write(T), nl.
+	true.
+check(T) :- write('FAILED: '), write(T), nl.
+
+% --------------------------------------------------
+% ----- TESTS --------------------------------------
+
+test :- stests, nftests, btests, tptests,
+	ntests, ytest, rectest.
+
+stests :-
+	check(subst(x@y, z, z, x@y)),
+	check(subst(x@y, z, w, w)),
+	check(subst(x@y, z, z@z, (x@y)@(x@y))),
+	check(subst(x@y, z, \w:z@z, \w:x@y@(x@y))),
+	check(subst(x@y, z, \z:x@z, \z:x@z)),
+	check(subst(x@y, z, \x:x@z, \'x''':'x'''@(x@y))).
+
+nftests :-
+	check((\x:x)@(\x:x) => \x:x),
+	check((\x: \y:x@y)@y => y),
+	check((\x:(\y:x)@(\x:x)@x)@y => y@y),
+	W = ((\x:x@x) @ (\x:x@x)),
+	check((\x:y) @ W => y).
+
+btests :-
+	bool(True, _, Not),
+	check(Not@True => \x: \y:y),
+	IfElse = \b: \x: \y : b@x@y,
+	check(IfElse@True@x@y => x).
+
+tptests :-
+	tuples(Pair, First, Second),
+	check(First@(Pair@1@2) => 1),
+	check(First@(Second@(Pair@1@(Pair@2@3))) => 2).
+
+ntests :-
+	nats(Zero, Succ, IsZero, Pred),
+	check(IsZero@Zero => \x: \y:x),
+	Succ@Zero => One,
+	check(IsZero@One => \x: \y:y),
+	check(IsZero@(Pred@One) => \x: \y:x),
+	Succ@One => Two,
+	check(IsZero@(Pred@(Pred@Two)) => \x: \y:x).
+
+
+ytest :-
+	Y = \f:(\x:f@(x@x))@(\x:f@(x@x)),
+	lazy(Y@e, FP),
+	check(FP => e@FP).
+
+rectest :-
+	Y = \f:(\x:f@(x@x))@(\x:f@(x@x)),
+	nats(Zero, Succ, IsZero, Pred),
+	RPlus = \plus: \n: \m :
+		IsZero@n
+		@m
+		@(plus @ (Pred@n)@(Succ@m)),
+	Y@RPlus => FPlus,
+	Succ@Zero => One,
+	FPlus@One@One => Two,
+	check(IsZero@(Pred@(Pred@Two)) => \x: \y:x).
+
+% These tests don't work! -- alpha is not robust ...
+skitest :-
+	bool(_,False,_),
+	ski(S, K, I),
+	S@K@K => E1,
+	check(alpha(E1, I)),
+	K@I => E2,
+	check(alpha(E2, False)).
+
+% --------------------------------------------------
+% ----- DEFINITIONS --------------------------------
+
+bool(True,False,Not) :-
+	True = \x: \y:x,
+	False = \x: \y:y,
+	Not = \b:b@False@True.
+
+tuples(Pair, First, Second) :-
+	bool(True, False, _),
+	Pair = (\x: \y: \z: z@x@y),
+	First = (\p:p @ True),
+	Second = (\p:p @ False).
+
+nats(Zero, Succ, IsZero, Pred) :-
+	bool(_,False,_),
+	tuples(Pair, First, Second),
+	Zero = \x:x,
+	Succ = \n:Pair@False@n,
+	IsZero = First,
+	Pred = Second.
+
+ski(S, K, I) :-
+	I = \x:x,
+	K = \x: \y:x,
+	S = \x: \y: \z: x@z@(y@z).
+
+% ==================================================
+% ===== EXAMPLES ===================================
+
+/*
+	% Examples for lambda interpreter
+
+	(\x: \y: x@y) @ y
+	== @(:(\(x),:(\(y),@(x,y))), y).
+
+	% ----- Exercise substitution -----
+	subst(x@y, z, z, E).
+	subst(x@y, z, w, E).
+	subst(x@y, z, z@z, E).
+	subst(x@y, z, \w:z@z, E).
+	subst(x@y, z, \z:x@z, E).
+	subst(x@y, z, \x:x@z, E).
+
+	fv(\x : \y : x@y@z , F).
+
+	alpha(\x:x@x, \y:y@y).
+
+	% ----- Basic Examples -----
+
+	eval (\x:x) @ (\x:x).
+	eval (\x: \y: x@y) @ y.
+	eval (\x : (\y:x)@(\x:x)@x ) @ y.
+
+	% avoiding name capture:
+	eval (\x: \y: y@x) @ y.
+
+	(\x: \y: y@x) @ y => E.
+	(\x : (\y:x)@(\x:x)@x ) @ y => E.
+
+	% ----- Omega and lazy vs. strict evaluation -----
+
+	W = ((\x:x@x) @ (\x:x@x)), eval W.
+	W = ((\x:x@x) @ (\x:x@x)), eval (\x:y) @ W.
+
+	W = ((\x:x@x) @ (\x:x@x)), seval (\x:y) @ W.
+
+	% ----- Booleans -----
+
+	True = \x: \y:x,
+	False = \x: \y:y,
+	Not = \b:b@False@True,
+	eval Not@True.
+
+	IfElse = \b: \x: \y : b@x@y,
+	True = \x: \y:x,
+	eval IfElse @ True @ x @ y.
+
+	% ----- Tuples -----
+
+	True = \x: \y:x,
+	False = \x: \y:y,
+	% ---
+	Pair = (\x: \y: \z: z@x@y),
+	First = (\p:p @ True),
+	Second = (\p:p @ False),
+	eval First @ (Pair @ 1 @ 2),
+	eval First @ (Second @ (Pair @ 1 @ (Pair @ 2 @ 3))).
+
+	% ----- Natural Numbers -----
+
+	True = \x: \y:x,
+	False = \x: \y:y,
+	Pair = (\x: \y: \z: z@x@y),
+	First = (\p:p @ True),
+	Second = (\p:p @ False),
+	% ---
+	Zero = \x:x,
+	Succ = \n:Pair@False@n,
+	Succ@Zero => One,
+	Succ@One => Two,
+	IsZero = First,
+	Pred = Second,
+	% ---
+	eval Pred@One,
+	eval Pred@(Pred@Two),
+	eval IsZero@Zero,
+	eval IsZero@One,
+	eval IsZero@(Pred@One).
+
+	% ----- Fix Points -----
+
+	Y = \f:(\x:f@(x@x))@(\x:f@(x@x)),
+	FP = Y@e,
+	eval FP.
+
+	% Note that e@FP <-> FP
+
+	% ----- Recursive Functions (FP of Plus) -----
+
+	True = \x: \y:x,
+	False = \x: \y:y,
+	Pair = (\x: \y: \z: z@x@y),
+	First = (\p:p @ True),
+	Second = (\p:p @ False),
+	% ---
+	Zero = \x:x,
+	Succ = \n:Pair@False@n,
+	Succ@Zero => One,
+	IsZero = First,
+	Pred = Second,
+	% ---
+	Y = \f:(\x:f@(x@x))@(\x:f@(x@x)),
+	RPlus = \plus: \n: \m :
+		IsZero@n
+		@m
+		@(plus @ (Pred@n)@(Succ@m)),
+	Y@RPlus => FPlus,
+	FPlus@One@One => Two,
+	% ---
+	% eval Pred@(Pred@Two).
+	eval IsZero@(Pred@(Pred@Two)).
+
+*/
+
+% ==================================================
+

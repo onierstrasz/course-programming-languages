@@ -1,0 +1,19 @@
+{
+  "rows" : 6,
+  "cols" : 6,
+  "board" : "board36.png",
+  "piece1" : "blue.png",
+  "piece2" : "yellow.png",
+  "ladders" : [
+    { "posn" : 3, "forward" : 13 },
+    { "posn" : 5, "forward" : 2 },
+    { "posn" : 15, "forward" : 10 },
+    { "posn" : 18, "forward" : 2 },
+    { "posn" : 21, "forward" : 11 },
+    { "posn" : 12, "forward" : -10 },
+    { "posn" : 14, "forward" : -3 },
+    { "posn" : 17, "forward" : -13 },
+    { "posn" : 31, "forward" : -12 },
+    { "posn" : 35, "forward" : -13 }
+  ]
+}

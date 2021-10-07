@@ -1,0 +1,17 @@
+From: Michael Wachter <wachter@iam.unibe.ch>
+Date: June 16, 2005 13:38:50 GMT+02:00
+To: Oscar Nierstrasz <oscar@iam.unibe.ch>
+Subject: general puzzle solution
+
+Hello Oscar,
+
+I implemented a general puzzle solution in prolog.
+
+It's tested with
+solve([s,e,n,d],[m,o,r,e],[m,o,n,e,y],X,Y,Z).
+solve([a],[b],[c],X,Y,Z).
+solve([a],[a],[b],X,Y,Z).
+solve([a],[b],[c,d],X,Y,Z).
+
+Cheers,
+Michael 
